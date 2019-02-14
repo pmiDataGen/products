@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pmi.pojo.Greeting;
 
+
 @RestController
 public class GreetingController {
 
