@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.pmi.services.DataGenService;
 import com.pmi.services.InvokeRestService;
+import com.pmi.util.ReadWriteCSV;
 
 /**
  * @author vikas.e.mishra
@@ -33,6 +34,11 @@ public class DataGeneratorApplication {
 	public HttpHeaders createHttpHeaders() {
 		return new HttpHeaders();
 	}
+	
+	@Bean
+	public ReadWriteCSV readWriteCSV() {
+		return new ReadWriteCSV();
+	}
 
 	public static void main(String[] args) {
 		System.out.println("=================Starting Spring Container===============");
@@ -47,7 +53,7 @@ public class DataGeneratorApplication {
 		invokeRestService.callDemoService();
 		
 		System.out.println("Calling ADL Look-up Service");
-		invokeRestService.callADLLookupAPI();
+		invokeRestService.callADLLookupAPI("personas");
 
 	}
 
