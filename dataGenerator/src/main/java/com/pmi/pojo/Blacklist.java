@@ -66,7 +66,7 @@ public class Blacklist {
 		}
 
 		public void setEmail(String email) {
-			this.email = email_addremailess;
+			this.email = email;
 		}
 		
 }
