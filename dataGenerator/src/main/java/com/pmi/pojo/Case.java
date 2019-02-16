@@ -8,9 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Case {
+public class Cases {
 
-	public Case() {
+	public Cases() {
 		System.out.println("This is D.C Case Class");
 	}
 	private String case_identifier;
@@ -34,7 +34,7 @@ public class Case {
 
 	@Override
 	public String toString() {
-		return "Case [identity_unique_identifier=" + identity_unique_identifier 
+		return "Cases [identity_unique_identifier=" + identity_unique_identifier 
 				+ ", persona_identifier=" + persona_identifier 
 				+",time="+ time 
 				+",td_c360_operation_time="+ td_c360_operation_time
