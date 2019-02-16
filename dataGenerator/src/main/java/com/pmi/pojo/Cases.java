@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Cases {
 
 	public Cases() {
-		System.out.println("This is D.C Case Class");
+		System.out.println("This is D.C Cases Class");
 	}
 	private String case_identifier;
 	private String identity_unique_identifier;
