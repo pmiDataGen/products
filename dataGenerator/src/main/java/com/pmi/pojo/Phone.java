@@ -25,12 +25,12 @@ public class Phone {
 	@Override
 	public String toString() {
 		return "Phone [identity_unique_identifier=" + identity_unique_identifier 
-				+ ", persona_identifier=" + persona_identifier 
+				+", persona_identifier=" + persona_identifier 
 				+",phone_identifier="+ phone_identifier 
 				+",country_code_number="+ country_code_number
-				+ ",phone_number=" + phone_number  
-				+ ", comunication_opt_in=" + comunication_opt_in 
-				+ ", home_country=" + home_country + "]";
+				+",phone_number=" + phone_number  
+				+", comunication_opt_in=" + comunication_opt_in 
+				+", home_country=" + home_country + "]";
 	}
 	
 	public String getPhone_identifiers() {
