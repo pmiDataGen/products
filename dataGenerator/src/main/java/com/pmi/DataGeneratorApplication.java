@@ -53,7 +53,11 @@ public class DataGeneratorApplication {
 		invokeRestService.callDemoService();
 		
 		System.out.println("Calling ADL Look-up Service");
-		invokeRestService.callADLLookupAPI("personas");
+		//invokeRestService.callADLLookupAPI("personas");
+		//invokeRestService.callADLLookupAPI("identities");
+		//invokeRestService.callADLLookupAPI("devices");
+		//invokeRestService.callADLLookupAPI("cases");
+		invokeRestService.callADLLookupAPI("orders");
 
 	}
 
