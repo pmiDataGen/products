@@ -6,6 +6,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,7 +28,9 @@ import com.pmi.util.ReadWriteCSV;
  *
  */
 
-@Component
+//@Component
+@Configuration
+@PropertySource("file:application.properties")
 public class InvokeRestService {
 
 	private static final Logger log = LoggerFactory.getLogger(InvokeRestService.class);
@@ -37,7 +44,14 @@ public class InvokeRestService {
 	@Autowired
 	private ReadWriteCSV readWriteCSV;
 
-	private static String demoRestUri = "http://gturnquist-quoters.cfapps.io/api/random;";
+	//private static String demoRestUri = "http://gturnquist-quoters.cfapps.io/api/random;";
+	 @Value("${demoRestUri}")
+	    private String demoRestUri;
+
+	 @Bean
+	    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+	        return new PropertySourcesPlaceholderConfigurer();
+	    }
 
 	// private static String lookUpADLUri =
 	// "https://c360-api-a8-dce20.eu01.treasuredata.com/v1/events/c360/personas/1";
