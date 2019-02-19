@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 
+import com.pmi.pojo.PersonaRequest;
 import com.pmi.services.DataGenService;
 import com.pmi.services.InvokeRestService;
 import com.pmi.util.ReadWriteCSV;
@@ -52,12 +53,23 @@ public class DataGeneratorApplication {
 		InvokeRestService invokeRestService = applicationContext.getBean(InvokeRestService.class);
 		invokeRestService.callDemoService();
 		
-		System.out.println("Calling ADL Look-up Service");
+		//System.out.println("Calling ADL Look-up Service");
 		//invokeRestService.callADLLookupAPI("personas");
 		//invokeRestService.callADLLookupAPI("identities");
-		//invokeRestService.callADLLookupAPI("devices");
+		invokeRestService.callADLLookupAPI("devices");
 		//invokeRestService.callADLLookupAPI("cases");
-		invokeRestService.callADLLookupAPI("orders");
+		//invokeRestService.callADLLookupAPI("orders");
+		
+//		PersonaRequest persona = new PersonaRequest();
+//		
+//		persona.setTd_c360_operation("put");
+//		persona.setPersona_id("100");
+//		persona.setLast_name("mishra");
+//		persona.setFirst_name("vikas");
+//		persona.setGender("male");
+//		persona.setHome_country("india");
+//		
+//		invokeRestService.callADLWriteAPI("personas", persona);
 
 	}
 

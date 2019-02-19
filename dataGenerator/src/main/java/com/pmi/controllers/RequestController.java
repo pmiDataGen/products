@@ -19,7 +19,7 @@ public class RequestController {
 
 	@RequestMapping("/lookUpIdAPI")
 	public Object lookUpById(@RequestParam(value = "objName", defaultValue = "personas") String objName) {
-
+		System.out.println("Object Name passesd: "+objName);
 		// TODO here call ADL lookup API based on different object Name and primary Key
 		invokeRestService.callADLLookupAPI(objName);
 
