@@ -69,7 +69,7 @@ public class Identities {
 				+",registration_referal_identifier="+ registration_referal_identifier + "]";
 				
 	}
-	
+
 	public String getIdentity_unique_identifier() {
 		return identity_unique_identifier;
 	}
@@ -77,15 +77,15 @@ public class Identities {
 	public void setIdentity_unique_identifier(String identity_unique_identifier) {
 		this.identity_unique_identifier = identity_unique_identifier;
 	}
-	
+
 	public String getPersona_identifier() {
 		return persona_identifier;
 	}
 
 	public void setPersona_identifier(String persona_identifier) {
-		this.persona_identifier = persona_identifier ;
+		this.persona_identifier = persona_identifier;
 	}
-	
+
 	public String getLogin_name() {
 		return login_name;
 	}
@@ -93,7 +93,7 @@ public class Identities {
 	public void setLogin_name(String login_name) {
 		this.login_name = login_name;
 	}
-	
+
 	public String getFirst_name() {
 		return first_name;
 	}
@@ -101,7 +101,7 @@ public class Identities {
 	public void setFirst_name(String first_name) {
 		this.first_name = first_name;
 	}
-	
+
 	public String getLast_name() {
 		return last_name;
 	}
@@ -109,15 +109,15 @@ public class Identities {
 	public void setLast_name(String last_name) {
 		this.last_name = last_name;
 	}
-	
+
 	public String getGender() {
 		return gender;
 	}
 
-	public void setgender(String gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	
+
 	public String getHome_country() {
 		return home_country;
 	}
@@ -125,7 +125,7 @@ public class Identities {
 	public void setHome_country(String home_country) {
 		this.home_country = home_country;
 	}
-	
+
 	public boolean isIs_deleted() {
 		return is_deleted;
 	}
@@ -133,7 +133,7 @@ public class Identities {
 	public void setIs_deleted(boolean is_deleted) {
 		this.is_deleted = is_deleted;
 	}
-	
+
 	public boolean isBlocked_flag() {
 		return blocked_flag;
 	}
@@ -141,7 +141,7 @@ public class Identities {
 	public void setBlocked_flag(boolean blocked_flag) {
 		this.blocked_flag = blocked_flag;
 	}
-	
+
 	public String getConsumer_type() {
 		return consumer_type;
 	}
@@ -149,7 +149,7 @@ public class Identities {
 	public void setConsumer_type(String consumer_type) {
 		this.consumer_type = consumer_type;
 	}
-	
+
 	public String getPreferred_language() {
 		return preferred_language;
 	}
@@ -157,7 +157,7 @@ public class Identities {
 	public void setPreferred_language(String preferred_language) {
 		this.preferred_language = preferred_language;
 	}
-	
+
 	public String getDate_of_birth() {
 		return date_of_birth;
 	}
@@ -165,7 +165,7 @@ public class Identities {
 	public void setDate_of_birth(String date_of_birth) {
 		this.date_of_birth = date_of_birth;
 	}
-	
+
 	public String getSegment() {
 		return segment;
 	}
@@ -173,7 +173,7 @@ public class Identities {
 	public void setSegment(String segment) {
 		this.segment = segment;
 	}
-	
+
 	public String getLast_login_date() {
 		return last_login_date;
 	}
@@ -181,7 +181,7 @@ public class Identities {
 	public void setLast_login_date(String last_login_date) {
 		this.last_login_date = last_login_date;
 	}
-	
+
 	public String getRegistration_date() {
 		return registration_date;
 	}
@@ -189,7 +189,7 @@ public class Identities {
 	public void setRegistration_date(String registration_date) {
 		this.registration_date = registration_date;
 	}
-	
+
 	public String getTime() {
 		return time;
 	}
@@ -197,7 +197,7 @@ public class Identities {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	
+
 	public String getTd_c360_operation_time() {
 		return td_c360_operation_time;
 	}
@@ -205,7 +205,7 @@ public class Identities {
 	public void setTd_c360_operation_time(String td_c360_operation_time) {
 		this.td_c360_operation_time = td_c360_operation_time;
 	}
-	
+
 	public String getNick_name() {
 		return nick_name;
 	}
@@ -213,7 +213,7 @@ public class Identities {
 	public void setNick_name(String nick_name) {
 		this.nick_name = nick_name;
 	}
-	
+
 	public String getFull_name() {
 		return full_name;
 	}
@@ -221,7 +221,7 @@ public class Identities {
 	public void setFull_name(String full_name) {
 		this.full_name = full_name;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -229,7 +229,7 @@ public class Identities {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -237,7 +237,7 @@ public class Identities {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getPhone_name() {
 		return phone_name;
 	}
@@ -245,7 +245,7 @@ public class Identities {
 	public void setPhone_name(String phone_name) {
 		this.phone_name = phone_name;
 	}
-	
+
 	public String getRegistration_source_app() {
 		return registration_source_app;
 	}
@@ -253,7 +253,7 @@ public class Identities {
 	public void setRegistration_source_app(String registration_source_app) {
 		this.registration_source_app = registration_source_app;
 	}
-	
+
 	public String getRegistration_country() {
 		return registration_country;
 	}
@@ -261,7 +261,7 @@ public class Identities {
 	public void setRegistration_country(String registration_country) {
 		this.registration_country = registration_country;
 	}
-	
+
 	public String getRegistration_referal_identifier() {
 		return registration_referal_identifier;
 	}
@@ -269,5 +269,6 @@ public class Identities {
 	public void setRegistration_referal_identifier(String registration_referal_identifier) {
 		this.registration_referal_identifier = registration_referal_identifier;
 	}
+	
 	
 }
