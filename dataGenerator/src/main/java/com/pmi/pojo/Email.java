@@ -28,7 +28,7 @@ public class Email {
 				+", comunication_opt_in=" + comunication_opt_in 
 				+", home_country=" + home_country + "]";
 	}
-	
+
 	public String getEmail_address() {
 		return email_address;
 	}
@@ -36,7 +36,15 @@ public class Email {
 	public void setEmail_address(String email_address) {
 		this.email_address = email_address;
 	}
-	
+
+	public String getPersona_identifier() {
+		return persona_identifier;
+	}
+
+	public void setPersona_identifier(String persona_identifier) {
+		this.persona_identifier = persona_identifier;
+	}
+
 	public String getIdentity_unique_identifier() {
 		return identity_unique_identifier;
 	}
@@ -44,15 +52,15 @@ public class Email {
 	public void setIdentity_unique_identifier(String identity_unique_identifier) {
 		this.identity_unique_identifier = identity_unique_identifier;
 	}
-	
-	public String getPersona_identifier() {
-		return persona_identifier;
+
+	public String getComunication_opt_in() {
+		return comunication_opt_in;
 	}
 
-	public void setPersona_identifier(String persona_identifier) {
-		this.persona_identifier = persona_identifier ;
+	public void setComunication_opt_in(String comunication_opt_in) {
+		this.comunication_opt_in = comunication_opt_in;
 	}
-	
+
 	public String getHome_country() {
 		return home_country;
 	}
@@ -61,11 +69,5 @@ public class Email {
 		this.home_country = home_country;
 	}
 	
-	public String getComunication_opt_in() {
-		return comunication_opt_in;
-	}
-
-	public void setComunication_opt_in(String comunication_opt_in) {
-		this.comunication_opt_in = comunication_opt_in;
-	}
+	
 }
