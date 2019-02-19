@@ -32,15 +32,23 @@ public class Phone {
 				+", comunication_opt_in=" + comunication_opt_in 
 				+", home_country=" + home_country + "]";
 	}
-	
-	public String getPhone_identifiers() {
+
+	public String getPhone_identifier() {
 		return phone_identifier;
 	}
 
 	public void setPhone_identifier(String phone_identifier) {
-		this.phone_identifier = phone_identifier ;
+		this.phone_identifier = phone_identifier;
 	}
-	
+
+	public String getPersona_identifier() {
+		return persona_identifier;
+	}
+
+	public void setPersona_identifier(String persona_identifier) {
+		this.persona_identifier = persona_identifier;
+	}
+
 	public String getIdentity_unique_identifier() {
 		return identity_unique_identifier;
 	}
@@ -48,15 +56,7 @@ public class Phone {
 	public void setIdentity_unique_identifier(String identity_unique_identifier) {
 		this.identity_unique_identifier = identity_unique_identifier;
 	}
-	
-	public String getPersona_identifier() {
-		return persona_identifier;
-	}
 
-	public void setPersona_identifier(String persona_identifier) {
-		this.persona_identifier = persona_identifier ;
-	}
-	
 	public String getCountry_code_number() {
 		return country_code_number;
 	}
@@ -64,7 +64,7 @@ public class Phone {
 	public void setCountry_code_number(String country_code_number) {
 		this.country_code_number = country_code_number;
 	}
-	
+
 	public String getPhone_number() {
 		return phone_number;
 	}
@@ -72,7 +72,15 @@ public class Phone {
 	public void setPhone_number(String phone_number) {
 		this.phone_number = phone_number;
 	}
-	
+
+	public String getComunication_opt_in() {
+		return comunication_opt_in;
+	}
+
+	public void setComunication_opt_in(String comunication_opt_in) {
+		this.comunication_opt_in = comunication_opt_in;
+	}
+
 	public String getHome_country() {
 		return home_country;
 	}
@@ -81,12 +89,6 @@ public class Phone {
 		this.home_country = home_country;
 	}
 	
-	public String getComunication_opt_in() {
-		return comunication_opt_in;
-	}
-
-	public void setComunication_opt_in(String comunication_opt_in) {
-		this.comunication_opt_in = comunication_opt_in;
-	}
+	
 }
 
