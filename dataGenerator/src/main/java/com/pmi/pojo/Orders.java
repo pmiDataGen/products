@@ -22,7 +22,7 @@ public class Orders {
 	private float order_amount;
 	private float order_discount;
 	private String order_type;
-	private String order_status;
+	private String order_status;				//status
 	private String order_date;
 	private String order_currency;
 	private String Home_country;
@@ -58,23 +58,23 @@ public class Orders {
 				+",item_price="+ item_price 
 				+",item_quantity="+ item_quantity + "]";
 	}
-	
+
 	public String getOrder_identifier() {
 		return order_identifier;
 	}
 
 	public void setOrder_identifier(String order_identifier) {
-		this.order_identifier = order_identifier ;
+		this.order_identifier = order_identifier;
 	}
-	
+
 	public String getOrder_item_identifier() {
 		return order_item_identifier;
 	}
 
 	public void setOrder_item_identifier(String order_item_identifier) {
-		this.order_item_identifier = order_item_identifier ;
+		this.order_item_identifier = order_item_identifier;
 	}
-	
+
 	public String getIdentity_unique_identifier() {
 		return identity_unique_identifier;
 	}
@@ -82,15 +82,15 @@ public class Orders {
 	public void setIdentity_unique_identifier(String identity_unique_identifier) {
 		this.identity_unique_identifier = identity_unique_identifier;
 	}
-	
+
 	public String getPersona_identifier() {
 		return persona_identifier;
 	}
 
 	public void setPersona_identifier(String persona_identifier) {
-		this.persona_identifier = persona_identifier ;
+		this.persona_identifier = persona_identifier;
 	}
-	
+
 	public String getCountry() {
 		return country;
 	}
@@ -98,7 +98,7 @@ public class Orders {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+
 	public float getOrder_amount() {
 		return order_amount;
 	}
@@ -106,7 +106,7 @@ public class Orders {
 	public void setOrder_amount(float order_amount) {
 		this.order_amount = order_amount;
 	}
-	
+
 	public float getOrder_discount() {
 		return order_discount;
 	}
@@ -114,7 +114,7 @@ public class Orders {
 	public void setOrder_discount(float order_discount) {
 		this.order_discount = order_discount;
 	}
-	
+
 	public String getOrder_type() {
 		return order_type;
 	}
@@ -122,7 +122,7 @@ public class Orders {
 	public void setOrder_type(String order_type) {
 		this.order_type = order_type;
 	}
-	
+
 	public String getOrder_status() {
 		return order_status;
 	}
@@ -130,7 +130,7 @@ public class Orders {
 	public void setOrder_status(String order_status) {
 		this.order_status = order_status;
 	}
-	
+
 	public String getOrder_date() {
 		return order_date;
 	}
@@ -138,7 +138,7 @@ public class Orders {
 	public void setOrder_date(String order_date) {
 		this.order_date = order_date;
 	}
-	
+
 	public String getOrder_currency() {
 		return order_currency;
 	}
@@ -146,7 +146,15 @@ public class Orders {
 	public void setOrder_currency(String order_currency) {
 		this.order_currency = order_currency;
 	}
-	
+
+	public String getHome_country() {
+		return Home_country;
+	}
+
+	public void setHome_country(String home_country) {
+		Home_country = home_country;
+	}
+
 	public String getOrder_items() {
 		return order_items;
 	}
@@ -154,7 +162,7 @@ public class Orders {
 	public void setOrder_items(String order_items) {
 		this.order_items = order_items;
 	}
-	
+
 	public String getItem_identifier() {
 		return item_identifier;
 	}
@@ -162,7 +170,7 @@ public class Orders {
 	public void setItem_identifier(String item_identifier) {
 		this.item_identifier = item_identifier;
 	}
-	
+
 	public String getProduct_variant() {
 		return product_variant;
 	}
@@ -170,7 +178,7 @@ public class Orders {
 	public void setProduct_variant(String product_variant) {
 		this.product_variant = product_variant;
 	}
-	
+
 	public String getItem_description() {
 		return item_description;
 	}
@@ -178,7 +186,7 @@ public class Orders {
 	public void setItem_description(String item_description) {
 		this.item_description = item_description;
 	}
-	
+
 	public float getItem_price() {
 		return item_price;
 	}
@@ -186,23 +194,15 @@ public class Orders {
 	public void setItem_price(float item_price) {
 		this.item_price = item_price;
 	}
-	
+
 	public int getItem_quantity() {
 		return item_quantity;
 	}
 
 	public void setItem_quantity(int item_quantity) {
-		this.item_quantity = item_quantity ;
-	}
-	
-	public String getHome_country() {
-		return Home_country;
+		this.item_quantity = item_quantity;
 	}
 
-	public void setHome_country(String Home_country) {
-		this.Home_country = Home_country;
-	}
-	
 	public String getTime() {
 		return time;
 	}
@@ -210,7 +210,7 @@ public class Orders {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	
+
 	public String getTd_c360_operation_time() {
 		return td_c360_operation_time;
 	}
@@ -218,4 +218,6 @@ public class Orders {
 	public void setTd_c360_operation_time(String td_c360_operation_time) {
 		this.td_c360_operation_time = td_c360_operation_time;
 	}
+	
+	
 }
