@@ -13,6 +13,7 @@ public class Cases {
 	public Cases() {
 		System.out.println("This is D.C Cases Class");
 	}
+	private String td_c360_operation;
 	private String case_id;
 	private String identity_id;
 	private String persona_id;
@@ -35,13 +36,14 @@ public class Cases {
 	
 	@Override
 	public String toString() {
-		return "Cases [case_id=" + case_id + ", identity_id=" + identity_id + ", persona_id=" + persona_id
-				+ ", serial_numer=" + serial_numer + ", order_id=" + order_id + ", closing_date=" + closing_date
-				+ ", case_Channel=" + case_Channel + ", create_date=" + create_date + ", case_source=" + case_source
-				+ ", case_type=" + case_type + ", case_Subtype=" + case_Subtype + ", status=" + status
-				+ ", subject_code=" + subject_code + ", subject_description=" + subject_description
-				+ ", latest_update_date=" + latest_update_date + ", home_country=" + home_country + ", description="
-				+ description + ", time=" + time + ", td_c360_operation_time=" + td_c360_operation_time + "]";
+		return "Cases [td_c360_operation=" + td_c360_operation + ", case_id=" + case_id + ", identity_id=" + identity_id
+				+ ", persona_id=" + persona_id + ", serial_numer=" + serial_numer + ", order_id=" + order_id
+				+ ", closing_date=" + closing_date + ", case_Channel=" + case_Channel + ", create_date=" + create_date
+				+ ", case_source=" + case_source + ", case_type=" + case_type + ", case_Subtype=" + case_Subtype
+				+ ", status=" + status + ", subject_code=" + subject_code + ", subject_description="
+				+ subject_description + ", latest_update_date=" + latest_update_date + ", home_country=" + home_country
+				+ ", description=" + description + ", time=" + time + ", td_c360_operation_time="
+				+ td_c360_operation_time + "]";
 	}
 
 	public String getCase_id() {
@@ -194,6 +196,14 @@ public class Cases {
 
 	public void setTd_c360_operation_time(String td_c360_operation_time) {
 		this.td_c360_operation_time = td_c360_operation_time;
+	}
+
+	public String getTd_c360_operation() {
+		return td_c360_operation;
+	}
+
+	public void setTd_c360_operation(String td_c360_operation) {
+		this.td_c360_operation = td_c360_operation;
 	}
 
 	
