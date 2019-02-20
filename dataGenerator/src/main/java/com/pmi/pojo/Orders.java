@@ -13,7 +13,7 @@ public class Orders {
 	public Orders() {
 		System.out.println("This is D.C Orders Class");
 	}
-
+	private String td_c360_operation;
 	private String order_id;
 	private String order_item_identifier;
 	private String identity_id;
@@ -38,14 +38,15 @@ public class Orders {
 	
 	@Override
 	public String toString() {
-		return "Orders [order_id=" + order_id + ", order_item_identifier=" + order_item_identifier + ", identity_id="
-				+ identity_id + ", persona_id=" + persona_id + ", country=" + country + ", order_amount=" + order_amount
-				+ ", order_discount=" + order_discount + ", order_type=" + order_type + ", order_status=" + order_status
-				+ ", order_date=" + order_date + ", order_currency=" + order_currency + ", home_country=" + home_country
-				+ ", order_items=" + order_items + ", item_identifier=" + item_identifier + ", product_variant="
-				+ product_variant + ", item_description=" + item_description + ", item_price=" + item_price
-				+ ", item_quantity=" + item_quantity + ", time=" + time + ", td_c360_operation_time="
-				+ td_c360_operation_time + ", status=" + status + "]";
+		return "Orders [td_c360_operation=" + td_c360_operation + ", order_id=" + order_id + ", order_item_identifier="
+				+ order_item_identifier + ", identity_id=" + identity_id + ", persona_id=" + persona_id + ", country="
+				+ country + ", order_amount=" + order_amount + ", order_discount=" + order_discount + ", order_type="
+				+ order_type + ", order_status=" + order_status + ", order_date=" + order_date + ", order_currency="
+				+ order_currency + ", home_country=" + home_country + ", order_items=" + order_items
+				+ ", item_identifier=" + item_identifier + ", product_variant=" + product_variant
+				+ ", item_description=" + item_description + ", item_price=" + item_price + ", item_quantity="
+				+ item_quantity + ", time=" + time + ", td_c360_operation_time=" + td_c360_operation_time + ", status="
+				+ status + "]";
 	}
 	
 	public String getOrder_id() {
@@ -174,6 +175,16 @@ public class Orders {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public String getTd_c360_operation() {
+		return td_c360_operation;
+	}
+
+	public void setTd_c360_operation(String td_c360_operation) {
+		this.td_c360_operation = td_c360_operation;
+	}
+	
+	
 	
 	
 	
