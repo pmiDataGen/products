@@ -18,7 +18,7 @@ public class Persona {
 	private String last_case_status_code;
 	private int frequency_score;
 	private float cnt_orders_l12m;
-	private String time;
+	private String time;	//No need to pass the values
 	private String date_of_birth;
 	private float nb_cases_close_3m;
 	private float nb_of_devices_replaced;
@@ -51,7 +51,7 @@ public class Persona {
 	private String consumer_type;
 	private String last_case_start_date;
 	private float nb_active_chargers;
-	private String td_c360_operation_time; // "td:c360:operation_time": "1550064529348.0",
+	private String td_c360_operation_time; // "td:c360:operation_time": "1550064529348.0",//No need to pass the values
 	private float revenue_ytd;
 	private float nb_of_devices;
 	private float total_spending_per_month_in_average;
