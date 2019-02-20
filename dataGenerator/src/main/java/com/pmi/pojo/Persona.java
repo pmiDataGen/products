@@ -79,6 +79,13 @@ public class Persona {
 	private String age_group;
 	private boolean is_deleted;
 
+	//Adding Attribute from Postman results
+	private float registration_date;
+	private String name;
+	private String full_name;
+	private String phone;
+	private String email;
+	
 	@Override
 	public String toString() {
 		return "Persona [online_access_flag=" + online_access_flag + ", last_case_status_code=" + last_case_status_code
@@ -110,7 +117,8 @@ public class Persona {
 				+ nb_cases_close_6m + ", cnt_orders_l3m=" + cnt_orders_l3m + ", last_name=" + last_name
 				+ ", home_country=" + home_country + ", nb_cases_close=" + nb_cases_close + ", revenue_l3m="
 				+ revenue_l3m + ", nb_cases_open_1m=" + nb_cases_open_1m + ", age_group=" + age_group + ", is_deleted="
-				+ is_deleted + "]";
+				+ is_deleted + ", registration_date=" + registration_date + ", name=" + name + ", full_name="
+				+ full_name + ", phone=" + phone + ", email=" + email + "]";
 	}
 
 	public boolean isOnline_access_flag() {
@@ -624,5 +632,46 @@ public class Persona {
 	public void setIs_deleted(boolean is_deleted) {
 		this.is_deleted = is_deleted;
 	}
+
+	public float getRegistration_date() {
+		return registration_date;
+	}
+
+	public void setRegistration_date(float registration_date) {
+		this.registration_date = registration_date;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFull_name() {
+		return full_name;
+	}
+
+	public void setFull_name(String full_name) {
+		this.full_name = full_name;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 
 }
