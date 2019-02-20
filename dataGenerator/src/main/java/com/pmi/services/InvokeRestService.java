@@ -46,21 +46,22 @@ public class InvokeRestService {
 	@Value("${demoRestUri}")
 	private String demoRestUri;
 
-//	private static final String LOOKUP_API_REQUEST_CSV_FILE_PATH = "C:\\CSVFiles\\idLookUp\\request\\idLookUp_%s.csv";
-//
-//	private static final String LOOKUP_API_RESPONSE_CSV_FILE_PATH = "C:\\CSVFiles\\idLookUp\\response\\idLookUp_response_%s.csv";
-
 	@Value("${LOOKUP_API_REQUEST_CSV_FILE_PATH}")
 	private String LOOKUP_API_REQUEST_CSV_FILE_PATH;
 
 	@Value("${LOOKUP_API_RESPONSE_CSV_FILE_PATH}")
 	private String LOOKUP_API_RESPONSE_CSV_FILE_PATH;
 
-	private static String lookUpADLUri;
+	@Value("${authToken}")
+	private String authToken;
 
-	private static String lookUpADLUri2;
+	@Value("${lookUpADLUri}")
+	private String lookUpADLUriFromProperty;
 
-	private String writeAPIUri;
+	@Value("${writeAPIUri}")
+	private String writeAPIUriFromProperty;
+
+	private String lookUpADLUri2;
 
 	public void callDemoService() {
 		System.out.println("demoRestUri --->> " + demoRestUri);
@@ -69,29 +70,29 @@ public class InvokeRestService {
 		System.out.println(quote.toString());
 	}
 
-	public void callADLWriteAPI(String objName, PersonaRequest persona) {
-		writeAPIUri = "https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s";
+	public void callADLWriteAPI(String objName, Object writeAPIObj) {
+		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
 		writeAPIUri = String.format(writeAPIUri, objName);
-
 		// create Request Header
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-		httpHeaders.set("Authorization", "TD1 8/384593dfaf84163505f1024f9f9825a64b0bba99");
-		HttpEntity<PersonaRequest> entity = new HttpEntity<>(persona, httpHeaders);
+		httpHeaders.set("Authorization", authToken);
+		HttpEntity entity = new HttpEntity<>(writeAPIObj, httpHeaders);
 
 		System.out.println("Write API URI -> " + writeAPIUri);
-		System.out.println("Object value : " + persona);
-		// ResponseEntity<Persona> responseEntity =
-		// restTemplate.postForEntity(writeAPIUri, entity, Persona.class);
-		ResponseEntity<PersonaRequest> responseEntity = restTemplate.exchange(writeAPIUri, HttpMethod.POST, entity,
-				PersonaRequest.class);
+		System.out.println("Object value : " + writeAPIObj);
+		long startTime = System.currentTimeMillis();
+		ResponseEntity responseEntity = restTemplate.exchange(writeAPIUri, HttpMethod.POST, entity,
+				writeAPIObj.getClass());
+		long endTime = System.currentTimeMillis();
+		System.out.println("===== Time taken to make writeAPI call for " + objName + " object is "
+				+ (endTime - startTime) + " milliseconds =====");
 		System.out.println("Write Response Status Code -> " + responseEntity.getStatusCode());
 		System.out.println("Write Response Body -> " + responseEntity.getBody());
 	}
 
 	public void callADLLookupAPI(String objName) {
-		lookUpADLUri = "https://c360-api-a8-dce20.eu01.treasuredata.com/v1/events/c360/%s/";
+		String lookUpADLUri = lookUpADLUriFromProperty; // https://c360-api-a8-dce20.eu01.treasuredata.com/v1/events/c360/%s/
 		lookUpADLUri2 = null;
-		System.out.println("++++++===LOOKUP_API_REQUEST_CSV_FILE_PATH=====++++ " + LOOKUP_API_REQUEST_CSV_FILE_PATH);
 		// Read the primary Key from CSV files.
 		String[] arr = readWriteCSV.getLookUpIdsFromCSV(String.format(LOOKUP_API_REQUEST_CSV_FILE_PATH, objName));
 
@@ -99,7 +100,7 @@ public class InvokeRestService {
 
 		// create Request Header
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-		httpHeaders.set("Authorization", "TD1 8/384593dfaf84163505f1024f9f9825a64b0bba99");
+		httpHeaders.set("Authorization", authToken);
 		HttpEntity<String> entity = new HttpEntity<>("parameters", httpHeaders);
 
 		if (objName.equalsIgnoreCase("personas")) {
@@ -109,7 +110,11 @@ public class InvokeRestService {
 			for (String id : arr) {
 				lookUpADLUri2 = lookUpADLUri + id;
 				System.out.println("URI -> " + lookUpADLUri2);
+				long startTime = System.currentTimeMillis();
 				responseEntity = restTemplate.exchange(lookUpADLUri2, HttpMethod.GET, entity, Persona.class);
+				long endTime = System.currentTimeMillis();
+				System.out.println("===== Time taken to make lookup API call for " + objName + " object ID " + id
+						+ " is " + (endTime - startTime) + " milliseconds =====");
 				personaObjList.add(responseEntity);
 			}
 			for (ResponseEntity<Persona> personaObj : personaObjList) {
@@ -126,7 +131,11 @@ public class InvokeRestService {
 			for (String id : arr) {
 				lookUpADLUri2 = lookUpADLUri + id;
 				System.out.println("URI -> " + lookUpADLUri2);
+				long startTime = System.currentTimeMillis();
 				responseEntity = restTemplate.exchange(lookUpADLUri2, HttpMethod.GET, entity, Identities.class);
+				long endTime = System.currentTimeMillis();
+				System.out.println("===== Time taken to make lookup API call for " + objName + " object ID " + id
+						+ " is " + (endTime - startTime) + " milliseconds =====");
 				identitiesResponseMapperList.add(responseEntity);
 			}
 			for (ResponseEntity<Identities> identityObj : identitiesResponseMapperList) {
@@ -143,8 +152,12 @@ public class InvokeRestService {
 			for (String id : arr) {
 				lookUpADLUri2 = lookUpADLUri + id;
 				System.out.println("URI -> " + lookUpADLUri2);
+				long startTime = System.currentTimeMillis();
 				responseEntity = restTemplate.exchange(lookUpADLUri2, HttpMethod.GET, entity,
 						DeviceResponseMapper.class);
+				long endTime = System.currentTimeMillis();
+				System.out.println("===== Time taken to make lookup API call for " + objName + " object ID " + id
+						+ " is " + (endTime - startTime) + " milliseconds =====");
 				deviceResponseMapperList.add(responseEntity);
 			}
 			for (ResponseEntity<DeviceResponseMapper> deviceObj : deviceResponseMapperList) {
@@ -161,7 +174,11 @@ public class InvokeRestService {
 			for (String id : arr) {
 				lookUpADLUri2 = lookUpADLUri + id;
 				System.out.println("URI -> " + lookUpADLUri2);
+				long startTime = System.currentTimeMillis();
 				responseEntity = restTemplate.exchange(lookUpADLUri2, HttpMethod.GET, entity, Cases.class);
+				long endTime = System.currentTimeMillis();
+				System.out.println("===== Time taken to make lookup API call for " + objName + " object ID " + id
+						+ " is " + (endTime - startTime) + " milliseconds =====");
 				casesResponseList.add(responseEntity);
 			}
 			for (ResponseEntity<Cases> casesObj : casesResponseList) {
@@ -177,7 +194,11 @@ public class InvokeRestService {
 			for (String id : arr) {
 				lookUpADLUri2 = lookUpADLUri + id;
 				System.out.println("URI -> " + lookUpADLUri2);
+				long startTime = System.currentTimeMillis();
 				responseEntity = restTemplate.exchange(lookUpADLUri2, HttpMethod.GET, entity, Orders.class);
+				long endTime = System.currentTimeMillis();
+				System.out.println("===== Time taken to make lookup API call for " + objName + " object ID " + id
+						+ " is " + (endTime - startTime) + " milliseconds =====");
 				ordersResponseList.add(responseEntity);
 			}
 			for (ResponseEntity<Orders> ordersObj : ordersResponseList) {
@@ -188,8 +209,8 @@ public class InvokeRestService {
 			readWriteCSV.writeToCsv(ordersResponseList2, String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));
 		}
 
-		System.out.println(
-				"--- Response Written to CSV available @ " + String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));
+		System.out.println("--- Response Written to CSV available at location :"
+				+ String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));
 	}
 
 }
