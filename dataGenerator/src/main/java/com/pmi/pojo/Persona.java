@@ -18,7 +18,7 @@ public class Persona {
 	private String last_case_status_code;
 	private int frequency_score;
 	private float cnt_orders_l12m;
-	private String time;	//No need to pass the values
+	//private String time;	//No need to pass the values
 	private String date_of_birth;
 	private float nb_cases_close_3m;
 	private float nb_of_devices_replaced;
@@ -51,7 +51,7 @@ public class Persona {
 	private String consumer_type;
 	private String last_case_start_date;
 	private float nb_active_chargers;
-	private String td_c360_operation_time; // "td:c360:operation_time": "1550064529348.0",//No need to pass the values
+	//private String td_c360_operation_time; // "td:c360:operation_time": "1550064529348.0",//No need to pass the values
 	private float revenue_ytd;
 	private float nb_of_devices;
 	private float total_spending_per_month_in_average;
@@ -89,7 +89,7 @@ public class Persona {
 	@Override
 	public String toString() {
 		return "Persona [online_access_flag=" + online_access_flag + ", last_case_status_code=" + last_case_status_code
-				+ ", frequency_score=" + frequency_score + ", cnt_orders_l12m=" + cnt_orders_l12m + ", time=" + time
+				+ ", frequency_score=" + frequency_score + ", cnt_orders_l12m=" + cnt_orders_l12m 
 				+ ", date_of_birth=" + date_of_birth + ", nb_cases_close_3m=" + nb_cases_close_3m
 				+ ", nb_of_devices_replaced=" + nb_of_devices_replaced + ", value_score=" + value_score
 				+ ", cnt_orders_l6m=" + cnt_orders_l6m + ", persona_id=" + persona_id + ", nb_cases_open_6m="
@@ -104,8 +104,7 @@ public class Persona {
 				+ ", nb_cases_close_1m=" + nb_cases_close_1m + ", recency_score=" + recency_score
 				+ ", last_Activity_since_months=" + last_Activity_since_months + ", nb_cases_close_12m="
 				+ nb_cases_close_12m + ", consumer_type=" + consumer_type + ", last_case_start_date="
-				+ last_case_start_date + ", nb_active_chargers=" + nb_active_chargers + ", td_c360_operation_time="
-				+ td_c360_operation_time + ", revenue_ytd=" + revenue_ytd + ", nb_of_devices=" + nb_of_devices
+				+ last_case_start_date + ", nb_active_chargers=" + nb_active_chargers  + ", revenue_ytd=" + revenue_ytd + ", nb_of_devices=" + nb_of_devices
 				+ ", total_spending_per_month_in_average=" + total_spending_per_month_in_average + ", last_order_date="
 				+ last_order_date + ", nb_order_average_per_month=" + nb_order_average_per_month + ", lifetime_revenue="
 				+ lifetime_revenue + ", nb_cases_open=" + nb_cases_open + ", second_order_difference_days="
@@ -151,14 +150,6 @@ public class Persona {
 
 	public void setCnt_orders_l12m(float cnt_orders_l12m) {
 		this.cnt_orders_l12m = cnt_orders_l12m;
-	}
-
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
 	}
 
 	public String getDate_of_birth() {
@@ -415,14 +406,6 @@ public class Persona {
 
 	public void setNb_active_chargers(float nb_active_chargers) {
 		this.nb_active_chargers = nb_active_chargers;
-	}
-
-	public String getTd_c360_operation_time() {
-		return td_c360_operation_time;
-	}
-
-	public void setTd_c360_operation_time(String td_c360_operation_time) {
-		this.td_c360_operation_time = td_c360_operation_time;
 	}
 
 	public float getRevenue_ytd() {
