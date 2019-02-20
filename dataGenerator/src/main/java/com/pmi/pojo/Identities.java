@@ -29,8 +29,8 @@ public class Identities {
 	private String segment;
 	private String last_login_date;
 	private String registration_date; 				// registration date
-	private String time; 							// "time": "1548928418229"//No need to pass the values
-	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
+	//private String time; 							// "time": "1548928418229"//No need to pass the values
+	//private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
 	private String nick_name; 						// "nickname": "SDoe"
 	private String full_name; 						// "full_name": "Sue Doe"
 	private String email; 							// "email": "sdoe1@pmi.com"
@@ -48,7 +48,7 @@ public class Identities {
 				+ home_country + ", is_deleted=" + is_deleted + ", blocked_flag=" + blocked_flag + ", consumer_type="
 				+ consumer_type + ", preferred_language=" + preferred_language + ", date_of_birth=" + date_of_birth
 				+ ", segment=" + segment + ", last_login_date=" + last_login_date + ", registration_date="
-				+ registration_date + ", time=" + time + ", td_c360_operation_time=" + td_c360_operation_time
+				+ registration_date 
 				+ ", nick_name=" + nick_name + ", full_name=" + full_name + ", email=" + email + ", address=" + address
 				+ ", phone_name=" + phone_number + ", registration_source_app=" + registration_source_app
 				+ ", registration_country=" + registration_country + ", registration_referal_identifier="
@@ -146,18 +146,7 @@ public class Identities {
 	public void setRegistration_date(String registration_date) {
 		this.registration_date = registration_date;
 	}
-	public String getTime() {
-		return time;
-	}
-	public void setTime(String time) {
-		this.time = time;
-	}
-	public String getTd_c360_operation_time() {
-		return td_c360_operation_time;
-	}
-	public void setTd_c360_operation_time(String td_c360_operation_time) {
-		this.td_c360_operation_time = td_c360_operation_time;
-	}
+	
 	public String getNick_name() {
 		return nick_name;
 	}
