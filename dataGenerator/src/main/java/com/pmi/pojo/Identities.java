@@ -35,7 +35,7 @@ public class Identities {
 	private String full_name; 						// "full_name": "Sue Doe"
 	private String email; 							// "email": "sdoe1@pmi.com"
 	private String address; 						// "address": "US, Los Angeles, 1st Alley"
-	private String phone_name; 						// "phone_number": "501502503.0"
+	private String phone_number; 						// "phone_number": "501502503.0"
 	private String registration_source_app;
 	private String registration_country;
 	private String registration_referal_identifier;
@@ -50,7 +50,7 @@ public class Identities {
 				+ ", segment=" + segment + ", last_login_date=" + last_login_date + ", registration_date="
 				+ registration_date + ", time=" + time + ", td_c360_operation_time=" + td_c360_operation_time
 				+ ", nick_name=" + nick_name + ", full_name=" + full_name + ", email=" + email + ", address=" + address
-				+ ", phone_name=" + phone_name + ", registration_source_app=" + registration_source_app
+				+ ", phone_name=" + phone_number + ", registration_source_app=" + registration_source_app
 				+ ", registration_country=" + registration_country + ", registration_referal_identifier="
 				+ registration_referal_identifier + "]";
 	}
@@ -182,12 +182,17 @@ public class Identities {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getPhone_name() {
-		return phone_name;
+	
+	public String getPhone_number() {
+		return phone_number;
 	}
-	public void setPhone_name(String phone_name) {
-		this.phone_name = phone_name;
+
+
+	public void setPhone_number(String phone_number) {
+		this.phone_number = phone_number;
 	}
+
+
 	public String getRegistration_source_app() {
 		return registration_source_app;
 	}
