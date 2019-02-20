@@ -30,8 +30,8 @@ public class Cases {
 	private String latest_update_date;
 	private String home_country;
 	private String description;						// "description": "ORDER"
-	private String time; 							// "time": "1548928418229"
-	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"
+	private String time; 							// "time": "1548928418229"//No need to pass the values
+	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
 
 	@Override
 	public String toString() {
