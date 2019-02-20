@@ -13,11 +13,11 @@ public class Cases {
 	public Cases() {
 		System.out.println("This is D.C Cases Class");
 	}
-	private String case_identifier;
-	private String identity_unique_identifier;
-	private String persona_identifier;
+	private String case_id;
+	private String identity_id;
+	private String persona_id;
 	private String serial_numer;	
-	private String order_identifier;
+	private String order_id;
 	private String closing_date;
 	private String case_Channel;
 	private String create_date;
@@ -32,52 +32,40 @@ public class Cases {
 	private String description;						// "description": "ORDER"
 	private String time; 							// "time": "1548928418229"//No need to pass the values
 	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
-
+	
 	@Override
 	public String toString() {
-		return "Cases [identity_unique_identifier=" + identity_unique_identifier 
-				+ ", persona_identifier=" + persona_identifier 
-				+",time="+ time 
-				+",td_c360_operation_time="+ td_c360_operation_time
-				+ ",case_identifier=" + case_identifier  
-				+ ", serial_numer=" + serial_numer 
-				+ ", order_identifier=" + order_identifier 
-				+ ",closing_date=" + closing_date 
-				+ ",case_Channel="+ case_Channel 
-				+",create_date="+ create_date 
-				+",case_source="+ case_source 
-				+ ",case_type=" + case_type  
-				+ ", case_Subtype=" + case_Subtype 
-				+ ", status=" + status 
-				+ ",subject_code=" + subject_code 
-				+ ",home_country="+ home_country 
-				+",subject_description="+ subject_description 
-				+",description="+ description
-				+",latest_update_date="+ latest_update_date + "]";
+		return "Cases [case_id=" + case_id + ", identity_id=" + identity_id + ", persona_id=" + persona_id
+				+ ", serial_numer=" + serial_numer + ", order_id=" + order_id + ", closing_date=" + closing_date
+				+ ", case_Channel=" + case_Channel + ", create_date=" + create_date + ", case_source=" + case_source
+				+ ", case_type=" + case_type + ", case_Subtype=" + case_Subtype + ", status=" + status
+				+ ", subject_code=" + subject_code + ", subject_description=" + subject_description
+				+ ", latest_update_date=" + latest_update_date + ", home_country=" + home_country + ", description="
+				+ description + ", time=" + time + ", td_c360_operation_time=" + td_c360_operation_time + "]";
 	}
 
-	public String getCase_identifier() {
-		return case_identifier;
+	public String getCase_id() {
+		return case_id;
 	}
 
-	public void setCase_identifier(String case_identifier) {
-		this.case_identifier = case_identifier;
+	public void setCase_id(String case_id) {
+		this.case_id = case_id;
 	}
 
-	public String getIdentity_unique_identifier() {
-		return identity_unique_identifier;
+	public String getIdentity_id() {
+		return identity_id;
 	}
 
-	public void setIdentity_unique_identifier(String identity_unique_identifier) {
-		this.identity_unique_identifier = identity_unique_identifier;
+	public void setIdentity_id(String identity_id) {
+		this.identity_id = identity_id;
 	}
 
-	public String getPersona_identifier() {
-		return persona_identifier;
+	public String getPersona_id() {
+		return persona_id;
 	}
 
-	public void setPersona_identifier(String persona_identifier) {
-		this.persona_identifier = persona_identifier;
+	public void setPersona_id(String persona_id) {
+		this.persona_id = persona_id;
 	}
 
 	public String getSerial_numer() {
@@ -88,12 +76,12 @@ public class Cases {
 		this.serial_numer = serial_numer;
 	}
 
-	public String getOrder_identifier() {
-		return order_identifier;
+	public String getOrder_id() {
+		return order_id;
 	}
 
-	public void setOrder_identifier(String order_identifier) {
-		this.order_identifier = order_identifier;
+	public void setOrder_id(String order_id) {
+		this.order_id = order_id;
 	}
 
 	public String getClosing_date() {
@@ -206,6 +194,8 @@ public class Cases {
 
 	public void setTd_c360_operation_time(String td_c360_operation_time) {
 		this.td_c360_operation_time = td_c360_operation_time;
-	}	
+	}
 
+	
+	
 }
