@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.pmi.pojo.Identities;
 import com.pmi.pojo.PersonaRequest;
+import com.pmi.pojo.Cases;
+import com.pmi.pojo.Orders;
 import com.pmi.services.DataGenService;
 import com.pmi.services.InvokeRestService;
 import com.pmi.util.ReadWriteCSV;
@@ -62,15 +64,15 @@ public class DataGeneratorApplication {
 		// invokeRestService.callADLLookupAPI("cases");
 		// invokeRestService.callADLLookupAPI("orders");
 
-		// Write API - Persona
-		PersonaRequest persona = new PersonaRequest();
-		persona.setTd_c360_operation("put");
-		persona.setPersona_id("100");
-		persona.setLast_name("mishra");
-		persona.setFirst_name("vikas");
-		persona.setGender("male");
-		persona.setHome_country("india");
-		invokeRestService.callADLWriteAPI("personas", persona);
+		
+		  // Write API - Personas
+		 /* 
+		  PersonaRequest persona = new PersonaRequest();
+		  persona.setTd_c360_operation("put"); persona.setPersona_id("100");
+		  persona.setLast_name("mishra"); persona.setFirst_name("vikas");
+		  persona.setGender("male"); persona.setHome_country("india");
+		  invokeRestService.callADLWriteAPI("personas", persona);
+		 */
 
 		// Write API - Identities
 		/*
@@ -97,6 +99,47 @@ public class DataGeneratorApplication {
 		 * invokeRestService.callADLWriteAPI("identities", identities);
 		 */
 
+		// Write API - Cases
+		/*
+		 * Cases cases = new Cases(); cases.setTd_c360_operation("put");
+		 * cases.setPersona_id("66"); cases.setCase_id("66");
+		 * cases.setSerial_numer("66"); cases.setOrder_id("66");
+		 * cases.setClosing_date("1548716400000.0"); cases.setCase_Channel("Test");
+		 * cases.setCreate_date("1548716400000.0"); cases.setCase_source("Test");
+		 * cases.setCase_type("Test"); cases.setCase_Subtype("Test");
+		 * cases.setStatus("Test"); cases.setDescription("Test");
+		 * cases.setSubject_code(66); cases.setSubject_description(66);
+		 * cases.setLatest_update_date("Test"); cases.setHome_country("Test");
+		 * 
+		 * 
+		 * invokeRestService.callADLWriteAPI("cases", cases);
+		 */
+		
+		//Write API - Orders
+		
+		
+		  Orders orders = new Orders(); 
+		  orders.setTd_c360_operation("put");
+		  orders.setPersona_id("66"); 
+		  orders.setOrder_id("66");
+		  orders.setOrder_item_identifier("66"); 
+		  orders.setOrder_items("66");
+		  orders.setCountry("Test");
+		  orders.setOrder_amount(66);
+		  orders.setOrder_discount(66);
+		  orders.setOrder_type("test");
+		  orders.setOrder_status("test");
+		  orders.setOrder_date("1548716400000.0");
+		  orders.setOrder_currency("Test");
+		  orders.setItem_identifier("66");
+		  orders.setProduct_variant("test");
+		  orders.setItem_description("test");
+		  orders.setItem_price(66);
+		  orders.setItem_quantity(66);
+		  orders.setHome_country("test");
+		  orders.setStatus("test");
+		  
+		  invokeRestService.callADLWriteAPI("orders", orders);
 	}
 
 }
