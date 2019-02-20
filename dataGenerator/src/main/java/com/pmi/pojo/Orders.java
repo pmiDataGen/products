@@ -25,15 +25,15 @@ public class Orders {
 	private String order_status;				//status
 	private String order_date;
 	private String order_currency;
-	private String Home_country;
+	private String home_country;
 	private String order_items;
 	private String item_identifier;
 	private String product_variant;
 	private String item_description;
 	private float item_price;
 	private int item_quantity;
-	private String time; 							// "time": "1548928418229"
-	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"
+	private String time; 							// "time": "1548928418229"//No need to pass the values
+	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
 	
 	@Override
 	public String toString() {
@@ -52,7 +52,7 @@ public class Orders {
 				+ ", order_currency=" + order_currency 
 				+ ", order_items=" + order_items 
 				+ ",item_identifier=" + item_identifier 
-				+ ",Home_country="+ Home_country 
+				+ ",home_country="+ home_country 
 				+",product_variant="+ product_variant 
 				+",item_description="+ item_description 
 				+",item_price="+ item_price 
@@ -148,11 +148,11 @@ public class Orders {
 	}
 
 	public String getHome_country() {
-		return Home_country;
+		return home_country;
 	}
 
 	public void setHome_country(String home_country) {
-		Home_country = home_country;
+		this.home_country = home_country;
 	}
 
 	public String getOrder_items() {
