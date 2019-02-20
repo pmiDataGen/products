@@ -32,8 +32,8 @@ public class Orders {
 	private String item_description;
 	private float item_price;
 	private int item_quantity;
-	private String time; 							// "time": "1548928418229"//No need to pass the values
-	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
+	//private String time; 							// "time": "1548928418229"//No need to pass the values
+	//private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
 	private String status;
 	
 	@Override
@@ -45,8 +45,7 @@ public class Orders {
 				+ order_currency + ", home_country=" + home_country + ", order_items=" + order_items
 				+ ", item_identifier=" + item_identifier + ", product_variant=" + product_variant
 				+ ", item_description=" + item_description + ", item_price=" + item_price + ", item_quantity="
-				+ item_quantity + ", time=" + time + ", td_c360_operation_time=" + td_c360_operation_time + ", status="
-				+ status + "]";
+				+ item_quantity + "]";
 	}
 	
 	public String getOrder_id() {
@@ -157,18 +156,7 @@ public class Orders {
 	public void setItem_quantity(int item_quantity) {
 		this.item_quantity = item_quantity;
 	}
-	public String getTime() {
-		return time;
-	}
-	public void setTime(String time) {
-		this.time = time;
-	}
-	public String getTd_c360_operation_time() {
-		return td_c360_operation_time;
-	}
-	public void setTd_c360_operation_time(String td_c360_operation_time) {
-		this.td_c360_operation_time = td_c360_operation_time;
-	}
+	
 	public String getStatus() {
 		return status;
 	}
