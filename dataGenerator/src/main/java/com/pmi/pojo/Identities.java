@@ -29,8 +29,8 @@ public class Identities {
 	private String segment;
 	private String last_login_date;
 	private String registration_date; 				// registration date
-	private String time; 							// "time": "1548928418229"
-	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"
+	private String time; 							// "time": "1548928418229"//No need to pass the values
+	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
 	private String nick_name; 						// "nickname": "SDoe"
 	private String full_name; 						// "full_name": "Sue Doe"
 	private String email; 							// "email": "sdoe1@pmi.com"
