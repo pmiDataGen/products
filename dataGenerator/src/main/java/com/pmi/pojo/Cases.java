@@ -31,8 +31,8 @@ public class Cases {
 	private String latest_update_date;
 	private String home_country;
 	private String description;						// "description": "ORDER"
-	private String time; 							// "time": "1548928418229"//No need to pass the values
-	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
+//	private String time; 							// "time": "1548928418229"//No need to pass the values
+//	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
 	
 	@Override
 	public String toString() {
@@ -42,8 +42,7 @@ public class Cases {
 				+ ", case_source=" + case_source + ", case_type=" + case_type + ", case_Subtype=" + case_Subtype
 				+ ", status=" + status + ", subject_code=" + subject_code + ", subject_description="
 				+ subject_description + ", latest_update_date=" + latest_update_date + ", home_country=" + home_country
-				+ ", description=" + description + ", time=" + time + ", td_c360_operation_time="
-				+ td_c360_operation_time + "]";
+				+ ", description=" + description  + "]";
 	}
 
 	public String getCase_id() {
@@ -180,22 +179,6 @@ public class Cases {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
-
-	public String getTd_c360_operation_time() {
-		return td_c360_operation_time;
-	}
-
-	public void setTd_c360_operation_time(String td_c360_operation_time) {
-		this.td_c360_operation_time = td_c360_operation_time;
 	}
 
 	public String getTd_c360_operation() {
