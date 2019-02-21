@@ -85,28 +85,28 @@ public class Persona {
 	private String full_name;
 	private String phone;
 	private String email;
-	
+	private String apiCallTimeTakenInMillis;
 	@Override
 	public String toString() {
 		return "Persona [online_access_flag=" + online_access_flag + ", last_case_status_code=" + last_case_status_code
-				+ ", frequency_score=" + frequency_score + ", cnt_orders_l12m=" + cnt_orders_l12m 
-				+ ", date_of_birth=" + date_of_birth + ", nb_cases_close_3m=" + nb_cases_close_3m
-				+ ", nb_of_devices_replaced=" + nb_of_devices_replaced + ", value_score=" + value_score
-				+ ", cnt_orders_l6m=" + cnt_orders_l6m + ", persona_id=" + persona_id + ", nb_cases_open_6m="
-				+ nb_cases_open_6m + ", nb_order=" + nb_order + ", number_of_heet=" + number_of_heet + ", segment="
-				+ segment + ", nb_cases_open_2m=" + nb_cases_open_2m + ", nb_of_holders=" + nb_of_holders
-				+ ", first_login_date=" + first_login_date + ", system_last_update=" + system_last_update
-				+ ", revenue_l6m=" + revenue_l6m + ", blocked_flag=" + blocked_flag + ", last_update_date="
-				+ last_update_date + ", primary_log_in=" + primary_log_in + ", cnt_orders=" + cnt_orders
-				+ ", first_name=" + first_name + ", revenue_l12m=" + revenue_l12m + ", latest_version_of_device="
-				+ latest_version_of_device + ", last_case_category_name=" + last_case_category_name
-				+ ", nb_cases_open_3m=" + nb_cases_open_3m + ", number_of_accessories=" + number_of_accessories
-				+ ", nb_cases_close_1m=" + nb_cases_close_1m + ", recency_score=" + recency_score
-				+ ", last_Activity_since_months=" + last_Activity_since_months + ", nb_cases_close_12m="
+				+ ", frequency_score=" + frequency_score + ", cnt_orders_l12m=" + cnt_orders_l12m + ", date_of_birth="
+				+ date_of_birth + ", nb_cases_close_3m=" + nb_cases_close_3m + ", nb_of_devices_replaced="
+				+ nb_of_devices_replaced + ", value_score=" + value_score + ", cnt_orders_l6m=" + cnt_orders_l6m
+				+ ", persona_id=" + persona_id + ", nb_cases_open_6m=" + nb_cases_open_6m + ", nb_order=" + nb_order
+				+ ", number_of_heet=" + number_of_heet + ", segment=" + segment + ", nb_cases_open_2m="
+				+ nb_cases_open_2m + ", nb_of_holders=" + nb_of_holders + ", first_login_date=" + first_login_date
+				+ ", system_last_update=" + system_last_update + ", revenue_l6m=" + revenue_l6m + ", blocked_flag="
+				+ blocked_flag + ", last_update_date=" + last_update_date + ", primary_log_in=" + primary_log_in
+				+ ", cnt_orders=" + cnt_orders + ", first_name=" + first_name + ", revenue_l12m=" + revenue_l12m
+				+ ", latest_version_of_device=" + latest_version_of_device + ", last_case_category_name="
+				+ last_case_category_name + ", nb_cases_open_3m=" + nb_cases_open_3m + ", number_of_accessories="
+				+ number_of_accessories + ", nb_cases_close_1m=" + nb_cases_close_1m + ", recency_score="
+				+ recency_score + ", last_Activity_since_months=" + last_Activity_since_months + ", nb_cases_close_12m="
 				+ nb_cases_close_12m + ", consumer_type=" + consumer_type + ", last_case_start_date="
-				+ last_case_start_date + ", nb_active_chargers=" + nb_active_chargers  + ", revenue_ytd=" + revenue_ytd + ", nb_of_devices=" + nb_of_devices
-				+ ", total_spending_per_month_in_average=" + total_spending_per_month_in_average + ", last_order_date="
-				+ last_order_date + ", nb_order_average_per_month=" + nb_order_average_per_month + ", lifetime_revenue="
+				+ last_case_start_date + ", nb_active_chargers=" + nb_active_chargers + ", revenue_ytd=" + revenue_ytd
+				+ ", nb_of_devices=" + nb_of_devices + ", total_spending_per_month_in_average="
+				+ total_spending_per_month_in_average + ", last_order_date=" + last_order_date
+				+ ", nb_order_average_per_month=" + nb_order_average_per_month + ", lifetime_revenue="
 				+ lifetime_revenue + ", nb_cases_open=" + nb_cases_open + ", second_order_difference_days="
 				+ second_order_difference_days + ", last_Activity_since_days=" + last_Activity_since_days
 				+ ", last_login_date=" + last_login_date + ", age=" + age + ", nb_cases_close_2m=" + nb_cases_close_2m
@@ -117,7 +117,8 @@ public class Persona {
 				+ ", home_country=" + home_country + ", nb_cases_close=" + nb_cases_close + ", revenue_l3m="
 				+ revenue_l3m + ", nb_cases_open_1m=" + nb_cases_open_1m + ", age_group=" + age_group + ", is_deleted="
 				+ is_deleted + ", registration_date=" + registration_date + ", name=" + name + ", full_name="
-				+ full_name + ", phone=" + phone + ", email=" + email + "]";
+				+ full_name + ", phone=" + phone + ", email=" + email + ", apiCallTimeTakenInMillis="
+				+ apiCallTimeTakenInMillis + "]";
 	}
 
 	public boolean isOnline_access_flag() {
@@ -654,6 +655,14 @@ public class Persona {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getApiCallTimeTakenInMillis() {
+		return apiCallTimeTakenInMillis;
+	}
+
+	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
+		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
 	
 
