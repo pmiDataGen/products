@@ -31,6 +31,7 @@ public class Cases {
 	private String latest_update_date;
 	private String home_country;
 	private String description;						// "description": "ORDER"
+	private String apiCallTimeTakenInMillis;
 //	private String time; 							// "time": "1548928418229"//No need to pass the values
 //	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
 	
@@ -42,7 +43,7 @@ public class Cases {
 				+ ", case_source=" + case_source + ", case_type=" + case_type + ", case_Subtype=" + case_Subtype
 				+ ", status=" + status + ", subject_code=" + subject_code + ", subject_description="
 				+ subject_description + ", latest_update_date=" + latest_update_date + ", home_country=" + home_country
-				+ ", description=" + description  + "]";
+				+ ", description=" + description + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis + "]";
 	}
 
 	public String getCase_id() {
@@ -187,6 +188,14 @@ public class Cases {
 
 	public void setTd_c360_operation(String td_c360_operation) {
 		this.td_c360_operation = td_c360_operation;
+	}
+
+	public String getApiCallTimeTakenInMillis() {
+		return apiCallTimeTakenInMillis;
+	}
+
+	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
+		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
 
 	
