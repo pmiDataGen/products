@@ -3,7 +3,7 @@ package com.pmi.pojo;
 import java.util.Date;
 
 public class Device {
-
+	private String td_c360_operation;
 	private String device_codentify; // this is primary key
 	private String identity_unique_identifier;
 	private String persona_identifier;
@@ -25,9 +25,10 @@ public class Device {
 		this.device_codentify = device_codentify;
 	}
 
-	public Device(String device_codentify, String identity_unique_identifier, String persona_identifier,
+	public Device(String td_c360_operation, String device_codentify, String identity_unique_identifier, String persona_identifier,
 			String device_type, String device_version, Date registration_device_date, String status,
 			String component_Code, Date status_date_change, Date end_of_warranty_date, String home_country, String apiCallTimeTakenInMillis) {
+		this.td_c360_operation = td_c360_operation;;
 		this.device_codentify = device_codentify;
 		this.identity_unique_identifier = identity_unique_identifier;
 		this.persona_identifier = persona_identifier;
@@ -136,6 +137,14 @@ public class Device {
 
 	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
 		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
+	}
+
+	public String getTd_c360_operation() {
+		return td_c360_operation;
+	}
+
+	public void setTd_c360_operation(String td_c360_operation) {
+		this.td_c360_operation = td_c360_operation;
 	}
 
 	
