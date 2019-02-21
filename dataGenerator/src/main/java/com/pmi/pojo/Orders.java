@@ -35,6 +35,7 @@ public class Orders {
 	//private String time; 							// "time": "1548928418229"//No need to pass the values
 	//private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
 	private String status;
+	private String apiCallTimeTakenInMillis;
 	
 	@Override
 	public String toString() {
@@ -45,7 +46,7 @@ public class Orders {
 				+ order_currency + ", home_country=" + home_country + ", order_items=" + order_items
 				+ ", item_identifier=" + item_identifier + ", product_variant=" + product_variant
 				+ ", item_description=" + item_description + ", item_price=" + item_price + ", item_quantity="
-				+ item_quantity + "]";
+				+ item_quantity + ", status=" + status + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis + "]";
 	}
 	
 	public String getOrder_id() {
@@ -170,6 +171,14 @@ public class Orders {
 
 	public void setTd_c360_operation(String td_c360_operation) {
 		this.td_c360_operation = td_c360_operation;
+	}
+
+	public String getApiCallTimeTakenInMillis() {
+		return apiCallTimeTakenInMillis;
+	}
+
+	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
+		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
 	
 	
