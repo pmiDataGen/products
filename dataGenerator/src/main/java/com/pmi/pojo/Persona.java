@@ -13,7 +13,7 @@ public class Persona {
 	public Persona() {
 		System.out.println("This is D.C Persona Class");
 	}
-
+	private String td_c360_operation;
 	private boolean online_access_flag; // online access flag
 	private String last_case_status_code;
 	private int frequency_score;
@@ -88,13 +88,14 @@ public class Persona {
 	private String apiCallTimeTakenInMillis;
 	@Override
 	public String toString() {
-		return "Persona [online_access_flag=" + online_access_flag + ", last_case_status_code=" + last_case_status_code
-				+ ", frequency_score=" + frequency_score + ", cnt_orders_l12m=" + cnt_orders_l12m + ", date_of_birth="
-				+ date_of_birth + ", nb_cases_close_3m=" + nb_cases_close_3m + ", nb_of_devices_replaced="
-				+ nb_of_devices_replaced + ", value_score=" + value_score + ", cnt_orders_l6m=" + cnt_orders_l6m
-				+ ", persona_id=" + persona_id + ", nb_cases_open_6m=" + nb_cases_open_6m + ", nb_order=" + nb_order
-				+ ", number_of_heet=" + number_of_heet + ", segment=" + segment + ", nb_cases_open_2m="
-				+ nb_cases_open_2m + ", nb_of_holders=" + nb_of_holders + ", first_login_date=" + first_login_date
+		return "Persona [td_c360_operation=" + td_c360_operation + ", online_access_flag=" + online_access_flag
+				+ ", last_case_status_code=" + last_case_status_code + ", frequency_score=" + frequency_score
+				+ ", cnt_orders_l12m=" + cnt_orders_l12m + ", date_of_birth=" + date_of_birth + ", nb_cases_close_3m="
+				+ nb_cases_close_3m + ", nb_of_devices_replaced=" + nb_of_devices_replaced + ", value_score="
+				+ value_score + ", cnt_orders_l6m=" + cnt_orders_l6m + ", persona_id=" + persona_id
+				+ ", nb_cases_open_6m=" + nb_cases_open_6m + ", nb_order=" + nb_order + ", number_of_heet="
+				+ number_of_heet + ", segment=" + segment + ", nb_cases_open_2m=" + nb_cases_open_2m
+				+ ", nb_of_holders=" + nb_of_holders + ", first_login_date=" + first_login_date
 				+ ", system_last_update=" + system_last_update + ", revenue_l6m=" + revenue_l6m + ", blocked_flag="
 				+ blocked_flag + ", last_update_date=" + last_update_date + ", primary_log_in=" + primary_log_in
 				+ ", cnt_orders=" + cnt_orders + ", first_name=" + first_name + ", revenue_l12m=" + revenue_l12m
@@ -663,6 +664,14 @@ public class Persona {
 
 	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
 		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
+	}
+
+	public String getTd_c360_operation() {
+		return td_c360_operation;
+	}
+
+	public void setTd_c360_operation(String td_c360_operation) {
+		this.td_c360_operation = td_c360_operation;
 	}
 	
 
