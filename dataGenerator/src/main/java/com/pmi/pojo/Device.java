@@ -15,6 +15,7 @@ public class Device {
 	private Date status_date_change;
 	private Date end_of_warranty_date;
 	private String home_country;
+	private String apiCallTimeTakenInMillis;
 
 	public Device() {
 		System.out.println("This is Device - Default Constructor");
@@ -26,7 +27,7 @@ public class Device {
 
 	public Device(String device_codentify, String identity_unique_identifier, String persona_identifier,
 			String device_type, String device_version, Date registration_device_date, String status,
-			String component_Code, Date status_date_change, Date end_of_warranty_date, String home_country) {
+			String component_Code, Date status_date_change, Date end_of_warranty_date, String home_country, String apiCallTimeTakenInMillis) {
 		this.device_codentify = device_codentify;
 		this.identity_unique_identifier = identity_unique_identifier;
 		this.persona_identifier = persona_identifier;
@@ -38,6 +39,7 @@ public class Device {
 		this.status_date_change = status_date_change;
 		this.end_of_warranty_date = end_of_warranty_date;
 		this.home_country = home_country;
+		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
 
 	public String getDevice_codentify() {
@@ -128,4 +130,13 @@ public class Device {
 		this.home_country = home_country;
 	}
 
+	public String getApiCallTimeTakenInMillis() {
+		return apiCallTimeTakenInMillis;
+	}
+
+	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
+		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
+	}
+
+	
 }
