@@ -31,7 +31,7 @@ public class ReadWriteCSV {
 		Orders order = new Orders();
 		String filePath = "C:/CSVFiles/writeAPI/request/writeAPI_request_orders.csv";
 		try {
-			List list = ReadWriteCSV.parseCSVWithHeader(order, filePath);
+			List list = new ReadWriteCSV().readCSVWithHeader(order, filePath);
 			int i = 0;
 			for (Object object : list) {
 				System.out.println(i);
@@ -45,8 +45,8 @@ public class ReadWriteCSV {
 		}
 	}
 
-	// returning list of Object for CSVWriter example demo data
-	public static List<Object> parseCSVWithHeader(Object obj, String filePath) throws IOException {
+	// returning list of Object for CSVWriter
+	public List<Object> readCSVWithHeader(Object obj, String filePath) throws IOException {
 		Reader r = Files.newBufferedReader(Paths.get(filePath));
 		CSVReader reader = new CSVReaderBuilder(r).build();
 
@@ -89,6 +89,7 @@ public class ReadWriteCSV {
 		return lookUpIds;
 	}
 
+	// Write a List of Object to CSV file
 	public void writeToCsv(List objList, String filePath) {
 
 		try {
@@ -108,7 +109,7 @@ public class ReadWriteCSV {
 
 	}
 
-	// override method
+	// override method - Write Single Object
 	public void writeToCsv(Object obj, String filePath) {
 
 		try {
@@ -118,7 +119,7 @@ public class ReadWriteCSV {
 
 			StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
 
-			beanToCsv.write(obj); // Write list to StatefulBeanToCsv object
+			beanToCsv.write(obj); // Write Single Object to StatefulBeanToCsv
 
 			writer.close();// closing the writer object
 

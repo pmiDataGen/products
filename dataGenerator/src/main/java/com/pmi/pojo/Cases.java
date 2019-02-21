@@ -27,7 +27,7 @@ public class Cases {
 	private String case_Subtype;
 	private String status;
 	private int subject_code;
-	private int subject_description;
+	private String subject_description;
 	private String latest_update_date;
 	private String home_country;
 	private String description;						// "description": "ORDER"
@@ -150,11 +150,11 @@ public class Cases {
 		this.subject_code = subject_code;
 	}
 
-	public int getSubject_description() {
+	public String getSubject_description() {
 		return subject_description;
 	}
 
-	public void setSubject_description(int subject_description) {
+	public void setSubject_description(String subject_description) {
 		this.subject_description = subject_description;
 	}
 

@@ -56,6 +56,7 @@ public class DataGeneratorApplication {
 		System.out.println("Calling rest Service");
 		InvokeRestService invokeRestService = applicationContext.getBean(InvokeRestService.class);
 		invokeRestService.callDemoService();
+		System.out.println("====================================================================================");
 
 		// Read API
 		// System.out.println("Calling ADL Look-up Service");
@@ -63,80 +64,58 @@ public class DataGeneratorApplication {
 		// invokeRestService.callADLLookupAPI("identities");
 		// invokeRestService.callADLLookupAPI("devices");
 		// invokeRestService.callADLLookupAPI("cases");
-		// invokeRestService.callADLLookupAPI("orders");
+		//invokeRestService.callADLLookupAPI("orders");
+		
+		//invokeRestService.callADLBulkWriteAPI("personas");
+		//invokeRestService.callADLBulkWriteAPI("identities");
+		//invokeRestService.callADLBulkWriteAPI("cases");
+		//invokeRestService.callADLBulkWriteAPI("orders");
 
 		// Write API - Personas
-		Persona persona = new Persona();
-		persona.setOnline_access_flag(false);
-		persona.setPersona_id("66");
-		persona.setFirst_name("Test");
-		persona.setLast_name("Test");
-		persona.setFull_name("Test");
-		persona.setName("Test");
-		persona.setPhone("66");
-		persona.setEmail("test@pmi.com");
-		persona.setGender("M");
-		persona.setHome_country("Test");
-		persona.setIs_deleted(false);
-		persona.setBlocked_flag(false);
-		persona.setConsumer_type("Test");
-		persona.setDate_of_birth("1548716400000.0");
-		persona.setSegment("Smoker");
-		persona.setRegistration_date(66);
-		persona.setFirst_login_date("1548716400000.0");
-		persona.setLast_update_date("1548716400000.0");
-		persona.setLast_login_date("1548716400000.0");
-		persona.setOnline_access_flag(false);
-		persona.setPrimary_log_in("Test");
-		persona.setSystem_last_update("1548716400000.0");
-		persona.setLast_Activity_since_days(6);
-		persona.setLast_Activity_since_months(9);
-		persona.setAge(66);
-		persona.setAge_group("test");
-		persona.setRecency_score(66);
-		persona.setFrequency_score(66);
-		persona.setValue_score(66);
-		persona.setLast_case_category_name("Test");
-		persona.setLast_case_start_date("1548716400000.0");
-		persona.setLast_case_status_code("Test");
-		persona.setNb_cases_close(6);
-		persona.setNb_cases_close_1m(66);
-		persona.setNb_cases_close_2m(66);
-		persona.setNb_cases_close_3m(66);
-		persona.setNb_cases_close_6m(66);
-		persona.setNb_cases_close_12m(66);
-		persona.setNb_cases_open(66);
-		persona.setNb_cases_open_1m(66);
-		persona.setNb_cases_open_2m(66);
-		persona.setNb_cases_open_3m(66);
-		persona.setNb_cases_open_6m(66);
-		persona.setNb_cases_open_12m(66);
-		persona.setNb_active_chargers(66);
-		persona.setLimited_edition("Test");
-		persona.setNb_of_devices(66);
-		persona.setNb_of_devices_replaced(66);
-		persona.setNb_of_holders(66);
-		persona.setLatest_version_of_device("Test");
-		persona.setNumber_of_heet(66);
-		persona.setLifetime_revenue(66);
-		persona.setFirst_purchase_date(154871);
-		persona.setLast_order_date(1234);
-		persona.setNumber_of_accessories(66);
-		persona.setNb_order(66);
-		persona.setNb_order_average_per_month(66);
-		persona.setRegistration_first_order_difference_day(66);
-		persona.setSecond_order_difference_days(66);
-		persona.setTotal_spending_per_month_in_average(66);
-		persona.setCnt_orders(66);
-		persona.setCnt_orders_l12m(66);
-		persona.setCnt_orders_l3m(66);
-		persona.setCnt_orders_l6m(66);
-		persona.setRevenue_ytd(66);
-		persona.setRevenue_l3m(66);
-		persona.setRevenue_l6m(66);
-		persona.setRevenue_l12m(66);
-		
-		invokeRestService.callADLWriteAPI("personas", persona,persona.getPersona_id());
+		/*
+		 * Persona persona = new Persona(); persona.setOnline_access_flag(false);
+		 * persona.setPersona_id("66"); persona.setFirst_name("Test");
+		 * persona.setLast_name("Test"); persona.setFull_name("Test");
+		 * persona.setName("Test"); persona.setPhone("66");
+		 * persona.setEmail("test@pmi.com"); persona.setGender("M");
+		 * persona.setHome_country("Test"); persona.setIs_deleted(false);
+		 * persona.setBlocked_flag(false); persona.setConsumer_type("Test");
+		 * persona.setDate_of_birth("1548716400000.0"); persona.setSegment("Smoker");
+		 * persona.setRegistration_date(66);
+		 * persona.setFirst_login_date("1548716400000.0");
+		 * persona.setLast_update_date("1548716400000.0");
+		 * persona.setLast_login_date("1548716400000.0");
+		 * persona.setOnline_access_flag(false); persona.setPrimary_log_in("Test");
+		 * persona.setSystem_last_update("1548716400000.0");
+		 * persona.setLast_Activity_since_days(6);
+		 * persona.setLast_Activity_since_months(9); persona.setAge(66);
+		 * persona.setAge_group("test"); persona.setRecency_score(66);
+		 * persona.setFrequency_score(66); persona.setValue_score(66);
+		 * persona.setLast_case_category_name("Test");
+		 * persona.setLast_case_start_date("1548716400000.0");
+		 * persona.setLast_case_status_code("Test"); persona.setNb_cases_close(6);
+		 * persona.setNb_cases_close_1m(66); persona.setNb_cases_close_2m(66);
+		 * persona.setNb_cases_close_3m(66); persona.setNb_cases_close_6m(66);
+		 * persona.setNb_cases_close_12m(66); persona.setNb_cases_open(66);
+		 * persona.setNb_cases_open_1m(66); persona.setNb_cases_open_2m(66);
+		 * persona.setNb_cases_open_3m(66); persona.setNb_cases_open_6m(66);
+		 * persona.setNb_cases_open_12m(66); persona.setNb_active_chargers(66);
+		 * persona.setLimited_edition("Test"); persona.setNb_of_devices(66);
+		 * persona.setNb_of_devices_replaced(66); persona.setNb_of_holders(66);
+		 * persona.setLatest_version_of_device("Test"); persona.setNumber_of_heet(66);
+		 * persona.setLifetime_revenue(66); persona.setFirst_purchase_date(154871);
+		 * persona.setLast_order_date(1234); persona.setNumber_of_accessories(66);
+		 * persona.setNb_order(66); persona.setNb_order_average_per_month(66);
+		 * persona.setRegistration_first_order_difference_day(66);
+		 * persona.setSecond_order_difference_days(66);
+		 * persona.setTotal_spending_per_month_in_average(66);
+		 * persona.setCnt_orders(66); persona.setCnt_orders_l12m(66);
+		 * persona.setCnt_orders_l3m(66); persona.setCnt_orders_l6m(66);
+		 * persona.setRevenue_ytd(66); persona.setRevenue_l3m(66);
+		 * persona.setRevenue_l6m(66); persona.setRevenue_l12m(66);
+		 * invokeRestService.callADLWriteAPI("personas",
+		 * persona,persona.getPersona_id());
+		 */
 
 		
 		  // Write API - PersonasRequest
@@ -204,7 +183,11 @@ public class DataGeneratorApplication {
 		 * 
 		 * invokeRestService.callADLWriteAPI("orders", orders);
 		 * 
-		 */  
+		 */
+		
+		
+		
+		
 	}
 
 }
