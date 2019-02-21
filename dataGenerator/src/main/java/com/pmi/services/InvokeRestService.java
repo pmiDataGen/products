@@ -20,7 +20,6 @@ import com.pmi.pojo.DeviceResponseMapper;
 import com.pmi.pojo.Identities;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
-import com.pmi.pojo.PersonaRequest;
 import com.pmi.pojo.Quote;
 import com.pmi.util.ReadWriteCSV;
 
@@ -52,6 +51,12 @@ public class InvokeRestService {
 	@Value("${LOOKUP_API_RESPONSE_CSV_FILE_PATH}")
 	private String LOOKUP_API_RESPONSE_CSV_FILE_PATH;
 
+	@Value("${WRITE_API_REQUEST_CSV_FILE_PATH}")
+	private String WRITE_API_REQUEST_CSV_FILE_PATH;
+
+	@Value("${WRITE_API_RESPONSE_CSV_FILE_PATH}")
+	private String WRITE_API_RESPONSE_CSV_FILE_PATH;
+
 	@Value("${authToken}")
 	private String authToken;
 
@@ -70,7 +75,7 @@ public class InvokeRestService {
 		System.out.println(quote.toString());
 	}
 
-	public void callADLWriteAPI(String objName, Object writeAPIObj) {
+	public void callADLWriteAPI(String objName, Object writeAPIObj, String primaryKey) {
 		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
 		writeAPIUri = String.format(writeAPIUri, objName);
 		// create Request Header
@@ -79,15 +84,19 @@ public class InvokeRestService {
 		HttpEntity entity = new HttpEntity<>(writeAPIObj, httpHeaders);
 
 		System.out.println("Write API URI -> " + writeAPIUri);
-		System.out.println("Object value : " + writeAPIObj);
+		System.out.println("Write API Request Body -> " + entity.getBody());
+		readWriteCSV.writeToCsv(writeAPIObj, String.format(WRITE_API_REQUEST_CSV_FILE_PATH, primaryKey, objName));
 		long startTime = System.currentTimeMillis();
 		ResponseEntity responseEntity = restTemplate.exchange(writeAPIUri, HttpMethod.POST, entity,
 				writeAPIObj.getClass());
 		long endTime = System.currentTimeMillis();
 		System.out.println("===== Time taken to make writeAPI call for " + objName + " object is "
 				+ (endTime - startTime) + " milliseconds =====");
-		System.out.println("Write Response Status Code -> " + responseEntity.getStatusCode());
-		System.out.println("Write Response Body -> " + responseEntity.getBody());
+		readWriteCSV.writeToCsv(writeAPIObj, String.format(WRITE_API_RESPONSE_CSV_FILE_PATH, primaryKey, objName));
+		System.out.println("Write API Response Status Code -> " + responseEntity.getStatusCode());
+		System.out.println("Write API Response Body -> " + responseEntity.getBody());
+		System.out.println("--- Response Written to CSV available at location :"
+				+ String.format(WRITE_API_RESPONSE_CSV_FILE_PATH, primaryKey, objName));
 	}
 
 	public void callADLLookupAPI(String objName) {
@@ -105,7 +114,6 @@ public class InvokeRestService {
 
 		if (objName.equalsIgnoreCase("personas")) {
 			ResponseEntity<Persona> responseEntity = null;
-			List<ResponseEntity<Persona>> personaObjList = new ArrayList<>();
 			List<Persona> personaObjList2 = new ArrayList<>();
 			for (String id : arr) {
 				lookUpADLUri2 = lookUpADLUri + id;
@@ -115,18 +123,14 @@ public class InvokeRestService {
 				long endTime = System.currentTimeMillis();
 				System.out.println("===== Time taken to make lookup API call for " + objName + " object ID " + id
 						+ " is " + (endTime - startTime) + " milliseconds =====");
-				personaObjList.add(responseEntity);
-			}
-			for (ResponseEntity<Persona> personaObj : personaObjList) {
-				personaObjList2.add(personaObj.getBody());
-				System.out.println("The Persona Response Object --> " + personaObj.getBody());
+				System.out.println("The Persona Response Object --> " + responseEntity.getBody());
+				personaObjList2.add(responseEntity.getBody());
 			}
 			// Write Response to CSV file
 			readWriteCSV.writeToCsv(personaObjList2, String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));
 
 		} else if (objName.equalsIgnoreCase("identities")) {
 			ResponseEntity<Identities> responseEntity = null;
-			List<ResponseEntity<Identities>> identitiesResponseMapperList = new ArrayList<>();
 			List<Identities> identitiesResponseMapperList2 = new ArrayList<>();
 			for (String id : arr) {
 				lookUpADLUri2 = lookUpADLUri + id;
@@ -136,18 +140,14 @@ public class InvokeRestService {
 				long endTime = System.currentTimeMillis();
 				System.out.println("===== Time taken to make lookup API call for " + objName + " object ID " + id
 						+ " is " + (endTime - startTime) + " milliseconds =====");
-				identitiesResponseMapperList.add(responseEntity);
-			}
-			for (ResponseEntity<Identities> identityObj : identitiesResponseMapperList) {
-				identitiesResponseMapperList2.add(identityObj.getBody());
-				System.out.println("The Identity Response Object --> " + identityObj.getBody());
+				System.out.println("The Identity Response Object --> " + responseEntity.getBody());
+				identitiesResponseMapperList2.add(responseEntity.getBody());
 			}
 			// Write Response to CSV File
 			readWriteCSV.writeToCsv(identitiesResponseMapperList2,
 					String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));
 		} else if (objName.equalsIgnoreCase("devices")) {
 			ResponseEntity<DeviceResponseMapper> responseEntity = null;
-			List<ResponseEntity<DeviceResponseMapper>> deviceResponseMapperList = new ArrayList<>();
 			List<DeviceResponseMapper> deviceResponseMapperList2 = new ArrayList<>();
 			for (String id : arr) {
 				lookUpADLUri2 = lookUpADLUri + id;
@@ -158,18 +158,14 @@ public class InvokeRestService {
 				long endTime = System.currentTimeMillis();
 				System.out.println("===== Time taken to make lookup API call for " + objName + " object ID " + id
 						+ " is " + (endTime - startTime) + " milliseconds =====");
-				deviceResponseMapperList.add(responseEntity);
-			}
-			for (ResponseEntity<DeviceResponseMapper> deviceObj : deviceResponseMapperList) {
-				deviceResponseMapperList2.add(deviceObj.getBody());
-				System.out.println("The Device Response Object --> " + deviceObj.getBody());
+				System.out.println("The Device Response Object --> " + responseEntity.getBody());
+				deviceResponseMapperList2.add(responseEntity.getBody());
 			}
 			// Write Response to CSV File
 			readWriteCSV.writeToCsv(deviceResponseMapperList2,
 					String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));
 		} else if (objName.equalsIgnoreCase("cases")) {
 			ResponseEntity<Cases> responseEntity = null;
-			List<ResponseEntity<Cases>> casesResponseList = new ArrayList<>();
 			List<Cases> casesResponseList2 = new ArrayList<>();
 			for (String id : arr) {
 				lookUpADLUri2 = lookUpADLUri + id;
@@ -179,17 +175,13 @@ public class InvokeRestService {
 				long endTime = System.currentTimeMillis();
 				System.out.println("===== Time taken to make lookup API call for " + objName + " object ID " + id
 						+ " is " + (endTime - startTime) + " milliseconds =====");
-				casesResponseList.add(responseEntity);
-			}
-			for (ResponseEntity<Cases> casesObj : casesResponseList) {
-				casesResponseList2.add(casesObj.getBody());
-				System.out.println("The Cases Response Object --> " + casesObj.getBody());
+				System.out.println("The Cases Response Object --> " + responseEntity.getBody());
+				casesResponseList2.add(responseEntity.getBody());
 			}
 			// Write Response to CSV File
 			readWriteCSV.writeToCsv(casesResponseList2, String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));
 		} else if (objName.equalsIgnoreCase("orders")) {
 			ResponseEntity<Orders> responseEntity = null;
-			List<ResponseEntity<Orders>> ordersResponseList = new ArrayList<>();
 			List<Orders> ordersResponseList2 = new ArrayList<>();
 			for (String id : arr) {
 				lookUpADLUri2 = lookUpADLUri + id;
@@ -199,11 +191,8 @@ public class InvokeRestService {
 				long endTime = System.currentTimeMillis();
 				System.out.println("===== Time taken to make lookup API call for " + objName + " object ID " + id
 						+ " is " + (endTime - startTime) + " milliseconds =====");
-				ordersResponseList.add(responseEntity);
-			}
-			for (ResponseEntity<Orders> ordersObj : ordersResponseList) {
-				ordersResponseList2.add(ordersObj.getBody());
-				System.out.println("The Orders Response Object --> " + ordersObj.getBody());
+				System.out.println("The Orders Response Object --> " + responseEntity.getBody());
+				ordersResponseList2.add(responseEntity.getBody());
 			}
 			// Write Response to CSV File
 			readWriteCSV.writeToCsv(ordersResponseList2, String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));

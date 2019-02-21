@@ -136,7 +136,7 @@ public class DataGeneratorApplication {
 		persona.setRevenue_l6m(66);
 		persona.setRevenue_l12m(66);
 		
-		invokeRestService.callADLWriteAPI("personas", persona);
+		invokeRestService.callADLWriteAPI("personas", persona,persona.getPersona_id());
 
 		
 		  // Write API - PersonasRequest
