@@ -39,6 +39,7 @@ public class Identities {
 	private String registration_source_app;
 	private String registration_country;
 	private String registration_referal_identifier;
+	private String apiCallTimeTakenInMillis;
 	
 	
 	@Override
@@ -48,11 +49,11 @@ public class Identities {
 				+ home_country + ", is_deleted=" + is_deleted + ", blocked_flag=" + blocked_flag + ", consumer_type="
 				+ consumer_type + ", preferred_language=" + preferred_language + ", date_of_birth=" + date_of_birth
 				+ ", segment=" + segment + ", last_login_date=" + last_login_date + ", registration_date="
-				+ registration_date 
-				+ ", nick_name=" + nick_name + ", full_name=" + full_name + ", email=" + email + ", address=" + address
-				+ ", phone_name=" + phone_number + ", registration_source_app=" + registration_source_app
-				+ ", registration_country=" + registration_country + ", registration_referal_identifier="
-				+ registration_referal_identifier + "]";
+				+ registration_date + ", nick_name=" + nick_name + ", full_name=" + full_name + ", email=" + email
+				+ ", address=" + address + ", phone_number=" + phone_number + ", registration_source_app="
+				+ registration_source_app + ", registration_country=" + registration_country
+				+ ", registration_referal_identifier=" + registration_referal_identifier + ", apiCallTimeTakenInMillis="
+				+ apiCallTimeTakenInMillis + "]";
 	}
 	
 	
@@ -199,6 +200,16 @@ public class Identities {
 	}
 	public void setRegistration_referal_identifier(String registration_referal_identifier) {
 		this.registration_referal_identifier = registration_referal_identifier;
+	}
+
+
+	public String getApiCallTimeTakenInMillis() {
+		return apiCallTimeTakenInMillis;
+	}
+
+
+	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
+		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
 	
 	
