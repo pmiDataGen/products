@@ -63,7 +63,27 @@ public class ReadWriteCSV {
 			beanToCsv.write(objList); // Write list to StatefulBeanToCsv object
 
 			writer.close();// closing the writer object
-			
+
+		} catch (CsvDataTypeMismatchException | CsvRequiredFieldEmptyException | IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	// override method
+	public void writeToCsv(Object obj, String filePath) {
+
+		try {
+			File file = new File(filePath);
+			file.createNewFile();
+			FileWriter writer = new FileWriter(filePath);
+
+			StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+
+			beanToCsv.write(obj); // Write list to StatefulBeanToCsv object
+
+			writer.close();// closing the writer object
+
 		} catch (CsvDataTypeMismatchException | CsvRequiredFieldEmptyException | IOException e) {
 			e.printStackTrace();
 		}

@@ -51,6 +51,12 @@ public class InvokeRestService {
 
 	@Value("${LOOKUP_API_RESPONSE_CSV_FILE_PATH}")
 	private String LOOKUP_API_RESPONSE_CSV_FILE_PATH;
+	
+	@Value("${WRITE_API_REQUEST_CSV_FILE_PATH}")
+	private String WRITE_API_REQUEST_CSV_FILE_PATH;
+
+	@Value("${WRITE_API_RESPONSE_CSV_FILE_PATH}")
+	private String WRITE_API_RESPONSE_CSV_FILE_PATH;
 
 	@Value("${authToken}")
 	private String authToken;
@@ -70,7 +76,7 @@ public class InvokeRestService {
 		System.out.println(quote.toString());
 	}
 
-	public void callADLWriteAPI(String objName, Object writeAPIObj) {
+	public void callADLWriteAPI(String objName, Object writeAPIObj, String primaryKey) {
 		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
 		writeAPIUri = String.format(writeAPIUri, objName);
 		// create Request Header
@@ -79,15 +85,17 @@ public class InvokeRestService {
 		HttpEntity entity = new HttpEntity<>(writeAPIObj, httpHeaders);
 
 		System.out.println("Write API URI -> " + writeAPIUri);
-		System.out.println("Object value : " + writeAPIObj);
+		System.out.println("Write API Request Body -> " + entity.getBody());
+		readWriteCSV.writeToCsv(writeAPIObj, String.format(WRITE_API_REQUEST_CSV_FILE_PATH, primaryKey,objName));
 		long startTime = System.currentTimeMillis();
 		ResponseEntity responseEntity = restTemplate.exchange(writeAPIUri, HttpMethod.POST, entity,
 				writeAPIObj.getClass());
 		long endTime = System.currentTimeMillis();
 		System.out.println("===== Time taken to make writeAPI call for " + objName + " object is "
 				+ (endTime - startTime) + " milliseconds =====");
-		System.out.println("Write Response Status Code -> " + responseEntity.getStatusCode());
-		System.out.println("Write Response Body -> " + responseEntity.getBody());
+		readWriteCSV.writeToCsv(writeAPIObj, String.format(WRITE_API_RESPONSE_CSV_FILE_PATH, primaryKey,objName));
+		System.out.println("Write API Response Status Code -> " + responseEntity.getStatusCode());
+		System.out.println("Write API Response Body -> " + responseEntity.getBody());
 	}
 
 	public void callADLLookupAPI(String objName) {

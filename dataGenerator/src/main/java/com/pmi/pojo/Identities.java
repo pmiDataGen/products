@@ -14,6 +14,7 @@ public class Identities {
 	public Identities() {
 		System.out.println("This is D.C Identities Class");
 	}
+	private String td_c360_operation;
 	private String identity_id;
 	private String persona_id;
 	private String login_name;
@@ -199,6 +200,16 @@ public class Identities {
 	}
 	public void setRegistration_referal_identifier(String registration_referal_identifier) {
 		this.registration_referal_identifier = registration_referal_identifier;
+	}
+
+
+	public String getTd_c360_operation() {
+		return td_c360_operation;
+	}
+
+
+	public void setTd_c360_operation(String td_c360_operation) {
+		this.td_c360_operation = td_c360_operation;
 	}
 	
 	

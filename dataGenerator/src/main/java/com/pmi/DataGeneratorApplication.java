@@ -64,14 +64,14 @@ public class DataGeneratorApplication {
 		// invokeRestService.callADLLookupAPI("cases");
 		// invokeRestService.callADLLookupAPI("orders");
 
-		
-		  // Write API - Personas
-		 /* 
-		  PersonaRequest persona = new PersonaRequest();
-		  persona.setTd_c360_operation("put"); persona.setPersona_id("100");
-		  persona.setLast_name("mishra"); persona.setFirst_name("vikas");
-		  persona.setGender("male"); persona.setHome_country("india");
-		  invokeRestService.callADLWriteAPI("personas", persona);
+		// Write API - Personas
+		/*
+		 * PersonaRequest persona = new PersonaRequest();
+		 * persona.setTd_c360_operation("put"); persona.setPersona_id("100");
+		 * persona.setLast_name("mishra"); persona.setFirst_name("vikas");
+		 * persona.setGender("male"); persona.setHome_country("india");
+		 * invokeRestService.callADLWriteAPI("personas", persona,
+		 * persona.getPersona_id());
 		 */
 
 		// Write API - Identities
@@ -80,13 +80,13 @@ public class DataGeneratorApplication {
 		 * identities.setTd_c360_operation("merge"); identities.setIdentity_id("166");
 		 * identities.setPersona_id("166"); identities.setLast_name("Test");
 		 * identities.setFirst_name("Test"); identities.setLogin_name("Test");
-		 * identities.setFull_name("Test66"); //identities.setNick_name("Test66"); //
+		 * identities.setFull_name("Test66"); // identities.setNick_name("Test66"); //
 		 * identities.setDate_of_birth("1978.10.09"); //
 		 * identities.setAddress("US, Los Angeles, 1st Alley"); //
 		 * identities.setPhone_number("501502503.0"); //
-		 * identities.setEmail("Test66@pmi.com"); //identities.setGender("M"); //
-		 * identities.setHome_country("Test66"); //identities.setBlocked_flag(false); //
-		 * identities.setIs_deleted(false); //
+		 * identities.setEmail("Test66@pmi.com"); // identities.setGender("M"); //
+		 * identities.setHome_country("Test66"); // identities.setBlocked_flag(false);
+		 * // identities.setIs_deleted(false); //
 		 * identities.setRegistration_date("1548716400000.0"); //
 		 * identities.setRegistration_source_app("Test66"); //
 		 * identities.setRegistration_country("Test66"); //
@@ -95,8 +95,8 @@ public class DataGeneratorApplication {
 		 * identities.setPreferred_language("Test66"); //
 		 * identities.setSegment("Test66"); //
 		 * identities.setLast_login_date("1548716400000.0");
-		 * 
-		 * invokeRestService.callADLWriteAPI("identities", identities);
+		 * invokeRestService.callADLWriteAPI("identities", identities,
+		 * identities.getIdentity_id());
 		 */
 
 		// Write API - Cases
@@ -110,36 +110,31 @@ public class DataGeneratorApplication {
 		 * cases.setStatus("Test"); cases.setDescription("Test");
 		 * cases.setSubject_code(66); cases.setSubject_description(66);
 		 * cases.setLatest_update_date("Test"); cases.setHome_country("Test");
-		 * 
-		 * 
-		 * invokeRestService.callADLWriteAPI("cases", cases);
+		 * invokeRestService.callADLWriteAPI("cases", cases, cases.getCase_id());
 		 */
-		
-		//Write API - Orders
-		
-		
-		  Orders orders = new Orders(); 
-		  orders.setTd_c360_operation("put");
-		  orders.setPersona_id("66"); 
-		  orders.setOrder_id("66");
-		  orders.setOrder_item_identifier("66"); 
-		  orders.setOrder_items("66");
-		  orders.setCountry("Test");
-		  orders.setOrder_amount(66);
-		  orders.setOrder_discount(66);
-		  orders.setOrder_type("test");
-		  orders.setOrder_status("test");
-		  orders.setOrder_date("1548716400000.0");
-		  orders.setOrder_currency("Test");
-		  orders.setItem_identifier("66");
-		  orders.setProduct_variant("test");
-		  orders.setItem_description("test");
-		  orders.setItem_price(66);
-		  orders.setItem_quantity(66);
-		  orders.setHome_country("test");
-		  orders.setStatus("test");
-		  
-		  invokeRestService.callADLWriteAPI("orders", orders);
+
+		// Write API - Orders
+		Orders orders = new Orders();
+		orders.setTd_c360_operation("put");
+		orders.setPersona_id("66");
+		orders.setOrder_id("66");
+		orders.setOrder_item_identifier("66");
+		orders.setOrder_items("66");
+		orders.setCountry("Test");
+		orders.setOrder_amount(66);
+		orders.setOrder_discount(66);
+		orders.setOrder_type("test");
+		orders.setOrder_status("test");
+		orders.setOrder_date("1548716400000.0");
+		orders.setOrder_currency("Test");
+		orders.setItem_identifier("66");
+		orders.setProduct_variant("test");
+		orders.setItem_description("test");
+		orders.setItem_price(66);
+		orders.setItem_quantity(66);
+		orders.setHome_country("test");
+		orders.setStatus("test");
+		invokeRestService.callADLWriteAPI("orders", orders, orders.getOrder_id());
 	}
 
 }
