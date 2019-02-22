@@ -3,7 +3,7 @@ package com.pmi.pojo;
 import java.util.Date;
 
 public class Device {
-
+	private String td_c360_operation;
 	private String device_codentify; // this is primary key
 	private String identity_unique_identifier;
 	private String persona_identifier;
@@ -17,29 +17,30 @@ public class Device {
 	private String home_country;
 	private String apiCallTimeTakenInMillis;
 
-	// Below fields received from POSTMAN response
-	private String identity_id;
-	private String model;
-	private String persona_id;
-	private String device_serial_number;
-	private String time;
-	private String td_c360_operation_time; // td:c360:operation_time
-
 	public Device() {
 		System.out.println("This is Device - Default Constructor");
 	}
 
-	@Override
-	public String toString() {
-		return "Device [device_codentify=" + device_codentify + ", identity_unique_identifier="
-				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", device_type="
-				+ device_type + ", device_version=" + device_version + ", registration_device_date="
-				+ registration_device_date + ", status=" + status + ", component_Code=" + component_Code
-				+ ", status_date_change=" + status_date_change + ", end_of_warranty_date=" + end_of_warranty_date
-				+ ", home_country=" + home_country + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
-				+ ", identity_id=" + identity_id + ", model=" + model + ", persona_id=" + persona_id
-				+ ", device_serial_number=" + device_serial_number + ", time=" + time + ", td_c360_operation_time="
-				+ td_c360_operation_time + "]";
+	public Device(String device_codentify) {
+		this.device_codentify = device_codentify;
+	}
+
+	public Device(String td_c360_operation, String device_codentify, String identity_unique_identifier, String persona_identifier,
+			String device_type, String device_version, Date registration_device_date, String status,
+			String component_Code, Date status_date_change, Date end_of_warranty_date, String home_country, String apiCallTimeTakenInMillis) {
+		this.td_c360_operation = td_c360_operation;;
+		this.device_codentify = device_codentify;
+		this.identity_unique_identifier = identity_unique_identifier;
+		this.persona_identifier = persona_identifier;
+		this.device_type = device_type;
+		this.device_version = device_version;
+		this.registration_device_date = registration_device_date;
+		this.status = status;
+		this.component_Code = component_Code;
+		this.status_date_change = status_date_change;
+		this.end_of_warranty_date = end_of_warranty_date;
+		this.home_country = home_country;
+		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
 
 	public String getDevice_codentify() {
@@ -138,52 +139,13 @@ public class Device {
 		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
 
-	public String getIdentity_id() {
-		return identity_id;
+	public String getTd_c360_operation() {
+		return td_c360_operation;
 	}
 
-	public void setIdentity_id(String identity_id) {
-		this.identity_id = identity_id;
+	public void setTd_c360_operation(String td_c360_operation) {
+		this.td_c360_operation = td_c360_operation;
 	}
 
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public String getPersona_id() {
-		return persona_id;
-	}
-
-	public void setPersona_id(String persona_id) {
-		this.persona_id = persona_id;
-	}
-
-	public String getDevice_serial_number() {
-		return device_serial_number;
-	}
-
-	public void setDevice_serial_number(String device_serial_number) {
-		this.device_serial_number = device_serial_number;
-	}
-
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
-
-	public String getTd_c360_operation_time() {
-		return td_c360_operation_time;
-	}
-
-	public void setTd_c360_operation_time(String td_c360_operation_time) {
-		this.td_c360_operation_time = td_c360_operation_time;
-	}
-
+	
 }
