@@ -1,5 +1,7 @@
 package com.pmi;
 
+import java.util.List;
+
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,11 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 
-import com.pmi.pojo.Persona;
-import com.pmi.pojo.Identities;
-import com.pmi.pojo.PersonaRequest;
 import com.pmi.pojo.Cases;
-import com.pmi.pojo.Orders;
 import com.pmi.services.DataGenService;
 import com.pmi.services.InvokeRestService;
 import com.pmi.util.ReadWriteCSV;
@@ -58,18 +56,25 @@ public class DataGeneratorApplication {
 		invokeRestService.callDemoService();
 		System.out.println("====================================================================================");
 
+		List<Cases> casesList = dataGenService.createCasesObject(10, "PUT");
+		System.out.println("HHHHHH");
+		System.out.println("+++++ Case List -> " + casesList);
+		for (Cases cases : casesList) {
+			System.out.println("+++++ Case List -> " + cases);
+		}
+
 		// Read API
 		// System.out.println("Calling ADL Look-up Service");
 		// invokeRestService.callADLLookupAPI("personas");
 		// invokeRestService.callADLLookupAPI("identities");
 		// invokeRestService.callADLLookupAPI("devices");
 		// invokeRestService.callADLLookupAPI("cases");
-		//invokeRestService.callADLLookupAPI("orders");
-		
-		//invokeRestService.callADLBulkWriteAPI("personas");
-		//invokeRestService.callADLBulkWriteAPI("identities");
-		//invokeRestService.callADLBulkWriteAPI("cases");
-		//invokeRestService.callADLBulkWriteAPI("orders");
+		// invokeRestService.callADLLookupAPI("orders");
+
+		// invokeRestService.callADLBulkWriteAPI("personas");
+		// invokeRestService.callADLBulkWriteAPI("identities");
+		// invokeRestService.callADLBulkWriteAPI("cases");
+		// invokeRestService.callADLBulkWriteAPI("orders");
 
 		// Write API - Personas
 		/*
@@ -117,15 +122,14 @@ public class DataGeneratorApplication {
 		 * persona,persona.getPersona_id());
 		 */
 
-		
-		  // Write API - PersonasRequest
-		 /* 
-		  PersonaRequest persona = new PersonaRequest();
-		  persona.setTd_c360_operation("put"); persona.setPersona_id("100");
-		  persona.setLast_name("mishra"); persona.setFirst_name("vikas");
-		  persona.setGender("male"); persona.setHome_country("india");
-		  
-		  invokeRestService.callADLWriteAPI("personas", persona);
+		// Write API - PersonasRequest
+		/*
+		 * PersonaRequest persona = new PersonaRequest();
+		 * persona.setTd_c360_operation("put"); persona.setPersona_id("100");
+		 * persona.setLast_name("mishra"); persona.setFirst_name("vikas");
+		 * persona.setGender("male"); persona.setHome_country("india");
+		 * 
+		 * invokeRestService.callADLWriteAPI("personas", persona);
 		 */
 
 		// Write API - Identities
@@ -167,8 +171,8 @@ public class DataGeneratorApplication {
 		 * 
 		 * invokeRestService.callADLWriteAPI("cases", cases);
 		 */
-		
-		//Write API - Orders
+
+		// Write API - Orders
 		/*
 		 * Orders orders = new Orders(); orders.setTd_c360_operation("put");
 		 * orders.setPersona_id("66"); orders.setOrder_id("66");
@@ -184,10 +188,7 @@ public class DataGeneratorApplication {
 		 * invokeRestService.callADLWriteAPI("orders", orders);
 		 * 
 		 */
-		
-		
-		
-		
+
 	}
 
 }
