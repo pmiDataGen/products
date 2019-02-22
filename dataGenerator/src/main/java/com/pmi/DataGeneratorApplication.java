@@ -1,7 +1,5 @@
 package com.pmi;
 
-import java.util.List;
-
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,8 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 
-import com.pmi.pojo.Cases;
-import com.pmi.services.DataGenService;
 import com.pmi.services.InvokeRestService;
 import com.pmi.util.ReadWriteCSV;
 
@@ -48,20 +44,18 @@ public class DataGeneratorApplication {
 		ConfigurableApplicationContext applicationContext = SpringApplication.run(DataGeneratorApplication.class, args);
 		System.out.println("=================Spring Container Ready===============");
 
-		DataGenService dataGenService = applicationContext.getBean(DataGenService.class);
-		dataGenService.generateRandomData();
+//		DataGenService dataGenService = applicationContext.getBean(DataGenService.class);
+//		dataGenService.generateRandomData();
 
 		System.out.println("Calling rest Service");
 		InvokeRestService invokeRestService = applicationContext.getBean(InvokeRestService.class);
 		invokeRestService.callDemoService();
 		System.out.println("====================================================================================");
 
-		List<Cases> casesList = dataGenService.createCasesObject(10, "PUT");
-		System.out.println("HHHHHH");
-		System.out.println("+++++ Case List -> " + casesList);
-		for (Cases cases : casesList) {
-			System.out.println("+++++ Case List -> " + cases);
-		}
+//		List<Cases> casesList = dataGenService.createCasesObject(10, "PUT");
+//		for (Cases cases : casesList) {
+//			System.out.println("Case List -> " + cases);
+//		}
 
 		// Read API
 		// System.out.println("Calling ADL Look-up Service");

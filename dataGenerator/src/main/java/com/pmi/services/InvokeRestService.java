@@ -126,7 +126,31 @@ public class InvokeRestService {
 					+ " milliseconds");
 			System.out.println("Write API Response Status Code -> " + responseEntity.getStatusCode());
 			System.out.println("Write API Response Body -> " + responseEntity.getBody());
-			responseObjlist.add(responseEntity.getBody());
+
+			if (responseEntity.getBody() instanceof Persona) {
+				Persona persona = (Persona) responseEntity.getBody();
+				persona.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(persona);
+			} else if (responseEntity.getBody() instanceof Identities) {
+				Identities identities = (Identities) responseEntity.getBody();
+				identities.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(identities);
+			} else if (responseEntity.getBody() instanceof Orders) {
+				Orders orders = (Orders) responseEntity.getBody();
+				orders.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(orders);
+			} else if (responseEntity.getBody() instanceof Cases) {
+				Cases cases = (Cases) responseEntity.getBody();
+				cases.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(cases);
+			} else if (responseEntity.getBody() instanceof Device) {
+				Device device = (Device) responseEntity.getBody();
+				device.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(device);
+			} else {
+				responseObjlist.add(responseEntity.getBody());
+			}
+
 			System.out.println("====================================================================================");
 		}
 		// Write the response of Bulk Write API response to CSV

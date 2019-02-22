@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.pmi.pojo.Cases;
@@ -14,6 +15,7 @@ import com.pmi.pojo.Device;
 import com.pmi.pojo.Identities;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
+import com.pmi.util.ReadWriteCSV;
 
 /**
  * @author vikas.e.mishra
@@ -25,16 +27,18 @@ public class DataGenService {
 	@Autowired
 	private DataFactory dataFactory;
 
+	@Autowired
+	private ReadWriteCSV readWriteCSV;
+
+	@Value("${WRITE_API_BULK_REQUEST_CSV_FILE_PATH}")
+	private String WRITE_API_BULK_REQUEST_CSV_FILE_PATH;
+
 	public void generateRandomData() {
 
 		for (int i = 0; i < 10; i++) {
 			Calendar c = Calendar.getInstance();
 			c.set(2013, Calendar.JANUARY, 9);
 			c.getTime();
-//			Date d = dataFactory.getDateBetween(c.getTime(), new Date());
-//			System.out.println(d.toString());
-//			System.out.println(d.getTime());
-//			System.out.println(d.getTime()/1000l);
 
 			System.out.println(dataFactory.getFirstName() + " " + dataFactory.getLastName());
 			System.out.println("getAddress :" + dataFactory.getAddress());
@@ -58,6 +62,27 @@ public class DataGenService {
 		}
 	}
 
+	public List generateRandomData(String objName, String operationType, Integer numberOfObjects) {
+		List dataList = null;
+		if (objName.equalsIgnoreCase("personas")) {
+			dataList = createPersonaObject(numberOfObjects.intValue(), operationType);
+		} else if (objName.equalsIgnoreCase("identities")) {
+			dataList = createIdentitiesObject(numberOfObjects.intValue(), operationType);
+		} else if (objName.equalsIgnoreCase("orders")) {
+			dataList = createOrdersObject(numberOfObjects.intValue(), operationType);
+		} else if (objName.equalsIgnoreCase("cases")) {
+			dataList = createCasesObject(numberOfObjects.intValue(), operationType);
+		} else if (objName.equalsIgnoreCase("devices")) {
+			dataList = createDeviceObject(numberOfObjects.intValue(), operationType);
+		}
+		// Write the generated data to CSV file
+		readWriteCSV.writeToCsv(dataList, String.format(WRITE_API_BULK_REQUEST_CSV_FILE_PATH, objName));
+		System.out.println("Generated Data written into CSV file at Location : "
+				+ String.format(WRITE_API_BULK_REQUEST_CSV_FILE_PATH, objName));
+
+		return dataList;
+	}
+
 	public List<Cases> createCasesObject(int numberOfObjects, String operationType) {
 
 		// To create random Dates
@@ -75,12 +100,14 @@ public class DataGenService {
 			cases.setCase_id(String.valueOf(dataFactory.getNumberBetween(0, 999)));
 			cases.setCase_source(dataFactory.getRandomWord());
 			cases.setCase_type(dataFactory.getRandomWord());
-			cases.setClosing_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			cases.setClosing_date(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			cases.setCreate_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			cases.setDescription(dataFactory.getRandomWord());
 			cases.setHome_country(dataFactory.getCity());
 			cases.setIdentity_id(dataFactory.getNumberText(3));
-			cases.setLatest_update_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			cases.setLatest_update_date(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			cases.setOrder_id(dataFactory.getNumberText(3));
 			cases.setPersona_id(dataFactory.getNumberText(3));
 			cases.setSerial_numer(dataFactory.getNumberText(2));
@@ -94,7 +121,7 @@ public class DataGenService {
 		return casesObjectList;
 
 	}
-	
+
 	public List<Orders> createOrdersObject(int numberOfObjects, String operationType) {
 
 		// To create random Dates
@@ -106,25 +133,25 @@ public class DataGenService {
 
 		for (int i = 0; i < numberOfObjects; i++) {
 			Orders orders = new Orders();
-			orders.setCountry(dataFactory.getCity());	
-			orders.setHome_country(dataFactory.getCity());	
-			orders.setIdentity_id(dataFactory.getNumberText(3));	
-			orders.setItem_description(dataFactory.getRandomWord());	
-			orders.setItem_identifier(dataFactory.getNumberText(3));	
-			orders.setItem_price(dataFactory.getNumberUpTo(1000));	
-			orders.setItem_quantity(dataFactory.getNumberBetween(10, 100));	
-			orders.setOrder_amount(dataFactory.getNumberUpTo(500));	
-			orders.setOrder_currency(dataFactory.getNumberText(3));	
-			orders.setOrder_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));	
-			orders.setOrder_discount(dataFactory.getNumberUpTo(50));	
-			orders.setOrder_id(dataFactory.getNumberText(3));	
-			orders.setOrder_item_identifier(dataFactory.getNumberText(3));	
-			orders.setOrder_items(dataFactory.getNumberText(3));	
-			orders.setOrder_status(dataFactory.getRandomWord());	
-			orders.setOrder_type(dataFactory.getRandomWord());	
-			orders.setPersona_id(dataFactory.getNumberText(3));	
-			orders.setProduct_variant(dataFactory.getRandomWord());	
-			orders.setStatus(dataFactory.getRandomWord());	
+			orders.setCountry(dataFactory.getCity());
+			orders.setHome_country(dataFactory.getCity());
+			orders.setIdentity_id(dataFactory.getNumberText(3));
+			orders.setItem_description(dataFactory.getRandomWord());
+			orders.setItem_identifier(dataFactory.getNumberText(3));
+			orders.setItem_price(dataFactory.getNumberUpTo(1000));
+			orders.setItem_quantity(dataFactory.getNumberBetween(10, 100));
+			orders.setOrder_amount(dataFactory.getNumberUpTo(500));
+			orders.setOrder_currency(dataFactory.getNumberText(3));
+			orders.setOrder_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			orders.setOrder_discount(dataFactory.getNumberUpTo(50));
+			orders.setOrder_id(dataFactory.getNumberText(3));
+			orders.setOrder_item_identifier(dataFactory.getNumberText(3));
+			orders.setOrder_items(dataFactory.getNumberText(3));
+			orders.setOrder_status(dataFactory.getRandomWord());
+			orders.setOrder_type(dataFactory.getRandomWord());
+			orders.setPersona_id(dataFactory.getNumberText(3));
+			orders.setProduct_variant(dataFactory.getRandomWord());
+			orders.setStatus(dataFactory.getRandomWord());
 			orders.setTd_c360_operation(operationType);
 
 			ordersObjectList.add(orders);
@@ -133,7 +160,7 @@ public class DataGenService {
 		return ordersObjectList;
 
 	}
-	
+
 	public List<Persona> createPersonaObject(int numberOfObjects, String operationType) {
 
 		// To create random Dates
@@ -158,15 +185,20 @@ public class DataGenService {
 			persona.setIs_deleted(false);
 			persona.setBlocked_flag(false);
 			persona.setConsumer_type(dataFactory.getRandomWord());
-			persona.setDate_of_birth(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			persona.setDate_of_birth(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			persona.setSegment(dataFactory.getRandomWord());
 			persona.setRegistration_date(dataFactory.getNumberUpTo(8));
-			persona.setFirst_login_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			persona.setLast_update_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			persona.setLast_login_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			persona.setFirst_login_date(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			persona.setLast_update_date(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			persona.setLast_login_date(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			persona.setOnline_access_flag(false);
 			persona.setPrimary_log_in(dataFactory.getNumberText(3));
-			persona.setSystem_last_update(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			persona.setSystem_last_update(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			persona.setLast_Activity_since_days(dataFactory.getNumberUpTo(100));
 			persona.setLast_Activity_since_months(dataFactory.getNumberUpTo(10));
 			persona.setAge(dataFactory.getNumberBetween(18, 50));
@@ -175,7 +207,8 @@ public class DataGenService {
 			persona.setFrequency_score(dataFactory.getNumberBetween(150, 151));
 			persona.setValue_score(dataFactory.getNumberUpTo(2));
 			persona.setLast_case_category_name(dataFactory.getRandomWord());
-			persona.setLast_case_start_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			persona.setLast_case_start_date(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			persona.setLast_case_status_code(dataFactory.getNumberText(3));
 			persona.setNb_cases_close(dataFactory.getNumberUpTo(10));
 			persona.setNb_cases_close_1m(dataFactory.getNumberUpTo(10));
@@ -214,14 +247,14 @@ public class DataGenService {
 			persona.setRevenue_l6m(dataFactory.getNumberUpTo(10));
 			persona.setRevenue_l12m(dataFactory.getNumberUpTo(10));
 			persona.setTd_c360_operation(operationType);
-			
+
 			personaObjectList.add(persona);
 		}
 
 		return personaObjectList;
 
 	}
-	
+
 	public List<Identities> createIdentitiesObject(int numberOfObjects, String operationType) {
 
 		// To create random Dates
@@ -233,38 +266,41 @@ public class DataGenService {
 
 		for (int i = 0; i < numberOfObjects; i++) {
 			Identities identities = new Identities();
-			identities.setTd_c360_operation(operationType); 
+			identities.setTd_c360_operation(operationType);
 			identities.setIdentity_id(dataFactory.getNumberText(3));
-			identities.setPersona_id(dataFactory.getNumberText(3)); 
+			identities.setPersona_id(dataFactory.getNumberText(3));
 			identities.setLast_name(dataFactory.getLastName());
-			identities.setFirst_name(dataFactory.getFirstName()); 
+			identities.setFirst_name(dataFactory.getFirstName());
 			identities.setLogin_name(dataFactory.getBusinessName());
 			identities.setFull_name(dataFactory.getName());
-			identities.setNick_name(dataFactory.getName()); 
-			identities.setDate_of_birth(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l)); 
-			identities.setAddress(dataFactory.getAddress()); 
-			identities.setPhone_number(dataFactory.getNumberText(10)); 
+			identities.setNick_name(dataFactory.getName());
+			identities.setDate_of_birth(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			identities.setAddress(dataFactory.getAddress());
+			identities.setPhone_number(dataFactory.getNumberText(10));
 			identities.setEmail(dataFactory.getEmailAddress());
-			identities.setGender(dataFactory.getRandomWord(1, 1)); 
+			identities.setGender(dataFactory.getRandomWord(1, 1));
 			identities.setHome_country(dataFactory.getCity());
-			identities.setBlocked_flag(false); 
+			identities.setBlocked_flag(false);
 			identities.setIs_deleted(false);
-			identities.setRegistration_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			identities.setRegistration_date(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			identities.setRegistration_source_app("Test66");
-			identities.setRegistration_country(dataFactory.getCity()); 
+			identities.setRegistration_country(dataFactory.getCity());
 			identities.setRegistration_referal_identifier(dataFactory.getNumberText(3));
 			identities.setConsumer_type(dataFactory.getRandomWord());
-			identities.setPreferred_language(dataFactory.getCity()); 
+			identities.setPreferred_language(dataFactory.getCity());
 			identities.setSegment(dataFactory.getRandomWord());
-			identities.setLast_login_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			
+			identities.setLast_login_date(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+
 			identitiesObjectList.add(identities);
 		}
 
 		return identitiesObjectList;
 
 	}
-	
+
 	public List<Device> createDeviceObject(int numberOfObjects, String operationType) {
 
 		// To create random Dates
@@ -277,22 +313,25 @@ public class DataGenService {
 		for (int i = 0; i < numberOfObjects; i++) {
 			Device device = new Device();
 			device.setTd_c360_operation(operationType);
-			device.setDevice_codentify(dataFactory.getNumberText(3)); 
+			device.setDevice_codentify(dataFactory.getNumberText(3));
 			device.setIdentity_unique_identifier(dataFactory.getNumberText(3));
 			device.setPersona_identifier(dataFactory.getNumberText(3));
 			device.setDevice_type(dataFactory.getRandomWord());
 			device.setDevice_version(dataFactory.getNumberText(3));
-			device.setRegistration_device_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			device.setRegistration_device_date(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			device.setStatus(dataFactory.getRandomWord());
 			device.setComponent_Code(dataFactory.getNumberText(3));
-			device.setStatus_date_change(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			device.setEnd_of_warranty_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			device.setStatus_date_change(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			device.setEnd_of_warranty_date(
+					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			device.setHome_country(dataFactory.getCity());
 			device.setIdentity_id(dataFactory.getNumberText(3));
 			device.setModel(dataFactory.getNumberText(3));
 			device.setPersona_id(dataFactory.getNumberText(3));
 			device.setDevice_serial_number(dataFactory.getNumberText(3));
-			
+
 			DeviceObjectList.add(device);
 		}
 
