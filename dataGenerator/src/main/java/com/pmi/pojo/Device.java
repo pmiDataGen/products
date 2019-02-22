@@ -1,7 +1,5 @@
 package com.pmi.pojo;
 
-import java.util.Date;
-
 public class Device {
 	private String td_c360_operation;
 	private String device_codentify; // this is primary key
@@ -9,11 +7,11 @@ public class Device {
 	private String persona_identifier;
 	private String device_type;
 	private String device_version;
-	private Date registration_device_date;
+	private String registration_device_date;
 	private String status;
 	private String component_Code;
-	private Date status_date_change;
-	private Date end_of_warranty_date;
+	private String status_date_change;
+	private String end_of_warranty_date;
 	private String home_country;
 	private String apiCallTimeTakenInMillis;
 
@@ -85,12 +83,12 @@ public class Device {
 		this.device_version = device_version;
 	}
 
-	public Date getRegistration_device_date() {
+	public String getRegistration_device_date() {
 		return registration_device_date;
 	}
 
-	public void setRegistration_device_date(Date registration_device_date) {
-		this.registration_device_date = registration_device_date;
+	public void setRegistration_device_date(String string) {
+		this.registration_device_date = string;
 	}
 
 	public String getStatus() {
@@ -109,20 +107,20 @@ public class Device {
 		this.component_Code = component_Code;
 	}
 
-	public Date getStatus_date_change() {
+	public String getStatus_date_change() {
 		return status_date_change;
 	}
 
-	public void setStatus_date_change(Date status_date_change) {
-		this.status_date_change = status_date_change;
+	public void setStatus_date_change(String string) {
+		this.status_date_change = string;
 	}
 
-	public Date getEnd_of_warranty_date() {
+	public String getEnd_of_warranty_date() {
 		return end_of_warranty_date;
 	}
 
-	public void setEnd_of_warranty_date(Date end_of_warranty_date) {
-		this.end_of_warranty_date = end_of_warranty_date;
+	public void setEnd_of_warranty_date(String string) {
+		this.end_of_warranty_date = string;
 	}
 
 	public String getHome_country() {
