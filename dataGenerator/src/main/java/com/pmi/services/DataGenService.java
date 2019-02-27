@@ -62,7 +62,7 @@ public class DataGenService {
 		}
 	}
 
-	public List generateRandomData(String objName, String operationType, Integer numberOfObjects) {
+	public Object generateRandomData(String objName, String operationType, Integer numberOfObjects) {
 		List dataList = null;
 		if (objName.equalsIgnoreCase("personas")) {
 			dataList = createPersonaObject(numberOfObjects.intValue(), operationType);
@@ -80,7 +80,9 @@ public class DataGenService {
 		System.out.println("Generated Data written into CSV file at Location : "
 				+ String.format(WRITE_API_BULK_REQUEST_CSV_FILE_PATH, objName));
 
-		return dataList;
+		// return dataList;
+		return "SUCCESS: Data is generated and written into CSV file at Location : "
+				+ String.format(WRITE_API_BULK_REQUEST_CSV_FILE_PATH, objName);
 	}
 
 	public List<Cases> createCasesObject(int numberOfObjects, String operationType) {

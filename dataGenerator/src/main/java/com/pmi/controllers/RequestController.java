@@ -40,7 +40,7 @@ public class RequestController {
 
 		System.out.println("Write API: Object Name passesd: " + objName);
 		System.out.println("Write API: Source passesd: " + source);
-		List<Object> apiResponse = invokeRestService.callADLBulkWriteAPI(objName);
+		Object apiResponse = invokeRestService.callADLBulkWriteAPI(objName);
 		// return "SUCCESS: Here is the response from Write API call, List of " +
 		// objName + " object --> " + apiResponse;
 		return apiResponse;
@@ -53,7 +53,7 @@ public class RequestController {
 
 		System.out.println("Generating Data: Object Name passesd: " + objName);
 		System.out.println("Generating Data: Operation Type passesd: " + operationType);
-		List<Object> generatedDataList = dataGenService.generateRandomData(objName, operationType, numberOfObjects);
+		Object generatedDataList = dataGenService.generateRandomData(objName, operationType, numberOfObjects);
 //		return "SUCCESS: Random Data is Generated for " + numberOfObjects + " " + objName + " object --> "
 //				+ generatedDataList;
 		return generatedDataList;

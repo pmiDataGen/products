@@ -84,7 +84,7 @@ public class InvokeRestService {
 	// Call ADL WriteAPI for bulk of Objects. Object list created by reading the CSV
 	// file. Object list is iterated and API call is made. Response is written in
 	// CSV file.
-	public List<Object> callADLBulkWriteAPI(String objName) {
+	public Object callADLBulkWriteAPI(String objName) {
 		Object writeAPIObj = null;
 		if (objName.equalsIgnoreCase("personas")) {
 			writeAPIObj = new Persona();
@@ -159,7 +159,9 @@ public class InvokeRestService {
 		System.out.println("Write API Response Written to CSV available at location :"
 				+ String.format(WRITE_API_BULK_RESPONSE_CSV_FILE_PATH, objName));
 
-		return responseObjlist;
+		// return responseObjlist;
+		return "SUCCESS: Write API Response Written to CSV available at location : "
+				+ String.format(WRITE_API_BULK_RESPONSE_CSV_FILE_PATH, objName);
 	}
 
 	// Call ADL WriteAPI for single Object
@@ -309,7 +311,9 @@ public class InvokeRestService {
 		System.out.println("Lookup ID API Response Written to CSV available at location :"
 				+ String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));
 
-		return responseLookUpAPI;
+		// return responseLookUpAPI;
+		return "SUCCESS: ID Lookup API Response Written to CSV file, available at location : "
+				+ String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName);
 	}
 
 }
