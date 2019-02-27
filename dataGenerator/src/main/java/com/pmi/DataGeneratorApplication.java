@@ -52,6 +52,8 @@ public class DataGeneratorApplication {
 		invokeRestService.callDemoService();
 		System.out.println("====================================================================================");
 
+		// invokeRestService.testDataBaseConsistency("personas");
+
 //		List<Cases> casesList = dataGenService.createCasesObject(10, "PUT");
 //		for (Cases cases : casesList) {
 //			System.out.println("Case List -> " + cases);

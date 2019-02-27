@@ -14,6 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.pmi.pojo.Cases;
@@ -63,6 +64,12 @@ public class InvokeRestService {
 
 	@Value("${WRITE_API_BULK_RESPONSE_CSV_FILE_PATH}")
 	private String WRITE_API_BULK_RESPONSE_CSV_FILE_PATH;
+
+	@Value("${CHECK_CONSISTENCY_REQUEST_CSV_FILE_PATH}")
+	private String CHECK_CONSISTENCY_REQUEST_CSV_FILE_PATH;
+
+	@Value("${CHECK_CONSISTENCY_RESPONSE_CSV_FILE_PATH}")
+	private String CHECK_CONSISTENCY_RESPONSE_CSV_FILE_PATH;
 
 	@Value("${authToken}")
 	private String authToken;
@@ -188,6 +195,131 @@ public class InvokeRestService {
 		System.out.println("Write API Response Body -> " + responseEntity.getBody());
 		System.out.println("--- Response Written to CSV available at location :"
 				+ String.format(WRITE_API_RESPONSE_CSV_FILE_PATH, primaryKey, objName));
+	}
+
+	public List<Object> testDataBaseConsistency(String objName) {
+		Object writeAPIObj = null;
+		if (objName.equalsIgnoreCase("personas")) {
+			writeAPIObj = new Persona();
+		} else if (objName.equalsIgnoreCase("identities")) {
+			writeAPIObj = new Identities();
+		} else if (objName.equalsIgnoreCase("orders")) {
+			writeAPIObj = new Orders();
+		} else if (objName.equalsIgnoreCase("cases")) {
+			writeAPIObj = new Cases();
+		} else if (objName.equalsIgnoreCase("devices")) {
+			writeAPIObj = new Device();
+		}
+		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
+		writeAPIUri = String.format(writeAPIUri, objName);
+		// create Request Header
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		httpHeaders.set("Authorization", authToken);
+
+		// Read the CSV File and create list of
+		// Object(Persona,Identites,Cases,Order,Devices)
+		List<Object> requestObjlist = null;
+		List<Object> responseObjlist = new ArrayList<>();
+		try {
+			requestObjlist = readWriteCSV.readCSVWithHeader(writeAPIObj,
+					String.format(CHECK_CONSISTENCY_REQUEST_CSV_FILE_PATH, objName));// Read CSV
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		for (Object reqObject : requestObjlist) { // Single iteration as the CSV has only one record.
+			HttpEntity<Object> entity = new HttpEntity<>(reqObject, httpHeaders);
+			System.out.println("Write API URI -> " + writeAPIUri);
+			System.out.println("Write API Request Body -> " + entity.getBody());
+			long startTime = System.currentTimeMillis();
+			ResponseEntity<? extends Object> responseEntity = restTemplate.exchange(writeAPIUri, HttpMethod.POST,
+					entity, reqObject.getClass()); // Write to database.
+			long endTime = System.currentTimeMillis();
+			System.out.println("Time taken to make writeAPI call for " + objName + " object is " + (endTime - startTime)
+					+ " milliseconds");
+			System.out.println("Write API Response Status Code -> " + responseEntity.getStatusCode());
+			System.out.println("Write API Response Body -> " + responseEntity.getBody());
+			HttpEntity<String> lookUpAPIentity = new HttpEntity<>("parameters", httpHeaders);
+			if (responseEntity.getBody() instanceof Persona) {
+				Persona persona = (Persona) responseEntity.getBody();
+				persona.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + persona.getPersona_id();
+				String recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, persona);
+				System.out.println("recordConsistencyTime -> " + recordConsistencyTime);
+				persona.setRecordConsistencyTime(recordConsistencyTime);
+				responseObjlist.add(persona);
+			} else if (responseEntity.getBody() instanceof Identities) {
+				Identities identities = (Identities) responseEntity.getBody();
+				identities.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + identities.getIdentity_id();
+				String recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity,
+						identities);
+				System.out.println("recordConsistencyTime -> " + recordConsistencyTime);
+				identities.setRecordConsistencyTime(recordConsistencyTime);
+				responseObjlist.add(identities);
+			} else if (responseEntity.getBody() instanceof Orders) {
+				Orders orders = (Orders) responseEntity.getBody();
+				orders.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + orders.getOrder_id();
+				String recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, orders);
+				System.out.println("recordConsistencyTime -> " + recordConsistencyTime);
+				orders.setRecordConsistencyTime(recordConsistencyTime);
+				responseObjlist.add(orders);
+			} else if (responseEntity.getBody() instanceof Cases) {
+				Cases cases = (Cases) responseEntity.getBody();
+				cases.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + cases.getCase_id();
+				String recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, cases);
+				System.out.println("recordConsistencyTime -> " + recordConsistencyTime);
+				cases.setRecordConsistencyTime(recordConsistencyTime);
+				responseObjlist.add(cases);
+			} else if (responseEntity.getBody() instanceof Device) {
+				Device device = (Device) responseEntity.getBody();
+				device.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ device.getDevice_serial_number();
+				String recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, device);
+				System.out.println("recordConsistencyTime -> " + recordConsistencyTime);
+				device.setRecordConsistencyTime(recordConsistencyTime);
+				responseObjlist.add(device);
+			} else {
+				responseObjlist.add(responseEntity.getBody());
+			}
+
+		}
+		// Write the response of Bulk Write API response to CSV
+		readWriteCSV.writeToCsv(responseObjlist, String.format(CHECK_CONSISTENCY_RESPONSE_CSV_FILE_PATH, objName));
+
+		System.out.println("Write API Response Written to CSV available at location :"
+				+ String.format(CHECK_CONSISTENCY_RESPONSE_CSV_FILE_PATH, objName));
+
+		return responseObjlist;
+	}
+
+	private String genericCallToLookUpAPI(String objName, String url, HttpEntity<String> lookUpAPIentity,
+			Object lookUpApiObj) {
+		ResponseEntity lookUpCallResponseEntity = null;
+		System.out.println("ID lookup uri -> " + url);
+		boolean isNotFound = false;
+		long start = System.currentTimeMillis();
+		for (int i = 0; i < 100; i++) {
+			try {
+				// Immediately lookup the object inserted above
+				lookUpCallResponseEntity = restTemplate.exchange(url, HttpMethod.GET, lookUpAPIentity,
+						lookUpApiObj.getClass());
+				if (lookUpCallResponseEntity != null)
+					break;
+			} catch (RestClientException e) {
+				isNotFound = true;
+				System.out.println(e.getMessage()); // if 404 - Not Found; Retry to read until 100 times
+				continue;
+			}
+		}
+		long end = System.currentTimeMillis();
+		if (isNotFound)
+			return String.valueOf(end - start);
+		else
+			return "0"; // NO delay in read operation immediate after write
 	}
 
 	public Object callADLLookupAPI(String objName) {

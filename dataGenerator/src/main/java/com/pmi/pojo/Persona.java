@@ -13,12 +13,13 @@ public class Persona {
 	public Persona() {
 		System.out.println("This is D.C Persona Class");
 	}
+
 	private String td_c360_operation;
 	private boolean online_access_flag; // online access flag
 	private String last_case_status_code;
 	private int frequency_score;
 	private float cnt_orders_l12m;
-	//private String time;	//No need to pass the values
+	// private String time; //No need to pass the values
 	private String date_of_birth;
 	private float nb_cases_close_3m;
 	private float nb_of_devices_replaced;
@@ -51,7 +52,8 @@ public class Persona {
 	private String consumer_type;
 	private String last_case_start_date;
 	private float nb_active_chargers;
-	//private String td_c360_operation_time; // "td:c360:operation_time": "1550064529348.0",//No need to pass the values
+	// private String td_c360_operation_time; // "td:c360:operation_time":
+	// "1550064529348.0",//No need to pass the values
 	private float revenue_ytd;
 	private float nb_of_devices;
 	private float total_spending_per_month_in_average;
@@ -79,13 +81,16 @@ public class Persona {
 	private String age_group;
 	private boolean is_deleted;
 
-	//Adding Attribute from Postman results
+	// Adding Attribute from Postman results
 	private float registration_date;
 	private String name;
 	private String full_name;
 	private String phone;
 	private String email;
 	private String apiCallTimeTakenInMillis;
+
+	private String recordConsistencyTime;
+
 	@Override
 	public String toString() {
 		return "Persona [td_c360_operation=" + td_c360_operation + ", online_access_flag=" + online_access_flag
@@ -119,7 +124,7 @@ public class Persona {
 				+ revenue_l3m + ", nb_cases_open_1m=" + nb_cases_open_1m + ", age_group=" + age_group + ", is_deleted="
 				+ is_deleted + ", registration_date=" + registration_date + ", name=" + name + ", full_name="
 				+ full_name + ", phone=" + phone + ", email=" + email + ", apiCallTimeTakenInMillis="
-				+ apiCallTimeTakenInMillis + "]";
+				+ apiCallTimeTakenInMillis + ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 
 	public boolean isOnline_access_flag() {
@@ -673,6 +678,13 @@ public class Persona {
 	public void setTd_c360_operation(String td_c360_operation) {
 		this.td_c360_operation = td_c360_operation;
 	}
-	
+
+	public String getRecordConsistencyTime() {
+		return recordConsistencyTime;
+	}
+
+	public void setRecordConsistencyTime(String recordConsistencyTime) {
+		this.recordConsistencyTime = recordConsistencyTime;
+	}
 
 }

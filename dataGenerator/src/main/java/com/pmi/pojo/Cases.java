@@ -13,11 +13,12 @@ public class Cases {
 	public Cases() {
 		System.out.println("This is D.C Cases Class");
 	}
+
 	private String td_c360_operation;
 	private String case_id;
 	private String identity_id;
 	private String persona_id;
-	private String serial_numer;	
+	private String serial_numer;
 	private String order_id;
 	private String closing_date;
 	private String case_Channel;
@@ -30,11 +31,12 @@ public class Cases {
 	private String subject_description;
 	private String latest_update_date;
 	private String home_country;
-	private String description;						// "description": "ORDER"
+	private String description; // "description": "ORDER"
 	private String apiCallTimeTakenInMillis;
 //	private String time; 							// "time": "1548928418229"//No need to pass the values
 //	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
-	
+	private String recordConsistencyTime;
+
 	@Override
 	public String toString() {
 		return "Cases [td_c360_operation=" + td_c360_operation + ", case_id=" + case_id + ", identity_id=" + identity_id
@@ -43,7 +45,16 @@ public class Cases {
 				+ ", case_source=" + case_source + ", case_type=" + case_type + ", case_Subtype=" + case_Subtype
 				+ ", status=" + status + ", subject_code=" + subject_code + ", subject_description="
 				+ subject_description + ", latest_update_date=" + latest_update_date + ", home_country=" + home_country
-				+ ", description=" + description + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis + "]";
+				+ ", description=" + description + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
+	}
+
+	public String getRecordConsistencyTime() {
+		return recordConsistencyTime;
+	}
+
+	public void setRecordConsistencyTime(String recordConsistencyTime) {
+		this.recordConsistencyTime = recordConsistencyTime;
 	}
 
 	public String getCase_id() {
@@ -198,6 +209,4 @@ public class Cases {
 		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
 
-	
-	
 }

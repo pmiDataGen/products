@@ -23,12 +23,9 @@ public class Device {
 	// private String time;
 	// private String td_c360_operation_time; // td:c360:operation_time
 
-	public Device() {
-		System.out.println("This is Device - Default Constructor");
-	}
+	private String recordConsistencyTime;
 
-	public Device(String device_codentify) {
-		this.device_codentify = device_codentify;
+	public Device() {
 	}
 
 	@Override
@@ -40,7 +37,16 @@ public class Device {
 				+ component_Code + ", status_date_change=" + status_date_change + ", end_of_warranty_date="
 				+ end_of_warranty_date + ", home_country=" + home_country + ", apiCallTimeTakenInMillis="
 				+ apiCallTimeTakenInMillis + ", identity_id=" + identity_id + ", model=" + model + ", persona_id="
-				+ persona_id + ", device_serial_number=" + device_serial_number + "]";
+				+ persona_id + ", device_serial_number=" + device_serial_number + ", recordConsistencyTime="
+				+ recordConsistencyTime + "]";
+	}
+
+	public String getRecordConsistencyTime() {
+		return recordConsistencyTime;
+	}
+
+	public void setRecordConsistencyTime(String recordConsistencyTime) {
+		this.recordConsistencyTime = recordConsistencyTime;
 	}
 
 	public String getDevice_codentify() {
