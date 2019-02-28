@@ -197,7 +197,7 @@ public class InvokeRestService {
 				+ String.format(WRITE_API_RESPONSE_CSV_FILE_PATH, primaryKey, objName));
 	}
 
-	public List<Object> testDataBaseConsistency(String objName) {
+	public Object testDataBaseConsistency(String objName) {
 		Object writeAPIObj = null;
 		if (objName.equalsIgnoreCase("personas")) {
 			writeAPIObj = new Persona();
@@ -211,6 +211,7 @@ public class InvokeRestService {
 			writeAPIObj = new Device();
 		}
 		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
+		String recordConsistencyTime = null;
 		writeAPIUri = String.format(writeAPIUri, objName);
 		// create Request Header
 		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -244,43 +245,37 @@ public class InvokeRestService {
 				Persona persona = (Persona) responseEntity.getBody();
 				persona.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + persona.getPersona_id();
-				String recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, persona);
-				System.out.println("recordConsistencyTime -> " + recordConsistencyTime);
-				persona.setRecordConsistencyTime(recordConsistencyTime);
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, persona);
+				persona.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(persona);
 			} else if (responseEntity.getBody() instanceof Identities) {
 				Identities identities = (Identities) responseEntity.getBody();
 				identities.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + identities.getIdentity_id();
-				String recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity,
-						identities);
-				System.out.println("recordConsistencyTime -> " + recordConsistencyTime);
-				identities.setRecordConsistencyTime(recordConsistencyTime);
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, identities);
+				identities.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(identities);
 			} else if (responseEntity.getBody() instanceof Orders) {
 				Orders orders = (Orders) responseEntity.getBody();
 				orders.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + orders.getOrder_id();
-				String recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, orders);
-				System.out.println("recordConsistencyTime -> " + recordConsistencyTime);
-				orders.setRecordConsistencyTime(recordConsistencyTime);
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, orders);
+				orders.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(orders);
 			} else if (responseEntity.getBody() instanceof Cases) {
 				Cases cases = (Cases) responseEntity.getBody();
 				cases.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + cases.getCase_id();
-				String recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, cases);
-				System.out.println("recordConsistencyTime -> " + recordConsistencyTime);
-				cases.setRecordConsistencyTime(recordConsistencyTime);
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, cases);
+				cases.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(cases);
 			} else if (responseEntity.getBody() instanceof Device) {
 				Device device = (Device) responseEntity.getBody();
 				device.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
 						+ device.getDevice_serial_number();
-				String recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, device);
-				System.out.println("recordConsistencyTime -> " + recordConsistencyTime);
-				device.setRecordConsistencyTime(recordConsistencyTime);
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, device);
+				device.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(device);
 			} else {
 				responseObjlist.add(responseEntity.getBody());
@@ -293,14 +288,17 @@ public class InvokeRestService {
 		System.out.println("Write API Response Written to CSV available at location :"
 				+ String.format(CHECK_CONSISTENCY_RESPONSE_CSV_FILE_PATH, objName));
 
-		return responseObjlist;
+		return "SUCCESS: Time taken to read the record immediately after write operation is "
+				+ recordConsistencyTime.split(" ")[0] + " milliseconds. Number of re-read attempts made is "
+				+ recordConsistencyTime.split(" ")[1] + " . Response is written to CSV available at location : "
+				+ String.format(CHECK_CONSISTENCY_RESPONSE_CSV_FILE_PATH, objName);
 	}
 
 	private String genericCallToLookUpAPI(String objName, String url, HttpEntity<String> lookUpAPIentity,
 			Object lookUpApiObj) {
 		ResponseEntity lookUpCallResponseEntity = null;
 		System.out.println("ID lookup uri -> " + url);
-		boolean isNotFound = false;
+		int count = 0;
 		long start = System.currentTimeMillis();
 		for (int i = 0; i < 100; i++) {
 			try {
@@ -310,16 +308,15 @@ public class InvokeRestService {
 				if (lookUpCallResponseEntity != null)
 					break;
 			} catch (RestClientException e) {
-				isNotFound = true;
+				count++;
 				System.out.println(e.getMessage()); // if 404 - Not Found; Retry to read until 100 times
 				continue;
 			}
 		}
 		long end = System.currentTimeMillis();
-		if (isNotFound)
-			return String.valueOf(end - start);
-		else
-			return "0"; // NO delay in read operation immediate after write
+
+		return String.valueOf(end - start) + " " + count;
+
 	}
 
 	public Object callADLLookupAPI(String objName) {

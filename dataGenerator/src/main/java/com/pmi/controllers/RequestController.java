@@ -57,6 +57,17 @@ public class RequestController {
 		return generatedDataList;
 	}
 
+	@RequestMapping("/checkWriteAPIConsistency")
+	public Object checkDBWriteConsistencyTime(
+			@RequestParam(value = "objName", defaultValue = "personas") String objName) {
+
+		System.out.println("Write API: Object Name passesd: " + objName);
+		Object apiResponse = invokeRestService.testDataBaseConsistency(objName);
+		// return "SUCCESS: Here is the response from Write API call, List of " +
+		// objName + " object --> " + apiResponse;
+		return apiResponse;
+	}
+
 	@RequestMapping("/queryAPI")
 	public Object queryAPI(@RequestParam(value = "objName", defaultValue = "personas") String objName) {
 
