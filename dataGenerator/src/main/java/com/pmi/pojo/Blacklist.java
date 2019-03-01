@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Blacklist {
 
 	public Blacklist() {
-		System.out.println("This is D.C Blacklist Class");
+		
 	}
 
 		private String blacklist_key;

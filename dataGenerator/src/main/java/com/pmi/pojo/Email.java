@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Email {
 
 	public Email() {
-		System.out.println("This is D.C Email Class");
+		
 	}
 
 	private String email_address;

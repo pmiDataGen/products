@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Identities {
 
 	public Identities() {
-		System.out.println("This is D.C Identities Class");
+		
 	}
 
 	private String td_c360_operation;

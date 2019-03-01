@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Address {
 
 	public Address() {
-		System.out.println("This is D.C Address Class");
+		
 	}
 	
 	private String address_identifier;

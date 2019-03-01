@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Persona {
 
 	public Persona() {
-		System.out.println("This is D.C Persona Class");
+		
 	}
 
 	private String td_c360_operation;

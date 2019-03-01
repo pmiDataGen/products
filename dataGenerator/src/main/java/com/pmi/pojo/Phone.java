@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Phone {
 
 	public Phone() {
-		System.out.println("This is D.C Phone Class");
+		
 	}
 
 	private String phone_identifier;

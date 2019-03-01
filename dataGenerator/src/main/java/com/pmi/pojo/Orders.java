@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Orders {
 
 	public Orders() {
-		System.out.println("This is D.C Orders Class");
+		
 	}
 
 	private String td_c360_operation;
