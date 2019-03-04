@@ -1,5 +1,7 @@
 package com.pmi;
 
+import java.util.concurrent.Executor;
+
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,6 +9,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
 import com.pmi.services.InvokeRestService;
@@ -17,6 +21,7 @@ import com.pmi.util.ReadWriteCSV;
  *
  */
 @SpringBootApplication
+@EnableAsync // switches Spring’s ability to run @Async methods in background thread pool.
 public class DataGeneratorApplication {
 
 	@Bean
@@ -37,6 +42,17 @@ public class DataGeneratorApplication {
 	@Bean
 	public ReadWriteCSV readWriteCSV() {
 		return new ReadWriteCSV();
+	}
+
+	@Bean
+	public Executor taskExecutor() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(50);
+		executor.setMaxPoolSize(50);
+		executor.setQueueCapacity(500);
+		executor.setThreadNamePrefix("ADLLookup T-");
+		executor.initialize();
+		return executor;
 	}
 
 	public static void main(String[] args) {
@@ -61,7 +77,7 @@ public class DataGeneratorApplication {
 
 		// Read API
 		// System.out.println("Calling ADL Look-up Service");
-		// invokeRestService.callADLLookupAPI("personas");
+		//invokeRestService.callADLLookupAPI("personas");
 		// invokeRestService.callADLLookupAPI("identities");
 		// invokeRestService.callADLLookupAPI("devices");
 		// invokeRestService.callADLLookupAPI("cases");

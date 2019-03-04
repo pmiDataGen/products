@@ -3,6 +3,8 @@ package com.pmi.services;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +15,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,10 +34,10 @@ import com.pmi.util.ReadWriteCSV;
  *
  */
 
-@Component
+@Service
 public class InvokeRestService {
 
-	private static final Logger log = LoggerFactory.getLogger(InvokeRestService.class);
+	private static final Logger logger = LoggerFactory.getLogger(InvokeRestService.class);
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -82,8 +86,13 @@ public class InvokeRestService {
 
 	public void callDemoService() {
 		Quote quote = restTemplate.getForObject(demoRestUri, Quote.class);
-		log.info(quote.toString());
-		System.out.println(quote.toString());
+		logger.info(quote.toString());
+	}
+
+	private final AsynADLService asynADLService;
+
+	public InvokeRestService(AsynADLService asynADLService) {
+		this.asynADLService = asynADLService;
 	}
 
 	// Call ADL WriteAPI for bulk of Objects. Object list created by reading the CSV
@@ -332,6 +341,7 @@ public class InvokeRestService {
 	 * @param objName
 	 * @return
 	 */
+	// @Async
 	public Object callADLLookupAPI(String objName) {
 		String lookUpADLUri = lookUpADLUriFromProperty; // https://c360-api-a8-dce20.eu01.treasuredata.com/v1/events/c360/%s/
 		// Read the primary Key from CSV files.
@@ -359,46 +369,43 @@ public class InvokeRestService {
 
 		ResponseEntity responseEntity = null;
 		List<Object> responseObjlist = new ArrayList<>();
+		//List<CompletableFuture<ResponseEntity>> futureList = new ArrayList<CompletableFuture<ResponseEntity>>();
+		long start = System.currentTimeMillis();
 		for (String id : arr) {
 			String lookUpADLUri2 = lookUpADLUri + id;
-			System.out.println("URI -> " + lookUpADLUri2);
+			// System.out.println("URI -> " + lookUpADLUri2);
 			long startTime = System.currentTimeMillis();
-			responseEntity = restTemplate.exchange(lookUpADLUri2, HttpMethod.GET, entity, readAPIObj.getClass());
-			long endTime = System.currentTimeMillis();
-			System.out.println("Time taken to make lookup API call for " + objName + " object ID " + id + " is "
-					+ (endTime - startTime) + " milliseconds");
-			System.out.println("The lookUp API Response Object --> " + responseEntity.getBody());
+			// responseEntity = restTemplate.exchange(lookUpADLUri2, HttpMethod.GET, entity,
+			// readAPIObj.getClass());
 
-			if (responseEntity.getBody() instanceof Persona) {
-				Persona persona = (Persona) responseEntity.getBody();
-				persona.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				responseObjlist.add(persona);
-			} else if (responseEntity.getBody() instanceof Identities) {
-				Identities identities = (Identities) responseEntity.getBody();
-				identities.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				responseObjlist.add(identities);
-			} else if (responseEntity.getBody() instanceof Orders) {
-				Orders orders = (Orders) responseEntity.getBody();
-				orders.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				responseObjlist.add(orders);
-			} else if (responseEntity.getBody() instanceof Cases) {
-				Cases cases = (Cases) responseEntity.getBody();
-				cases.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				responseObjlist.add(cases);
-			} else if (responseEntity.getBody() instanceof Device) {
-				Device device = (Device) responseEntity.getBody();
-				device.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				responseObjlist.add(device);
-			} else {
-				responseObjlist.add(responseEntity.getBody());
+			// Kick of multiple, asynchronous lookups
+			CompletableFuture<ResponseEntity> completableFutureResponseEntity = asynADLService
+					.callReadService(lookUpADLUri2, entity, readAPIObj);
+
+			//futureList.add(completableFutureResponseEntity);
+			// Wait until they are all done
+			// CompletableFuture.allOf(completableFutureResponseEntity).join();
+
+			try {
+				responseEntity = completableFutureResponseEntity.get(); // Waits if necessary for this future to
+																		// complete, and then returns its result.
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
 			}
-			System.out.println("====================================================================================");
+			long endTime = System.currentTimeMillis();
+			logger.info("Time: Asynch lookup API call from Main Thread, for " + objName + " object ID " + id + " is "
+					+ (endTime - startTime) + " milliseconds");
+
+			responseObjlist.add(responseEntity.getBody());
+			System.out.println("===========");
 		}
+		logger.info("Elapsed time: Out of for loop; List value - " + responseObjlist);
+		logger.info("Elapsed time: " + (System.currentTimeMillis() - start));
 
 		// Write Response to CSV file
 		readWriteCSV.writeToCsv(responseObjlist, String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));
 
-		System.out.println("Lookup ID API Response Written to CSV available at location :"
+		logger.info("Lookup ID API Response Written to CSV available at location :"
 				+ String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));
 
 		// return responseObjlist;
