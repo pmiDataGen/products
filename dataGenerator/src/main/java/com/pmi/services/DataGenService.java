@@ -3,7 +3,11 @@ package com.pmi.services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,12 +174,14 @@ public class DataGenService {
 		c.set(2000, Calendar.JANUARY, 1);
 		c.getTime();
 
+		Set<Integer> randomUniqueNumberSet = DataGenService.primaryKeyGenerator(numberOfObjects);
+		Iterator<Integer> iterator = randomUniqueNumberSet.iterator();
 		List<Persona> personaObjectList = new ArrayList<Persona>();
 
 		for (int i = 0; i < numberOfObjects; i++) {
 			Persona persona = new Persona();
 			persona.setOnline_access_flag(false);
-			persona.setPersona_id(dataFactory.getNumberText(3));
+			persona.setPersona_id(String.valueOf(iterator.next()));// Unique Primary Key
 			persona.setFirst_name(dataFactory.getFirstName());
 			persona.setLast_name(dataFactory.getLastName());
 			persona.setFull_name(dataFactory.getName());
@@ -264,12 +270,14 @@ public class DataGenService {
 		c.set(2000, Calendar.JANUARY, 1);
 		c.getTime();
 
+		Set<Integer> randomUniqueNumberSet = DataGenService.primaryKeyGenerator(numberOfObjects);
+		Iterator<Integer> iterator = randomUniqueNumberSet.iterator();
 		List<Identities> identitiesObjectList = new ArrayList<Identities>();
 
 		for (int i = 0; i < numberOfObjects; i++) {
 			Identities identities = new Identities();
 			identities.setTd_c360_operation(operationType);
-			identities.setIdentity_id(dataFactory.getNumberText(3));
+			identities.setIdentity_id(String.valueOf(iterator.next()));// Unique Primary Key
 			identities.setPersona_id(dataFactory.getNumberText(3));
 			identities.setLast_name(dataFactory.getLastName());
 			identities.setFirst_name(dataFactory.getFirstName());
@@ -339,5 +347,25 @@ public class DataGenService {
 
 		return DeviceObjectList;
 
+	}
+
+	/**
+	 * Generate 2n random unique numbers, using TreeSet to make sure no duplicates
+	 * and also to preserve the natural sorting order
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public static Set<Integer> primaryKeyGenerator(int n) {
+		Set<Integer> uniqueNumberSet = new TreeSet<Integer>();
+
+		Random random = new Random();
+
+		for (int i = 0; i <= 2 * n; i++) {
+			int num = random.nextInt(Integer.MAX_VALUE);
+			uniqueNumberSet.add(num);
+		}
+
+		return uniqueNumberSet;
 	}
 }
