@@ -3,6 +3,7 @@ package com.pmi;
 import java.util.concurrent.Executor;
 
 import org.fluttercode.datafactory.impl.DataFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -23,6 +24,9 @@ import com.pmi.util.ReadWriteCSV;
 @SpringBootApplication
 @EnableAsync // switches Spring’s ability to run @Async methods in background thread pool.
 public class DataGeneratorApplication {
+
+	@Value("${threadPoolSize}")
+	private String threadPoolSize;
 
 	@Bean
 	public DataFactory adlDataFactory() {
@@ -47,7 +51,7 @@ public class DataGeneratorApplication {
 	@Bean
 	public Executor taskExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(50);// the number of threads to keep in the pool, even if they are idle
+		executor.setCorePoolSize(Integer.parseInt(threadPoolSize));// the number of threads to keep in the pool
 		executor.setMaxPoolSize(Integer.MAX_VALUE);// the maximum number of threads to allow in the pool
 		executor.setQueueCapacity(Integer.MAX_VALUE);// the queue to hold Runnable tasks before they are executed
 		executor.setThreadNamePrefix("Invoke_API T-");
