@@ -47,10 +47,10 @@ public class DataGeneratorApplication {
 	@Bean
 	public Executor taskExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(50);
-		executor.setMaxPoolSize(50);
-		executor.setQueueCapacity(500);
-		executor.setThreadNamePrefix("ADLLookup T-");
+		executor.setCorePoolSize(50);// the number of threads to keep in the pool, even if they are idle
+		executor.setMaxPoolSize(Integer.MAX_VALUE);// the maximum number of threads to allow in the pool
+		executor.setQueueCapacity(Integer.MAX_VALUE);// the queue to hold Runnable tasks before they are executed
+		executor.setThreadNamePrefix("Invoke_API T-");
 		executor.initialize();
 		return executor;
 	}
@@ -77,7 +77,7 @@ public class DataGeneratorApplication {
 
 		// Read API
 		// System.out.println("Calling ADL Look-up Service");
-		//invokeRestService.callADLLookupAPI("personas");
+		// invokeRestService.callADLLookupAPI("personas");
 		// invokeRestService.callADLLookupAPI("identities");
 		// invokeRestService.callADLLookupAPI("devices");
 		// invokeRestService.callADLLookupAPI("cases");

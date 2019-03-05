@@ -369,12 +369,11 @@ public class InvokeRestService {
 
 		ResponseEntity responseEntity = null;
 		List<Object> responseObjlist = new ArrayList<>();
-		//List<CompletableFuture<ResponseEntity>> futureList = new ArrayList<CompletableFuture<ResponseEntity>>();
+		List<CompletableFuture<ResponseEntity>> futureResultList = new ArrayList<CompletableFuture<ResponseEntity>>();
 		long start = System.currentTimeMillis();
 		for (String id : arr) {
 			String lookUpADLUri2 = lookUpADLUri + id;
-			// System.out.println("URI -> " + lookUpADLUri2);
-			long startTime = System.currentTimeMillis();
+			// long startTime = System.currentTimeMillis();
 			// responseEntity = restTemplate.exchange(lookUpADLUri2, HttpMethod.GET, entity,
 			// readAPIObj.getClass());
 
@@ -382,24 +381,24 @@ public class InvokeRestService {
 			CompletableFuture<ResponseEntity> completableFutureResponseEntity = asynADLService
 					.callReadService(lookUpADLUri2, entity, readAPIObj);
 
-			//futureList.add(completableFutureResponseEntity);
+			futureResultList.add(completableFutureResponseEntity);
+
 			// Wait until they are all done
 			// CompletableFuture.allOf(completableFutureResponseEntity).join();
 
+//			long endTime = System.currentTimeMillis();
+//			logger.info("Time: Asynch lookup API call from Main Thread, for " + objName + " object ID " + id + " is "
+//					+ (endTime - startTime) + " milliseconds");
+		}
+		for (CompletableFuture<ResponseEntity> completableFuture : futureResultList) {
 			try {
-				responseEntity = completableFutureResponseEntity.get(); // Waits if necessary for this future to
-																		// complete, and then returns its result.
+				responseEntity = completableFuture.get();// Waits for this future to complete,then returns its result.
+				responseObjlist.add(responseEntity.getBody());
 			} catch (InterruptedException | ExecutionException e) {
 				e.printStackTrace();
 			}
-			long endTime = System.currentTimeMillis();
-			logger.info("Time: Asynch lookup API call from Main Thread, for " + objName + " object ID " + id + " is "
-					+ (endTime - startTime) + " milliseconds");
 
-			responseObjlist.add(responseEntity.getBody());
-			System.out.println("===========");
 		}
-		logger.info("Elapsed time: Out of for loop; List value - " + responseObjlist);
 		logger.info("Elapsed time: " + (System.currentTimeMillis() - start));
 
 		// Write Response to CSV file
