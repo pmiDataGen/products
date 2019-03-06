@@ -26,9 +26,11 @@ public class RequestController {
 	private DataGenService dataGenService;
 
 	@RequestMapping("/lookUpIdAPI")
-	public Object lookUpById(@RequestParam(value = "objName", defaultValue = "personas") String objName) {
+	public Object lookUpById(@RequestParam(value = "objName", defaultValue = "personas") String objName,
+			@RequestParam(value = "inputFileName", defaultValue = "notAvailable") String inputFileName) {
 		logger.info("ID Lookup API: Object Name passesd: " + objName);
-		Object apiResponse = invokeRestService.callADLLookupAPI(objName);
+		logger.info("ID Lookup API: inputFileName passesd: " + inputFileName);
+		Object apiResponse = invokeRestService.callADLLookupAPI(objName, inputFileName);
 
 		// return "SUCCESS: Here is the response from Lookup API call, List of " +
 		// objName + " object --> " + apiResponse;
@@ -37,11 +39,11 @@ public class RequestController {
 
 	@RequestMapping("/writeAPI")
 	public Object writeAPI(@RequestParam(value = "objName", defaultValue = "personas") String objName,
-			@RequestParam(value = "source", defaultValue = "csv") String source) {
+			@RequestParam(value = "inputFileName", defaultValue = "notAvailable") String inputFileName) {
 
 		logger.info("Write API: Object Name passesd: " + objName);
-		logger.info("Write API: Source passesd: " + source);
-		Object apiResponse = invokeRestService.callADLBulkWriteAPI(objName);
+		logger.info("Write API: inputFileName passesd: " + inputFileName);
+		Object apiResponse = invokeRestService.callADLBulkWriteAPI(objName, inputFileName);
 		// return "SUCCESS: Here is the response from Write API call, List of " +
 		// objName + " object --> " + apiResponse;
 		return apiResponse;

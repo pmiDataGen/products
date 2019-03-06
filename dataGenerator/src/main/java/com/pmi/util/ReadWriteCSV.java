@@ -56,7 +56,6 @@ public class ReadWriteCSV {
 		CsvToBean csvToBean = new CsvToBean();
 		List list1 = csvToBean.parse(beanStrategy, reader);
 
-		System.out.println("List is --> " + list1);
 		reader.close();
 
 		return list1;

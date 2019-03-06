@@ -51,6 +51,12 @@ public class InvokeRestService {
 	@Value("${demoRestUri}")
 	private String demoRestUri;
 
+	@Value("${WRITE_API_BULK_REQUEST_FILE_PATH}")
+	private String WRITE_API_BULK_REQUEST_FILE_PATH;
+	
+	@Value("${LOOKUP_API_REQUEST_FILE_PATH}")
+	private String LOOKUP_API_REQUEST_FILE_PATH;
+
 	@Value("${LOOKUP_API_REQUEST_CSV_FILE_PATH}")
 	private String LOOKUP_API_REQUEST_CSV_FILE_PATH;
 
@@ -95,10 +101,16 @@ public class InvokeRestService {
 		this.asynADLService = asynADLService;
 	}
 
-	// Call ADL WriteAPI for bulk of Objects. Object list created by reading the CSV
-	// file. Object list is iterated and API call is made. Response is written in
-	// CSV file.
-	public Object callADLBulkWriteAPI(String objName) {
+	/**
+	 * Call ADL WriteAPI for bulk of Objects. Object list created by reading the CSV
+	 * file. Object list is iterated and API call is made. Response is written in
+	 * CSV file.
+	 * 
+	 * @param objName
+	 * @param inputFileName
+	 * @return
+	 */
+	public Object callADLBulkWriteAPI(String objName, String inputFileName) {
 		Object writeAPIObj = null;
 		if (objName.equalsIgnoreCase("personas")) {
 			writeAPIObj = new Persona();
@@ -122,8 +134,16 @@ public class InvokeRestService {
 		List<Object> requestObjlist = null;
 		List<Object> responseObjlist = new ArrayList<>();
 		try {
-			requestObjlist = readWriteCSV.readCSVWithHeader(writeAPIObj,
-					String.format(WRITE_API_BULK_REQUEST_CSV_FILE_PATH, objName));
+			String filePath;
+			if (inputFileName.equalsIgnoreCase("notAvailable")) { // if user has not provided input file name;
+				filePath = String.format(WRITE_API_BULK_REQUEST_CSV_FILE_PATH, objName);
+			} else {
+				if (inputFileName.indexOf(".csv") == -1) {
+					inputFileName = inputFileName + ".csv";
+				}
+				filePath = WRITE_API_BULK_REQUEST_FILE_PATH + inputFileName;
+			}
+			requestObjlist = readWriteCSV.readCSVWithHeader(writeAPIObj,filePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -342,10 +362,19 @@ public class InvokeRestService {
 	 * @return
 	 */
 	// @Async
-	public Object callADLLookupAPI(String objName) {
+	public Object callADLLookupAPI(String objName, String inputFileName) {
 		String lookUpADLUri = lookUpADLUriFromProperty; // https://c360-api-a8-dce20.eu01.treasuredata.com/v1/events/c360/%s/
 		// Read the primary Key from CSV files.
-		String[] arr = readWriteCSV.getLookUpIdsFromCSV(String.format(LOOKUP_API_REQUEST_CSV_FILE_PATH, objName));
+		String filePath;
+		if (inputFileName.equalsIgnoreCase("notAvailable")) { // if user has not provided input file name;
+			filePath = String.format(LOOKUP_API_REQUEST_CSV_FILE_PATH, objName);
+		} else {
+			if (inputFileName.indexOf(".csv") == -1) {
+				inputFileName = inputFileName + ".csv";
+			}
+			filePath = LOOKUP_API_REQUEST_FILE_PATH + inputFileName;
+		}
+		String[] arr = readWriteCSV.getLookUpIdsFromCSV(filePath);
 
 		lookUpADLUri = String.format(lookUpADLUri, objName);
 
