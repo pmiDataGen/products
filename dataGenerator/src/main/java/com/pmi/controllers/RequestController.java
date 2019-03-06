@@ -47,11 +47,13 @@ public class RequestController {
 	@RequestMapping(value = "/generateData", produces = { "application/json" })
 	public Object generateData(@RequestParam(value = "objName", defaultValue = "personas") String objName,
 			@RequestParam(value = "operationType", defaultValue = "merge") String operationType,
-			@RequestParam(required = true, defaultValue = "1") Integer numberOfObjects) {
+			@RequestParam(value = "primaryKeyStart", defaultValue = "0") Integer primaryKeyStart,
+			@RequestParam(value = "primaryKeyEnd", defaultValue = "10") Integer primaryKeyEnd,
+			@RequestParam(value = "outFileName", defaultValue = "NotAvailable") String outFileName,
+			@RequestParam(defaultValue = "1") Integer numberOfObjects) {
 
-		System.out.println("Generating Data: Object Name passesd: " + objName);
-		System.out.println("Generating Data: Operation Type passesd: " + operationType);
-		Object generatedDataList = dataGenService.generateRandomData(objName, operationType, numberOfObjects);
+		Object generatedDataList = dataGenService.generateRandomData(objName, operationType, numberOfObjects,
+				primaryKeyStart, primaryKeyEnd, outFileName);
 //		return "SUCCESS: Random Data is Generated for " + numberOfObjects + " " + objName + " object --> "
 //				+ generatedDataList;
 		return generatedDataList;

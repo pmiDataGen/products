@@ -3,13 +3,14 @@ package com.pmi.services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.fluttercode.datafactory.impl.DataFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -28,6 +29,8 @@ import com.pmi.util.ReadWriteCSV;
 @Component
 public class DataGenService {
 
+	private static final Logger logger = LoggerFactory.getLogger(DataGenService.class);
+
 	@Autowired
 	private DataFactory dataFactory;
 
@@ -36,6 +39,9 @@ public class DataGenService {
 
 	@Value("${WRITE_API_BULK_REQUEST_CSV_FILE_PATH}")
 	private String WRITE_API_BULK_REQUEST_CSV_FILE_PATH;
+
+	@Value("${WRITE_API_BULK_REQUEST_FILE_PATH}")
+	private String WRITE_API_BULK_REQUEST_FILE_PATH;
 
 	public void generateRandomData() {
 
@@ -66,30 +72,37 @@ public class DataGenService {
 		}
 	}
 
-	public Object generateRandomData(String objName, String operationType, Integer numberOfObjects) {
+	public Object generateRandomData(String objName, String operationType, Integer numberOfObjects,
+			Integer primaryKeyStart, Integer primaryKeyEnd, String outputFileName) {
 		List dataList = null;
 		if (objName.equalsIgnoreCase("personas")) {
-			dataList = createPersonaObject(numberOfObjects.intValue(), operationType);
+			dataList = createPersonaObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
 		} else if (objName.equalsIgnoreCase("identities")) {
-			dataList = createIdentitiesObject(numberOfObjects.intValue(), operationType);
+			dataList = createIdentitiesObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
 		} else if (objName.equalsIgnoreCase("orders")) {
-			dataList = createOrdersObject(numberOfObjects.intValue(), operationType);
+			dataList = createOrdersObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
 		} else if (objName.equalsIgnoreCase("cases")) {
-			dataList = createCasesObject(numberOfObjects.intValue(), operationType);
+			dataList = createCasesObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
 		} else if (objName.equalsIgnoreCase("devices")) {
-			dataList = createDeviceObject(numberOfObjects.intValue(), operationType);
+			dataList = createDeviceObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
 		}
 		// Write the generated data to CSV file
-		readWriteCSV.writeToCsv(dataList, String.format(WRITE_API_BULK_REQUEST_CSV_FILE_PATH, objName));
-		System.out.println("Generated Data written into CSV file at Location : "
-				+ String.format(WRITE_API_BULK_REQUEST_CSV_FILE_PATH, objName));
-
+		String filePath = null;
+		if (outputFileName.equalsIgnoreCase("NotAvailable")) {
+			filePath = String.format(WRITE_API_BULK_REQUEST_CSV_FILE_PATH, objName);// default out file
+		} else {
+			if (outputFileName.indexOf(".csv") == -1) {
+				outputFileName = outputFileName + ".csv";
+			}
+			filePath = WRITE_API_BULK_REQUEST_FILE_PATH + outputFileName;
+		}
+		readWriteCSV.writeToCsv(dataList, filePath);
+		logger.info("Generated Data written into CSV file at Location : " + filePath);
 		// return dataList;
-		return "SUCCESS: Data is generated and written into CSV file at Location : "
-				+ String.format(WRITE_API_BULK_REQUEST_CSV_FILE_PATH, objName);
+		return "SUCCESS: Data is generated and written into CSV file at Location : " + filePath;
 	}
 
-	public List<Cases> createCasesObject(int numberOfObjects, String operationType) {
+	public List<Cases> createCasesObject(String operationType, int primaryKeyStart, int primaryKeyEnd) {
 
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
@@ -98,12 +111,12 @@ public class DataGenService {
 
 		List<Cases> casesObjectList = new ArrayList<Cases>();
 
-		for (int i = 0; i < numberOfObjects; i++) {
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Cases cases = new Cases();
 			cases.setTd_c360_operation(operationType);
 			cases.setCase_Channel(dataFactory.getRandomText(10));
 			cases.setCase_Subtype(dataFactory.getRandomText(10));
-			cases.setCase_id(String.valueOf(dataFactory.getNumberBetween(0, 999)));
+			cases.setCase_id(String.valueOf(i));
 			cases.setCase_source(dataFactory.getRandomWord());
 			cases.setCase_type(dataFactory.getRandomWord());
 			cases.setClosing_date(
@@ -128,7 +141,7 @@ public class DataGenService {
 
 	}
 
-	public List<Orders> createOrdersObject(int numberOfObjects, String operationType) {
+	public List<Orders> createOrdersObject(String operationType, int primaryKeyStart, int primaryKeyEnd) {
 
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
@@ -137,7 +150,7 @@ public class DataGenService {
 
 		List<Orders> ordersObjectList = new ArrayList<Orders>();
 
-		for (int i = 0; i < numberOfObjects; i++) {
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Orders orders = new Orders();
 			orders.setCountry(dataFactory.getCity());
 			orders.setHome_country(dataFactory.getCity());
@@ -150,7 +163,7 @@ public class DataGenService {
 			orders.setOrder_currency(dataFactory.getNumberText(3));
 			orders.setOrder_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			orders.setOrder_discount(dataFactory.getNumberUpTo(50));
-			orders.setOrder_id(dataFactory.getNumberText(3));
+			orders.setOrder_id(String.valueOf(i)); // Primary Key
 			orders.setOrder_item_identifier(dataFactory.getNumberText(3));
 			orders.setOrder_items(dataFactory.getNumberText(3));
 			orders.setOrder_status(dataFactory.getRandomWord());
@@ -167,21 +180,23 @@ public class DataGenService {
 
 	}
 
-	public List<Persona> createPersonaObject(int numberOfObjects, String operationType) {
+	public List<Persona> createPersonaObject(String operationType, int primaryKeyStart, int primaryKeyEnd) {
 
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
 		c.set(2000, Calendar.JANUARY, 1);
 		c.getTime();
 
-		Set<Integer> randomUniqueNumberSet = DataGenService.primaryKeyGenerator(numberOfObjects);
-		Iterator<Integer> iterator = randomUniqueNumberSet.iterator();
+		// Set<Integer> randomUniqueNumberSet =
+		// DataGenService.primaryKeyGenerator(numberOfObjects);
+		// Iterator<Integer> iterator = randomUniqueNumberSet.iterator();
 		List<Persona> personaObjectList = new ArrayList<Persona>();
 
-		for (int i = 0; i < numberOfObjects; i++) {
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Persona persona = new Persona();
 			persona.setOnline_access_flag(false);
-			persona.setPersona_id(String.valueOf(iterator.next()));// Unique Primary Key
+			// persona.setPersona_id(String.valueOf(iterator.next()));// Unique Primary Key
+			persona.setPersona_id(String.valueOf(i));// Unique Primary Key
 			persona.setFirst_name(dataFactory.getFirstName());
 			persona.setLast_name(dataFactory.getLastName());
 			persona.setFull_name(dataFactory.getName());
@@ -263,21 +278,22 @@ public class DataGenService {
 
 	}
 
-	public List<Identities> createIdentitiesObject(int numberOfObjects, String operationType) {
+	public List<Identities> createIdentitiesObject(String operationType, int primaryKeyStart, int primaryKeyEnd) {
 
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
 		c.set(2000, Calendar.JANUARY, 1);
 		c.getTime();
 
-		Set<Integer> randomUniqueNumberSet = DataGenService.primaryKeyGenerator(numberOfObjects);
-		Iterator<Integer> iterator = randomUniqueNumberSet.iterator();
+		// Set<Integer> randomUniqueNumberSet =
+		// DataGenService.primaryKeyGenerator(numberOfObjects);
+		// Iterator<Integer> iterator = randomUniqueNumberSet.iterator();
 		List<Identities> identitiesObjectList = new ArrayList<Identities>();
 
-		for (int i = 0; i < numberOfObjects; i++) {
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Identities identities = new Identities();
 			identities.setTd_c360_operation(operationType);
-			identities.setIdentity_id(String.valueOf(iterator.next()));// Unique Primary Key
+			identities.setIdentity_id(String.valueOf(i));// Unique Primary Key
 			identities.setPersona_id(dataFactory.getNumberText(3));
 			identities.setLast_name(dataFactory.getLastName());
 			identities.setFirst_name(dataFactory.getFirstName());
@@ -311,7 +327,7 @@ public class DataGenService {
 
 	}
 
-	public List<Device> createDeviceObject(int numberOfObjects, String operationType) {
+	public List<Device> createDeviceObject(String operationType, int primaryKeyStart, int primaryKeyEnd) {
 
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
@@ -320,10 +336,10 @@ public class DataGenService {
 
 		List<Device> DeviceObjectList = new ArrayList<Device>();
 
-		for (int i = 0; i < numberOfObjects; i++) {
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Device device = new Device();
 			device.setTd_c360_operation(operationType);
-			device.setDevice_codentify(dataFactory.getNumberText(3));
+			device.setDevice_codentify(String.valueOf(i)); // primary key
 			device.setIdentity_unique_identifier(dataFactory.getNumberText(3));
 			device.setPersona_identifier(dataFactory.getNumberText(3));
 			device.setDevice_type(dataFactory.getRandomWord());
@@ -356,7 +372,7 @@ public class DataGenService {
 	 * @param n
 	 * @return
 	 */
-	public static Set<Integer> primaryKeyGenerator(int n) {
+	public static Set<Integer> primaryKeyGenerator(int n) { // method NOT used now
 		Set<Integer> uniqueNumberSet = new TreeSet<Integer>();
 
 		Random random = new Random();
