@@ -1,5 +1,7 @@
 package com.pmi.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +17,8 @@ import com.pmi.services.InvokeRestService;
 @RestController
 public class RequestController {
 
+	private static final Logger logger = LoggerFactory.getLogger(RequestController.class);
+
 	@Autowired
 	private InvokeRestService invokeRestService;
 
@@ -23,8 +27,7 @@ public class RequestController {
 
 	@RequestMapping("/lookUpIdAPI")
 	public Object lookUpById(@RequestParam(value = "objName", defaultValue = "personas") String objName) {
-		System.out.println("ID Lookup API: Object Name passesd: " + objName);
-
+		logger.info("ID Lookup API: Object Name passesd: " + objName);
 		Object apiResponse = invokeRestService.callADLLookupAPI(objName);
 
 		// return "SUCCESS: Here is the response from Lookup API call, List of " +
@@ -36,8 +39,8 @@ public class RequestController {
 	public Object writeAPI(@RequestParam(value = "objName", defaultValue = "personas") String objName,
 			@RequestParam(value = "source", defaultValue = "csv") String source) {
 
-		System.out.println("Write API: Object Name passesd: " + objName);
-		System.out.println("Write API: Source passesd: " + source);
+		logger.info("Write API: Object Name passesd: " + objName);
+		logger.info("Write API: Source passesd: " + source);
 		Object apiResponse = invokeRestService.callADLBulkWriteAPI(objName);
 		// return "SUCCESS: Here is the response from Write API call, List of " +
 		// objName + " object --> " + apiResponse;
@@ -63,7 +66,7 @@ public class RequestController {
 	public Object checkDBWriteConsistencyTime(
 			@RequestParam(value = "objName", defaultValue = "personas") String objName) {
 
-		System.out.println("Write API: Object Name passesd: " + objName);
+		logger.info("Write API: Object Name passesd: " + objName);
 		Object apiResponse = invokeRestService.testDataBaseConsistency(objName);
 		// return "SUCCESS: Here is the response from Write API call, List of " +
 		// objName + " object --> " + apiResponse;

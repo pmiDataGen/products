@@ -390,7 +390,11 @@ public class InvokeRestService {
 //			logger.info("Time: Asynch lookup API call from Main Thread, for " + objName + " object ID " + id + " is "
 //					+ (endTime - startTime) + " milliseconds");
 		}
-		for (CompletableFuture<ResponseEntity> completableFuture : futureResultList) {
+
+		CompletableFuture[] futureResultArray = futureResultList
+				.toArray(new CompletableFuture[futureResultList.size()]);
+		CompletableFuture.allOf(futureResultArray).join();// Wait until they are all done
+		for (CompletableFuture<ResponseEntity> completableFuture : futureResultArray) {
 			try {
 				responseEntity = completableFuture.get();// Waits for this future to complete,then returns its result.
 				responseObjlist.add(responseEntity.getBody());
@@ -399,7 +403,8 @@ public class InvokeRestService {
 			}
 
 		}
-		logger.info("Elapsed time: " + (System.currentTimeMillis() - start));
+		long end = System.currentTimeMillis();
+		logger.info("Elapsed timess: " + (end - start));
 
 		// Write Response to CSV file
 		readWriteCSV.writeToCsv(responseObjlist, String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));
