@@ -53,7 +53,7 @@ public class InvokeRestService {
 
 	@Value("${WRITE_API_BULK_REQUEST_FILE_PATH}")
 	private String WRITE_API_BULK_REQUEST_FILE_PATH;
-	
+
 	@Value("${LOOKUP_API_REQUEST_FILE_PATH}")
 	private String LOOKUP_API_REQUEST_FILE_PATH;
 
@@ -143,54 +143,43 @@ public class InvokeRestService {
 				}
 				filePath = WRITE_API_BULK_REQUEST_FILE_PATH + inputFileName;
 			}
-			requestObjlist = readWriteCSV.readCSVWithHeader(writeAPIObj,filePath);
+			requestObjlist = readWriteCSV.readCSVWithHeader(writeAPIObj, filePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		ResponseEntity responseEntity = null;
+		List<CompletableFuture<ResponseEntity>> futureResultList = new ArrayList<CompletableFuture<ResponseEntity>>();
+		long startTime = System.currentTimeMillis();
 		for (Object reqObject : requestObjlist) {
 			HttpEntity<Object> entity = new HttpEntity<>(reqObject, httpHeaders);
-			System.out.println("Write API URI -> " + writeAPIUri);
-			System.out.println("Write API Request Body -> " + entity.getBody());
-			long startTime = System.currentTimeMillis();
-			ResponseEntity<? extends Object> responseEntity = restTemplate.exchange(writeAPIUri, HttpMethod.POST,
-					entity, reqObject.getClass());
-			long endTime = System.currentTimeMillis();
-			System.out.println("Time taken to make writeAPI call for " + objName + " object is " + (endTime - startTime)
-					+ " milliseconds");
-			System.out.println("Write API Response Status Code -> " + responseEntity.getStatusCode());
-			System.out.println("Write API Response Body -> " + responseEntity.getBody());
 
-			if (responseEntity.getBody() instanceof Persona) {
-				Persona persona = (Persona) responseEntity.getBody();
-				persona.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				responseObjlist.add(persona);
-			} else if (responseEntity.getBody() instanceof Identities) {
-				Identities identities = (Identities) responseEntity.getBody();
-				identities.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				responseObjlist.add(identities);
-			} else if (responseEntity.getBody() instanceof Orders) {
-				Orders orders = (Orders) responseEntity.getBody();
-				orders.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				responseObjlist.add(orders);
-			} else if (responseEntity.getBody() instanceof Cases) {
-				Cases cases = (Cases) responseEntity.getBody();
-				cases.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				responseObjlist.add(cases);
-			} else if (responseEntity.getBody() instanceof Device) {
-				Device device = (Device) responseEntity.getBody();
-				device.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				responseObjlist.add(device);
-			} else {
+//			ResponseEntity<? extends Object> responseEntity = restTemplate.exchange(writeAPIUri, HttpMethod.POST,
+//					entity, reqObject.getClass());
+
+			CompletableFuture<ResponseEntity> completableFutureResponseEntity = asynADLService
+					.callWriteService(writeAPIUri, entity, reqObject);
+
+			futureResultList.add(completableFutureResponseEntity);
+
+		}
+		CompletableFuture[] futureResultArray = futureResultList
+				.toArray(new CompletableFuture[futureResultList.size()]);
+		CompletableFuture.allOf(futureResultArray).join();// Wait until they are all done
+		for (CompletableFuture<ResponseEntity> completableFuture : futureResultArray) {
+			try {
+				responseEntity = completableFuture.get();// Waits for this future to complete,then returns its result.
 				responseObjlist.add(responseEntity.getBody());
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
 			}
 
-			System.out.println("====================================================================================");
 		}
+		long endTime = System.currentTimeMillis();
+		logger.info("Elapsed time: " + (endTime - startTime));
 		// Write the response of Bulk Write API response to CSV
 		readWriteCSV.writeToCsv(responseObjlist, String.format(WRITE_API_BULK_RESPONSE_CSV_FILE_PATH, objName));
 
-		System.out.println("Write API Response Written to CSV available at location :"
+		logger.info("Write API Response Written to CSV available at location :"
 				+ String.format(WRITE_API_BULK_RESPONSE_CSV_FILE_PATH, objName));
 
 		// return responseObjlist;
@@ -433,7 +422,7 @@ public class InvokeRestService {
 
 		}
 		long end = System.currentTimeMillis();
-		logger.info("Elapsed timess: " + (end - start));
+		logger.info("Elapsed time: " + (end - start));
 
 		// Write Response to CSV file
 		readWriteCSV.writeToCsv(responseObjlist, String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName));

@@ -1,5 +1,7 @@
 package com.pmi.services;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
@@ -42,7 +44,8 @@ public class AsynADLService {
 	 */
 	@Async // indicating this method will run on a separate thread
 	public CompletableFuture<ResponseEntity> callReadService(String uri, HttpEntity<String> entity, Object readAPIObj) {
-		logger.info("Looking up " + uri);
+		logger.info("Calling ID LookUp @ -> "
+				+ new SimpleDateFormat("HH:mm:ss:SS aa").format(Calendar.getInstance().getTime()) + " ; URI -> " + uri);
 		long startTime = System.currentTimeMillis();
 		ResponseEntity responseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, readAPIObj.getClass());
 		long endTime = System.currentTimeMillis();
@@ -76,19 +79,18 @@ public class AsynADLService {
 	 * @return
 	 */
 	@Async // indicating this method will run on a separate thread
-	public CompletableFuture<ResponseEntity> callWriteService(String uri, HttpEntity<String> entity,
+	public CompletableFuture<ResponseEntity> callWriteService(String uri, HttpEntity<Object> entity,
 			Object writeAPIRequestObj) {
-		// HttpEntity<Object> entity = new HttpEntity<>(reqObject, httpHeaders);
-		System.out.println("Write API URI -> " + uri);
-		System.out.println("Write API Request Body -> " + entity.getBody());
+		logger.info("Calling Write API @ -> "
+				+ new SimpleDateFormat("HH:mm:ss:SS aa").format(Calendar.getInstance().getTime()) + " ; URI -> " + uri);
 		long startTime = System.currentTimeMillis();
 		ResponseEntity<? extends Object> responseEntity = restTemplate.exchange(uri, HttpMethod.POST, entity,
 				writeAPIRequestObj.getClass());
 		long endTime = System.currentTimeMillis();
-		System.out.println("Time taken to make writeAPI call for " + writeAPIRequestObj.getClass().getName()
-				+ " object is " + (endTime - startTime) + " milliseconds");
-		System.out.println("Write API Response Status Code -> " + responseEntity.getStatusCode());
-		System.out.println("Write API Response Body -> " + responseEntity.getBody());
+		logger.info("Time taken to make writeAPI call for " + writeAPIRequestObj.getClass().getName() + " object is "
+				+ (endTime - startTime) + " milliseconds");
+		// logger.info("Write API Response Status Code -> " +
+		// responseEntity.getStatusCode());
 
 		if (responseEntity.getBody() instanceof Persona) {
 			Persona persona = (Persona) responseEntity.getBody();
