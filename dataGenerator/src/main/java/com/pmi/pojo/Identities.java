@@ -1,8 +1,6 @@
 
 package com.pmi.pojo;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
