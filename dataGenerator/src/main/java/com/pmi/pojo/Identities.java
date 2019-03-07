@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Identities {
 
 	public Identities() {
-		
+
 	}
 
 	private String td_c360_operation;
@@ -45,6 +45,7 @@ public class Identities {
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime;
 
+	
 	@Override
 	public String toString() {
 		return "Identities [td_c360_operation=" + td_c360_operation + ", identity_id=" + identity_id + ", persona_id="
@@ -58,6 +59,14 @@ public class Identities {
 				+ ", registration_country=" + registration_country + ", registration_referal_identifier="
 				+ registration_referal_identifier + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
 				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getRecordConsistencyTime() {
@@ -210,14 +219,6 @@ public class Identities {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public String getPhone_number() {
