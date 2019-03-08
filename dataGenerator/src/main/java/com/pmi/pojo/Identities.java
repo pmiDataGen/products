@@ -1,7 +1,12 @@
 
 package com.pmi.pojo;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.opencsv.bean.CsvBindAndSplitByName;
+import com.opencsv.bean.CsvBindByName;
+import com.pmi.util.TextToAddress;
 
 /**
  * @author boja.p.ramalingam
@@ -15,37 +20,64 @@ public class Identities {
 
 	}
 
+	@CsvBindByName
 	private String td_c360_operation;
+	@CsvBindByName
 	private String identity_id;
+	@CsvBindByName
 	private String persona_id;
+	@CsvBindByName
 	private String login_name;
+	@CsvBindByName
 	private String first_name;
+	@CsvBindByName
 	private String last_name;
+	@CsvBindByName
 	private String gender;
+	@CsvBindByName
 	private String home_country;
+	@CsvBindByName
 	private boolean is_deleted;
+	@CsvBindByName
 	private boolean blocked_flag;
+	@CsvBindByName
 	private String consumer_type;
+	@CsvBindByName
 	private String preferred_language;
+	@CsvBindByName
 	private String date_of_birth;
+	@CsvBindByName
 	private String segment;
+	@CsvBindByName
 	private String last_login_date;
+	@CsvBindByName
 	private String registration_date; // registration date
 	// private String time; // "time": "1548928418229"//No need to pass the values
 	// private String td_c360_operation_time; // "td:c360:operation_time":
 	// "1548928418229.0"//No need to pass the values
+	@CsvBindByName
 	private String nick_name; // "nickname": "SDoe"
+	@CsvBindByName
 	private String full_name; // "full_name": "Sue Doe"
+	@CsvBindByName
 	private String email; // "email": "sdoe1@pmi.com"
-	private String address; // "address": "US, Los Angeles, 1st Alley"
+
+	@CsvBindAndSplitByName(elementType = Address.class, splitOn = "\\|", converter = TextToAddress.class)
+	private List<Address> address; // "address": "US, Los Angeles, 1st Alley"
+
+	@CsvBindByName
 	private String phone_number; // "phone_number": "501502503.0"
+	@CsvBindByName
 	private String registration_source_app;
+	@CsvBindByName
 	private String registration_country;
+	@CsvBindByName
 	private String registration_referal_identifier;
+	@CsvBindByName
 	private String apiCallTimeTakenInMillis;
+	@CsvBindByName
 	private String recordConsistencyTime;
 
-	
 	@Override
 	public String toString() {
 		return "Identities [td_c360_operation=" + td_c360_operation + ", identity_id=" + identity_id + ", persona_id="
@@ -61,11 +93,11 @@ public class Identities {
 				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 
-	public String getAddress() {
+	public List<Address> getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(List<Address> address) {
 		this.address = address;
 	}
 

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,7 +19,8 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import com.pmi.pojo.Orders;
+import com.pmi.pojo.Address;
+import com.pmi.pojo.Identities;
 
 /**
  * @author vikas.e.mishra
@@ -28,21 +30,69 @@ import com.pmi.pojo.Orders;
 public class ReadWriteCSV {
 
 	public static void main(String[] args) {
-		Orders order = new Orders();
-		String filePath = "C:/CSVFiles/writeAPI/request/writeAPI_request_orders.csv";
-		try {
-			List list = new ReadWriteCSV().readCSVWithHeader(order, filePath);
-			int i = 0;
-			for (Object object : list) {
-				System.out.println(i);
-				System.out.println(object);
-				System.out.println("======");
-				i++;
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		String filePath = "C:/Users/vikas.e.mishra/Desktop/Temp/testWrite3.csv";
+		List<Identities> identitiesList = new ArrayList<Identities>();
+		List<Address> addressList = new ArrayList<Address>();
+		for (int i = 1; i <= 3; i++) {
+			Address address = new Address();
+			address.setAdditional_address_line_1("Additional_address_line_1" + i);
+			address.setAdditional_address_line_2("Additional_address_line_2" + i);
+			address.setAdditional_address_line_3("Additional_address_line_3" + i);
+			address.setAdditional_address_line_4("Additional_address_line_4" + i);
+			address.setAdditional_address_line_5("Additional_address_line_5" + i);
+			address.setCountry("India" + i);
+			address.setPostal_code("600" + i);
+			address.setAddress_type("address Type " + i);
+			address.setPreferred_shipping(true);
+			address.setPreferred_billing(false);
+			address.setCommunication_opt_in("communication_opt_in " + i);
+			addressList.add(address);
 		}
+
+		Identities identities = new Identities();
+		identities.setTd_c360_operation("merge");
+		identities.setIdentity_id("177");
+		identities.setPersona_id("177");
+		identities.setLast_name("Test");
+		identities.setFirst_name("Test");
+		identities.setLogin_name("Test");
+		identities.setFull_name("Test66"); // identities.setNick_name("Test66"); //
+		identities.setDate_of_birth("1978.10.09"); //
+		identities.setAddress(addressList); //
+		identities.setPhone_number("501502503.0"); //
+		identities.setEmail("Test66@pmi.com"); // identities.setGender("M"); //
+		identities.setHome_country("Test66"); // identities.setBlocked_flag(false); //
+		identities.setIs_deleted(false); //
+		identities.setRegistration_date("1548716400000.0"); //
+		identities.setRegistration_source_app("Test66"); //
+		identities.setRegistration_country("Test66"); //
+		identities.setRegistration_referal_identifier("Test66"); //
+		identities.setConsumer_type("Test66"); //
+		identities.setPreferred_language("Test66"); //
+		identities.setSegment("Test66"); //
+		identities.setLast_login_date("1548716400000.0");
+
+		identitiesList.add(identities);
+		System.out.println("OBject List  --- " + identitiesList);
+		new ReadWriteCSV().writeToCsv(identitiesList, filePath);
+
+		System.out.println("Written " + filePath);
+
+//		try {
+//			List list = new ReadWriteCSV().readCSVWithHeader(new Identities(), filePath);
+//			int i = 0;
+//			for (Object object : list) {
+//				System.out.println(i);
+//				System.out.println(object);
+//				System.out.println("======");
+//				i++;
+//			}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
 	}
 
 	// returning list of Object for CSVWriter

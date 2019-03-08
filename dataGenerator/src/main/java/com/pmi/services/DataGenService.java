@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.pmi.pojo.Address;
 import com.pmi.pojo.Cases;
 import com.pmi.pojo.Device;
 import com.pmi.pojo.Identities;
@@ -291,6 +292,7 @@ public class DataGenService {
 		List<Identities> identitiesObjectList = new ArrayList<Identities>();
 
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+
 			Identities identities = new Identities();
 			identities.setTd_c360_operation(operationType);
 			identities.setIdentity_id(String.valueOf(i));// Unique Primary Key
@@ -302,7 +304,6 @@ public class DataGenService {
 			identities.setNick_name(dataFactory.getName());
 			identities.setDate_of_birth(
 					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			identities.setAddress(dataFactory.getAddress());
 			identities.setPhone_number(dataFactory.getNumberText(10));
 			identities.setEmail(dataFactory.getEmailAddress());
 			identities.setGender(dataFactory.getRandomWord(1, 1));
@@ -320,6 +321,23 @@ public class DataGenService {
 			identities.setLast_login_date(
 					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 
+			List<Address> addressList = new ArrayList<Address>();
+			for (int j = 1; j <= 2; j++) {
+				Address address = new Address();
+				address.setAdditional_address_line_1(dataFactory.getAddress());
+				address.setAdditional_address_line_2(dataFactory.getAddressLine2());
+				address.setAdditional_address_line_3(dataFactory.getAddressLine2());
+				address.setAdditional_address_line_4(dataFactory.getAddressLine2());
+				address.setAdditional_address_line_5(dataFactory.getAddressLine2());
+				address.setCountry(dataFactory.getCity());
+				address.setPostal_code(dataFactory.getNumberText(6));
+				address.setAddress_type(dataFactory.getRandomText(10));
+				address.setPreferred_shipping(true);
+				address.setPreferred_billing(false);
+				address.setCommunication_opt_in(dataFactory.getRandomWord());
+				addressList.add(address);
+			}
+			identities.setAddress(addressList);
 			identitiesObjectList.add(identities);
 		}
 

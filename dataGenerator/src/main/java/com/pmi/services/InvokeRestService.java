@@ -435,4 +435,60 @@ public class InvokeRestService {
 				+ String.format(LOOKUP_API_RESPONSE_CSV_FILE_PATH, objName);
 	}
 
+	/**
+	 * This method is for testing purpose. Pass a object and make ADL Write API
+	 * call. Response will be written on console. NO read or write to CSV
+	 * 
+	 * @param objName
+	 * @param requestObjlist
+	 */
+	public void callWriteAPI(String objName, List<Object> requestObjlist) {
+		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
+		writeAPIUri = String.format(writeAPIUri, objName);
+		// create Request Header
+		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+		httpHeaders.set("Authorization", authToken);
+		List<Object> responseObjlist = new ArrayList<>();
+		for (Object reqObject : requestObjlist) { // Single iteration as the CSV has only one record.
+			HttpEntity<Object> entity = new HttpEntity<>(reqObject, httpHeaders);
+			System.out.println("Write API URI -> " + writeAPIUri);
+			System.out.println("Write API Request Body -> " + entity.getBody());
+			long startTime = System.currentTimeMillis();
+			ResponseEntity<? extends Object> responseEntity = restTemplate.exchange(writeAPIUri, HttpMethod.POST,
+					entity, reqObject.getClass()); // Write to database.
+			long endTime = System.currentTimeMillis();
+			System.out.println("Time taken to make writeAPI call for " + objName + " object is " + (endTime - startTime)
+					+ " milliseconds");
+			System.out.println("Write API Response Status Code -> " + responseEntity.getStatusCode());
+			System.out.println("Write API Response Body -> " + responseEntity.getBody());
+			if (responseEntity.getBody() instanceof Persona) {
+				Persona persona = (Persona) responseEntity.getBody();
+				persona.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(persona);
+			} else if (responseEntity.getBody() instanceof Identities) {
+				Identities identities = (Identities) responseEntity.getBody();
+				identities.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(identities);
+			} else if (responseEntity.getBody() instanceof Orders) {
+				Orders orders = (Orders) responseEntity.getBody();
+				orders.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(orders);
+			} else if (responseEntity.getBody() instanceof Cases) {
+				Cases cases = (Cases) responseEntity.getBody();
+				cases.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(cases);
+			} else if (responseEntity.getBody() instanceof Device) {
+				Device device = (Device) responseEntity.getBody();
+				device.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(device);
+			} else {
+				responseObjlist.add(responseEntity.getBody());
+			}
+		}
+		for (Object object : responseObjlist) {
+			System.out.println("Response object -> " + object);
+		}
+
+	}
+
 }

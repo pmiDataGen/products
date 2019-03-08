@@ -150,17 +150,32 @@ public class DataGeneratorApplication {
 
 		// Write API - Identities
 		/*
-		 * Identities identities = new Identities();
+		 * List<Address> addressList = new ArrayList<Address>(); for (int i = 1; i <= 2;
+		 * i++) { Address address = new Address(); address.setAdditional_address_line_1(
+		 * "Additional_address_line_1Additional_address_line_" + i);
+		 * address.setAdditional_address_line_2(
+		 * "Additional_address_line_2Additional_address_line_" + i);
+		 * address.setAdditional_address_line_3(
+		 * "Additional_address_line_2Additional_address_line_" + i);
+		 * address.setAdditional_address_line_4(
+		 * "Additional_address_line_2Additional_address_line_" + i);
+		 * address.setAdditional_address_line_5(
+		 * "Additional_address_line_2Additional_address_line_" + i);
+		 * address.setCountry("India" + i); address.setPostal_code("600" + i);
+		 * address.setAddress_type("address Type " + i);
+		 * address.setPreferred_shipping(true); address.setPreferred_billing(false);
+		 * address.setCommunication_opt_in("communication_opt_in " + i);
+		 * addressList.add(address); } Identities identities = new Identities();
 		 * identities.setTd_c360_operation("merge"); identities.setIdentity_id("166");
 		 * identities.setPersona_id("166"); identities.setLast_name("Test");
 		 * identities.setFirst_name("Test"); identities.setLogin_name("Test");
-		 * identities.setFull_name("Test66"); //identities.setNick_name("Test66"); //
+		 * identities.setFull_name("Test66"); // identities.setNick_name("Test66"); //
 		 * identities.setDate_of_birth("1978.10.09"); //
-		 * identities.setAddress("US, Los Angeles, 1st Alley"); //
+		 * identities.setAddress(addressList); //
 		 * identities.setPhone_number("501502503.0"); //
-		 * identities.setEmail("Test66@pmi.com"); //identities.setGender("M"); //
-		 * identities.setHome_country("Test66"); //identities.setBlocked_flag(false); //
-		 * identities.setIs_deleted(false); //
+		 * identities.setEmail("Test66@pmi.com"); // identities.setGender("M"); //
+		 * identities.setHome_country("Test66"); // identities.setBlocked_flag(false);
+		 * // identities.setIs_deleted(false); //
 		 * identities.setRegistration_date("1548716400000.0"); //
 		 * identities.setRegistration_source_app("Test66"); //
 		 * identities.setRegistration_country("Test66"); //
@@ -170,7 +185,8 @@ public class DataGeneratorApplication {
 		 * identities.setSegment("Test66"); //
 		 * identities.setLast_login_date("1548716400000.0");
 		 * 
-		 * invokeRestService.callADLWriteAPI("identities", identities);
+		 * List identitesList = new ArrayList<>(); identitesList.add(identities);
+		 * invokeRestService.callWriteAPI("identities", identitesList);
 		 */
 
 		// Write API - Cases
