@@ -92,46 +92,30 @@ public class RequestController {
 	public Object searchAPI(@RequestParam(value = "objName", defaultValue = "personas") String objName) {
 
 		// TODO here call ADL lookup API based on different object Name and primary Key
-		List<Address> addressList = new ArrayList<Address>();
-		for (int i = 0; i <= 1; i++) {
-			Address address = new Address();
-			address.setAdditional_address_line_1("Additional_address_line_1" + i);
-			address.setAdditional_address_line_2("Additional_address_line_2" + i);
-			address.setAdditional_address_line_3("Additional_address_line_3" + i);
-			address.setAdditional_address_line_4("Additional_address_line_4" + i);
-			address.setAdditional_address_line_5("Additional_address_line_5" + i);
-			address.setCountry("India" + i);
-			address.setPostal_code("600" + i);
-			address.setAddress_type("address Type " + i);
-			address.setPreferred_shipping(true);
-			address.setPreferred_billing(false);
-			address.setCommunication_opt_in("communication_opt_in " + i);
-			addressList.add(address);
-		}
+		/*
+		 * List<Address> addressList = new ArrayList<Address>(); for (int i = 0; i <= 1;
+		 * i++) { Address address = new Address();
+		 * address.setAdditional_address_line_1("Additional_address_line_1" + i);
+		 * address.setAdditional_address_line_2("Additional_address_line_2" + i);
+		 * address.setAdditional_address_line_3("Additional_address_line_3" + i);
+		 * address.setAdditional_address_line_4("Additional_address_line_4" + i);
+		 * address.setAdditional_address_line_5("Additional_address_line_5" + i);
+		 * address.setCountry("India" + i); address.setPostal_code("600" + i);
+		 * address.setAddress_type("address Type " + i);
+		 * address.setPreferred_shipping(true); address.setPreferred_billing(false);
+		 * address.setCommunication_opt_in("communication_opt_in " + i);
+		 * addressList.add(address); }
+		 * 
+		 * Identities identities = new Identities();
+		 * identities.setTd_c360_operation("merge"); identities.setLast_name("Test");
+		 * identities.setFirst_name("Test"); identities.setLogin_name("Test");
+		 * identities.setDate_of_birth("1978.10.09");
+		 * identities.setAddress(addressList);
+		 * identities.setPhone_number("501502503.0");
+		 * identities.setEmail_address("Test66@pmi.com");
+		 * identities.setHome_country("Test66"); identities.setConsumer_type("Test66");
+		 */
 
-		Identities identities = new Identities();
-		identities.setTd_c360_operation("merge");
-		identities.setIdentity_id("166");
-		identities.setPersona_id("166");
-		identities.setLast_name("Test");
-		identities.setFirst_name("Test");
-		identities.setLogin_name("Test");
-		identities.setFull_name("Test66"); // identities.setNick_name("Test66"); //
-		identities.setDate_of_birth("1978.10.09"); //
-		identities.setAddress(addressList); //
-		identities.setPhone_number("501502503.0"); //
-		identities.setEmail("Test66@pmi.com"); // identities.setGender("M"); //
-		identities.setHome_country("Test66"); // identities.setBlocked_flag(false); //
-		identities.setIs_deleted(false); //
-		identities.setRegistration_date("1548716400000.0"); //
-		identities.setRegistration_source_app("Test66"); //
-		identities.setRegistration_country("Test66"); //
-		identities.setRegistration_referal_identifier("Test66"); //
-		identities.setConsumer_type("Test66"); //
-		identities.setPreferred_language("Test66"); //
-		identities.setSegment("Test66"); //
-		identities.setLast_login_date("1548716400000.0");
-
-		return identities;
+		return dataGenService.createIdentitiesObject("merge", 510, 510);
 	}
 }

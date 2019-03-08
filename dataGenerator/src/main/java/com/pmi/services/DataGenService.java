@@ -17,10 +17,12 @@ import org.springframework.stereotype.Component;
 
 import com.pmi.pojo.Address;
 import com.pmi.pojo.Cases;
+import com.pmi.pojo.Coaches;
 import com.pmi.pojo.Device;
 import com.pmi.pojo.Identities;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
+import com.pmi.pojo.TermsAndConditions;
 import com.pmi.util.ReadWriteCSV;
 
 /**
@@ -295,31 +297,32 @@ public class DataGenService {
 
 			Identities identities = new Identities();
 			identities.setTd_c360_operation(operationType);
-			identities.setIdentity_id(String.valueOf(i));// Unique Primary Key
-			identities.setPersona_id(dataFactory.getNumberText(3));
+
+			identities.setIdentity_id(String.valueOf(i));// Unique Primary Key);
+			identities.setPersona_identifier(dataFactory.getNumberText(3));// later change to "persona_identifier"
+			identities.setLogin_name(dataFactory.getBusinessName());
 			identities.setLast_name(dataFactory.getLastName());
 			identities.setFirst_name(dataFactory.getFirstName());
-			identities.setLogin_name(dataFactory.getBusinessName());
-			identities.setFull_name(dataFactory.getName());
-			identities.setNick_name(dataFactory.getName());
-			identities.setDate_of_birth(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			identities.setPhone_number(dataFactory.getNumberText(10));
-			identities.setEmail(dataFactory.getEmailAddress());
 			identities.setGender(dataFactory.getRandomWord(1, 1));
 			identities.setHome_country(dataFactory.getCity());
-			identities.setBlocked_flag(false);
-			identities.setIs_deleted(false);
-			identities.setRegistration_date(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			identities.setRegistration_source_app("Test66");
-			identities.setRegistration_country(dataFactory.getCity());
-			identities.setRegistration_referal_identifier(dataFactory.getNumberText(3));
+			identities.setIs_deleted(dataFactory.getRandomWord());
+			identities.setReason_of_deletion(dataFactory.getRandomText(20));
+			identities.setReason_of_customer_lost(dataFactory.getRandomText(20));
+			identities.setBlocked_flag(dataFactory.getRandomChars(4));
 			identities.setConsumer_type(dataFactory.getRandomWord());
-			identities.setPreferred_language(dataFactory.getCity());
-			identities.setSegment(dataFactory.getRandomWord());
-			identities.setLast_login_date(
+			identities.setDate_of_birth(
 					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			identities.setAge(dataFactory.getNumberBetween(10, 100));
+			identities.setAge_group("10-100");
+			identities.setEmail_address(dataFactory.getEmailAddress());
+			identities.setEmail_comunication_opt_in(dataFactory.getRandomText(20));
+			identities.setPhone_country_code_number(dataFactory.getNumberText(2));
+			identities.setPhone_number(dataFactory.getNumberText(2));
+			identities.setPhone_comunication_opt_in(dataFactory.getRandomText(20));
+			identities.setPrivacy_policy_acceptance(dataFactory.getRandomText(20));
+			identities.setLoyalty_tier(dataFactory.getRandomText(10));
+			identities.setLoyalty_points(dataFactory.getNumberUpTo(1000));
+			identities.setLoyalty_erned_points(dataFactory.getNumberBetween(100, 200));
 
 			List<Address> addressList = new ArrayList<Address>();
 			for (int j = 1; j <= 2; j++) {
@@ -337,7 +340,51 @@ public class DataGenService {
 				address.setCommunication_opt_in(dataFactory.getRandomWord());
 				addressList.add(address);
 			}
-			identities.setAddress(addressList);
+			identities.setAddresses(addressList);
+
+			List<Coaches> coachesList = new ArrayList<Coaches>();
+			for (int k = 1; k <= 2; k++) {
+				Coaches coaches = new Coaches();
+				coaches.setCoach_id(dataFactory.getNumberText(3));
+				coaches.setCoach_name(dataFactory.getRandomWord());
+				coachesList.add(coaches);
+			}
+			identities.setCoaches(coachesList);
+
+			List<TermsAndConditions> termsAndConditionsList = new ArrayList<TermsAndConditions>();
+			TermsAndConditions termsAndConditions = new TermsAndConditions();
+			termsAndConditions.setTerms_and_conditions_acceptance(dataFactory.getRandomText(10, 40));
+			termsAndConditions.setTerms_and_conditions_version(dataFactory.getNumberText(2));
+			termsAndConditionsList.add(termsAndConditions);
+			identities.setTermsAndConditions(termsAndConditionsList);
+
+			/*
+			 * identities.setIdentity_id(String.valueOf(i));// Unique Primary Key
+			 * identities.setPersona_id(dataFactory.getNumberText(3));
+			 * identities.setLast_name(dataFactory.getLastName());
+			 * identities.setFirst_name(dataFactory.getFirstName());
+			 * identities.setLogin_name(dataFactory.getBusinessName());
+			 * identities.setFull_name(dataFactory.getName());
+			 * identities.setNick_name(dataFactory.getName()); identities.setDate_of_birth(
+			 * String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime()
+			 * / 1000l)); identities.setPhone_number(dataFactory.getNumberText(10));
+			 * identities.setEmail(dataFactory.getEmailAddress());
+			 * identities.setGender(dataFactory.getRandomWord(1, 1));
+			 * identities.setHome_country(dataFactory.getCity());
+			 * identities.setBlocked_flag(false); identities.setIs_deleted(false);
+			 * identities.setRegistration_date(
+			 * String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime()
+			 * / 1000l)); identities.setRegistration_source_app("Test66");
+			 * identities.setRegistration_country(dataFactory.getCity());
+			 * identities.setRegistration_referal_identifier(dataFactory.getNumberText(3));
+			 * identities.setConsumer_type(dataFactory.getRandomWord());
+			 * identities.setPreferred_language(dataFactory.getCity());
+			 * identities.setSegment(dataFactory.getRandomWord());
+			 * identities.setLast_login_date(
+			 * String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime()
+			 * / 1000l));
+			 */
+
 			identitiesObjectList.add(identities);
 		}
 

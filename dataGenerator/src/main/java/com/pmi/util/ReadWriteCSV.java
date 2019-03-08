@@ -52,26 +52,15 @@ public class ReadWriteCSV {
 
 		Identities identities = new Identities();
 		identities.setTd_c360_operation("merge");
-		identities.setIdentity_id("177");
-		identities.setPersona_id("177");
 		identities.setLast_name("Test");
 		identities.setFirst_name("Test");
 		identities.setLogin_name("Test");
-		identities.setFull_name("Test66"); // identities.setNick_name("Test66"); //
-		identities.setDate_of_birth("1978.10.09"); //
-		identities.setAddress(addressList); //
-		identities.setPhone_number("501502503.0"); //
-		identities.setEmail("Test66@pmi.com"); // identities.setGender("M"); //
-		identities.setHome_country("Test66"); // identities.setBlocked_flag(false); //
-		identities.setIs_deleted(false); //
-		identities.setRegistration_date("1548716400000.0"); //
-		identities.setRegistration_source_app("Test66"); //
-		identities.setRegistration_country("Test66"); //
-		identities.setRegistration_referal_identifier("Test66"); //
-		identities.setConsumer_type("Test66"); //
-		identities.setPreferred_language("Test66"); //
-		identities.setSegment("Test66"); //
-		identities.setLast_login_date("1548716400000.0");
+		identities.setDate_of_birth("1978.10.09");
+		identities.setAddresses(addressList);
+		identities.setPhone_number("501502503.0");
+		identities.setEmail_address("Test66@pmi.com");
+		identities.setHome_country("Test66");
+		identities.setConsumer_type("Test66");
 
 		identitiesList.add(identities);
 		System.out.println("OBject List  --- " + identitiesList);

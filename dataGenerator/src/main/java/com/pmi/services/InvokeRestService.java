@@ -15,8 +15,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -267,7 +265,8 @@ public class InvokeRestService {
 			} else if (responseEntity.getBody() instanceof Identities) {
 				Identities identities = (Identities) responseEntity.getBody();
 				identities.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + identities.getIdentity_id();
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ identities.getIdentity_id();// later change to "identity_unique_identifier"
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, identities);
 				identities.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(identities);
