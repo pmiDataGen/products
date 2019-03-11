@@ -1,6 +1,11 @@
 package com.pmi.pojo;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.opencsv.bean.CsvBindAndSplitByName;
+import com.opencsv.bean.CsvBindByName;
+import com.pmi.util.TextToOrderItems;
 
 /**
  * @author boja.p.ramalingam
@@ -11,54 +16,40 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Orders {
 
 	public Orders() {
-		
+
 	}
 
-	private String td_c360_operation;
-	private String order_id;
-	private String order_item_identifier;
-	private String identity_id;
-	private String persona_id;
-	private String country;
-	private float order_amount;
-	private float order_discount;
-	private String order_type;
-	private String order_status; // status
-	private String order_date;
-	private String order_currency;
-	private String home_country;
-	private String order_items;
-	private String item_identifier;
-	private String product_variant;
-	private String item_description;
-	private float item_price;
-	private int item_quantity;
-	// private String time; // "time": "1548928418229"//No need to pass the values
-	// private String td_c360_operation_time; // "td:c360:operation_time":
-	// "1548928418229.0"//No need to pass the values
+	@CsvBindByName
+	private String order_id;// change to "order_number"; primary Key
+	@CsvBindByName
+	private String identity_unique_identifier;
+	@CsvBindByName
+	private String persona_identifier;
+	@CsvBindByName
+	private String total_price;
+	@CsvBindByName
 	private String status;
+	@CsvBindByName
+	private long date;
+	@CsvBindByName
+	private String link_to_invoice_file;
+	@CsvBindAndSplitByName(elementType = OrderItems.class, splitOn = "\\|", converter = TextToOrderItems.class)
+	private List<OrderItems> order_items;
+
+	@CsvBindByName
+	private String td_c360_operation;
+	@CsvBindByName
 	private String apiCallTimeTakenInMillis;
+	@CsvBindByName
 	private String recordConsistencyTime;
 
 	@Override
 	public String toString() {
-		return "Orders [td_c360_operation=" + td_c360_operation + ", order_id=" + order_id + ", order_item_identifier="
-				+ order_item_identifier + ", identity_id=" + identity_id + ", persona_id=" + persona_id + ", country="
-				+ country + ", order_amount=" + order_amount + ", order_discount=" + order_discount + ", order_type="
-				+ order_type + ", order_status=" + order_status + ", order_date=" + order_date + ", order_currency="
-				+ order_currency + ", home_country=" + home_country + ", order_items=" + order_items
-				+ ", item_identifier=" + item_identifier + ", product_variant=" + product_variant
-				+ ", item_description=" + item_description + ", item_price=" + item_price + ", item_quantity="
-				+ item_quantity + ", status=" + status + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+		return "Orders [order_id=" + order_id + ", identity_unique_identifier=" + identity_unique_identifier
+				+ ", persona_identifier=" + persona_identifier + ", total_price=" + total_price + ", status=" + status
+				+ ", date=" + date + ", link_to_invoice_file=" + link_to_invoice_file + ", order_items=" + order_items
+				+ ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
 				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
-	}
-
-	public String getRecordConsistencyTime() {
-		return recordConsistencyTime;
-	}
-
-	public void setRecordConsistencyTime(String recordConsistencyTime) {
-		this.recordConsistencyTime = recordConsistencyTime;
 	}
 
 	public String getOrder_id() {
@@ -69,140 +60,28 @@ public class Orders {
 		this.order_id = order_id;
 	}
 
-	public String getOrder_item_identifier() {
-		return order_item_identifier;
+	public String getIdentity_unique_identifier() {
+		return identity_unique_identifier;
 	}
 
-	public void setOrder_item_identifier(String order_item_identifier) {
-		this.order_item_identifier = order_item_identifier;
+	public void setIdentity_unique_identifier(String identity_unique_identifier) {
+		this.identity_unique_identifier = identity_unique_identifier;
 	}
 
-	public String getIdentity_id() {
-		return identity_id;
+	public String getPersona_identifier() {
+		return persona_identifier;
 	}
 
-	public void setIdentity_id(String identity_id) {
-		this.identity_id = identity_id;
+	public void setPersona_identifier(String persona_identifier) {
+		this.persona_identifier = persona_identifier;
 	}
 
-	public String getPersona_id() {
-		return persona_id;
+	public String getTotal_price() {
+		return total_price;
 	}
 
-	public void setPersona_id(String persona_id) {
-		this.persona_id = persona_id;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public float getOrder_amount() {
-		return order_amount;
-	}
-
-	public void setOrder_amount(float order_amount) {
-		this.order_amount = order_amount;
-	}
-
-	public float getOrder_discount() {
-		return order_discount;
-	}
-
-	public void setOrder_discount(float order_discount) {
-		this.order_discount = order_discount;
-	}
-
-	public String getOrder_type() {
-		return order_type;
-	}
-
-	public void setOrder_type(String order_type) {
-		this.order_type = order_type;
-	}
-
-	public String getOrder_status() {
-		return order_status;
-	}
-
-	public void setOrder_status(String order_status) {
-		this.order_status = order_status;
-	}
-
-	public String getOrder_date() {
-		return order_date;
-	}
-
-	public void setOrder_date(String order_date) {
-		this.order_date = order_date;
-	}
-
-	public String getOrder_currency() {
-		return order_currency;
-	}
-
-	public void setOrder_currency(String order_currency) {
-		this.order_currency = order_currency;
-	}
-
-	public String getHome_country() {
-		return home_country;
-	}
-
-	public void setHome_country(String home_country) {
-		this.home_country = home_country;
-	}
-
-	public String getOrder_items() {
-		return order_items;
-	}
-
-	public void setOrder_items(String order_items) {
-		this.order_items = order_items;
-	}
-
-	public String getItem_identifier() {
-		return item_identifier;
-	}
-
-	public void setItem_identifier(String item_identifier) {
-		this.item_identifier = item_identifier;
-	}
-
-	public String getProduct_variant() {
-		return product_variant;
-	}
-
-	public void setProduct_variant(String product_variant) {
-		this.product_variant = product_variant;
-	}
-
-	public String getItem_description() {
-		return item_description;
-	}
-
-	public void setItem_description(String item_description) {
-		this.item_description = item_description;
-	}
-
-	public float getItem_price() {
-		return item_price;
-	}
-
-	public void setItem_price(float item_price) {
-		this.item_price = item_price;
-	}
-
-	public int getItem_quantity() {
-		return item_quantity;
-	}
-
-	public void setItem_quantity(int item_quantity) {
-		this.item_quantity = item_quantity;
+	public void setTotal_price(String total_price) {
+		this.total_price = total_price;
 	}
 
 	public String getStatus() {
@@ -211,6 +90,30 @@ public class Orders {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public long getDate() {
+		return date;
+	}
+
+	public void setDate(long date) {
+		this.date = date;
+	}
+
+	public String getLink_to_invoice_file() {
+		return link_to_invoice_file;
+	}
+
+	public void setLink_to_invoice_file(String link_to_invoice_file) {
+		this.link_to_invoice_file = link_to_invoice_file;
+	}
+
+	public List<OrderItems> getOrder_items() {
+		return order_items;
+	}
+
+	public void setOrder_items(List<OrderItems> order_items) {
+		this.order_items = order_items;
 	}
 
 	public String getTd_c360_operation() {
@@ -228,5 +131,27 @@ public class Orders {
 	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
 		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
+
+	public String getRecordConsistencyTime() {
+		return recordConsistencyTime;
+	}
+
+	public void setRecordConsistencyTime(String recordConsistencyTime) {
+		this.recordConsistencyTime = recordConsistencyTime;
+	}
+
+	/*
+	 * private String order_id; private String order_item_identifier; private String
+	 * identity_id; private String persona_id; private String country; private float
+	 * order_amount; private float order_discount; private String order_type;
+	 * private String order_status; // status private String order_date; private
+	 * String order_currency; private String home_country; private String
+	 * order_items; private String item_identifier; private String product_variant;
+	 * private String item_description; private float item_price; private int
+	 * item_quantity; // private String time; // "time": "1548928418229"//No need to
+	 * pass the values // private String td_c360_operation_time; //
+	 * "td:c360:operation_time": // "1548928418229.0"//No need to pass the values
+	 * private String status;
+	 */
 
 }

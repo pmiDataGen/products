@@ -265,8 +265,10 @@ public class InvokeRestService {
 			} else if (responseEntity.getBody() instanceof Identities) {
 				Identities identities = (Identities) responseEntity.getBody();
 				identities.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
-						+ identities.getIdentity_id();// later change to "identity_unique_identifier"
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + identities.getIdentity_id();// later
+																														// change
+																														// to
+																														// "identity_unique_identifier"
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, identities);
 				identities.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(identities);

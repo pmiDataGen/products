@@ -20,6 +20,7 @@ import com.pmi.pojo.Cases;
 import com.pmi.pojo.Coaches;
 import com.pmi.pojo.Device;
 import com.pmi.pojo.Identities;
+import com.pmi.pojo.OrderItems;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
 import com.pmi.pojo.TermsAndConditions;
@@ -117,25 +118,19 @@ public class DataGenService {
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Cases cases = new Cases();
 			cases.setTd_c360_operation(operationType);
-			cases.setCase_Channel(dataFactory.getRandomText(10));
-			cases.setCase_Subtype(dataFactory.getRandomText(10));
-			cases.setCase_id(String.valueOf(i));
-			cases.setCase_source(dataFactory.getRandomWord());
-			cases.setCase_type(dataFactory.getRandomWord());
-			cases.setClosing_date(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			cases.setCreate_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			cases.setDescription(dataFactory.getRandomWord());
-			cases.setHome_country(dataFactory.getCity());
-			cases.setIdentity_id(dataFactory.getNumberText(3));
-			cases.setLatest_update_date(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			cases.setOrder_id(dataFactory.getNumberText(3));
-			cases.setPersona_id(dataFactory.getNumberText(3));
+
+			cases.setCase_id(String.valueOf(i));// primary Key
+			cases.setIdentity_unique_identifier(dataFactory.getNumberText(3));
+			cases.setPersona_identifier(dataFactory.getNumberText(3));
 			cases.setSerial_numer(dataFactory.getNumberText(2));
+			cases.setClosing_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			cases.setCreate_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			cases.setStatus(dataFactory.getRandomWord());
 			cases.setSubject_code(dataFactory.getNumberBetween(0, 999));
-			cases.setSubject_description(dataFactory.getRandomWord());
+			cases.setSubject(dataFactory.getNumberBetween(0, 999));
+			cases.setResolution(dataFactory.getRandomText(10));
+			cases.setCase_description(dataFactory.getRandomText(10));
+			cases.setCustomer_comment(dataFactory.getRandomWord());
 
 			casesObjectList.add(cases);
 		}
@@ -155,26 +150,27 @@ public class DataGenService {
 
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Orders orders = new Orders();
-			orders.setCountry(dataFactory.getCity());
-			orders.setHome_country(dataFactory.getCity());
-			orders.setIdentity_id(dataFactory.getNumberText(3));
-			orders.setItem_description(dataFactory.getRandomWord());
-			orders.setItem_identifier(dataFactory.getNumberText(3));
-			orders.setItem_price(dataFactory.getNumberUpTo(1000));
-			orders.setItem_quantity(dataFactory.getNumberBetween(10, 100));
-			orders.setOrder_amount(dataFactory.getNumberUpTo(500));
-			orders.setOrder_currency(dataFactory.getNumberText(3));
-			orders.setOrder_date(String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			orders.setOrder_discount(dataFactory.getNumberUpTo(50));
-			orders.setOrder_id(String.valueOf(i)); // Primary Key
-			orders.setOrder_item_identifier(dataFactory.getNumberText(3));
-			orders.setOrder_items(dataFactory.getNumberText(3));
-			orders.setOrder_status(dataFactory.getRandomWord());
-			orders.setOrder_type(dataFactory.getRandomWord());
-			orders.setPersona_id(dataFactory.getNumberText(3));
-			orders.setProduct_variant(dataFactory.getRandomWord());
-			orders.setStatus(dataFactory.getRandomWord());
 			orders.setTd_c360_operation(operationType);
+
+			orders.setOrder_id(String.valueOf(i)); // Primary Key; change to "order_number"
+			orders.setIdentity_unique_identifier(dataFactory.getNumberText(3));
+			orders.setPersona_identifier(dataFactory.getNumberText(3));
+			orders.setTotal_price(dataFactory.getNumberText(8));
+			orders.setStatus(dataFactory.getRandomText(6));
+			orders.setDate(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			orders.setLink_to_invoice_file(dataFactory.getRandomWord(8));
+			// order_items
+			List<OrderItems> orderItemsList = new ArrayList<OrderItems>();
+			for (int j = 1; j <= 2; j++) {
+				OrderItems orderItems = new OrderItems();
+				orderItems.setItem_identifier(dataFactory.getRandomWord());
+				orderItems.setProduct_variant(dataFactory.getRandomWord(8));
+				orderItems.setItem_description(dataFactory.getRandomText(8, 12));
+				orderItems.setItem_price(dataFactory.getNumberBetween(100, 1000));
+				orderItems.setItem_quantity(dataFactory.getNumberBetween(100, 1000));
+				orderItemsList.add(orderItems);
+			}
+			orders.setOrder_items(orderItemsList);
 
 			ordersObjectList.add(orders);
 		}
@@ -197,82 +193,87 @@ public class DataGenService {
 
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Persona persona = new Persona();
-			persona.setOnline_access_flag(false);
+			// persona.setOnline_access_flag(false);
 			// persona.setPersona_id(String.valueOf(iterator.next()));// Unique Primary Key
 			persona.setPersona_id(String.valueOf(i));// Unique Primary Key
 			persona.setFirst_name(dataFactory.getFirstName());
 			persona.setLast_name(dataFactory.getLastName());
-			persona.setFull_name(dataFactory.getName());
-			persona.setName(dataFactory.getBusinessName());
-			persona.setPhone(dataFactory.getNumberText(10));
-			persona.setEmail(dataFactory.getEmailAddress());
 			persona.setGender(dataFactory.getRandomWord(1, 1));
 			persona.setHome_country(dataFactory.getCity());
-			persona.setIs_deleted(false);
-			persona.setBlocked_flag(false);
 			persona.setConsumer_type(dataFactory.getRandomWord());
-			persona.setDate_of_birth(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			persona.setSegment(dataFactory.getRandomWord());
-			persona.setRegistration_date(dataFactory.getNumberUpTo(8));
-			persona.setFirst_login_date(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			persona.setLast_update_date(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			persona.setLast_login_date(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			persona.setOnline_access_flag(false);
-			persona.setPrimary_log_in(dataFactory.getNumberText(3));
-			persona.setSystem_last_update(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			persona.setLast_Activity_since_days(dataFactory.getNumberUpTo(100));
-			persona.setLast_Activity_since_months(dataFactory.getNumberUpTo(10));
 			persona.setAge(dataFactory.getNumberBetween(18, 50));
 			persona.setAge_group(dataFactory.getRandomWord());
-			persona.setRecency_score(dataFactory.getNumberBetween(100, 150));
-			persona.setFrequency_score(dataFactory.getNumberBetween(150, 151));
-			persona.setValue_score(dataFactory.getNumberUpTo(2));
-			persona.setLast_case_category_name(dataFactory.getRandomWord());
-			persona.setLast_case_start_date(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			persona.setLast_case_status_code(dataFactory.getNumberText(3));
-			persona.setNb_cases_close(dataFactory.getNumberUpTo(10));
-			persona.setNb_cases_close_1m(dataFactory.getNumberUpTo(10));
-			persona.setNb_cases_close_2m(dataFactory.getNumberUpTo(10));
-			persona.setNb_cases_close_3m(dataFactory.getNumberUpTo(10));
-			persona.setNb_cases_close_6m(dataFactory.getNumberUpTo(10));
-			persona.setNb_cases_close_12m(dataFactory.getNumberUpTo(10));
-			persona.setNb_cases_open(dataFactory.getNumberUpTo(10));
-			persona.setNb_cases_open_1m(dataFactory.getNumberUpTo(10));
-			persona.setNb_cases_open_2m(dataFactory.getNumberUpTo(10));
-			persona.setNb_cases_open_3m(dataFactory.getNumberUpTo(10));
-			persona.setNb_cases_open_6m(dataFactory.getNumberUpTo(10));
-			persona.setNb_cases_open_12m(dataFactory.getNumberUpTo(10));
-			persona.setNb_active_chargers(dataFactory.getNumberUpTo(10));
-			persona.setLimited_edition(dataFactory.getNumberText(3));
-			persona.setNb_of_devices(dataFactory.getNumberUpTo(10));
-			persona.setNb_of_devices_replaced(dataFactory.getNumberUpTo(10));
-			persona.setNb_of_holders(dataFactory.getNumberUpTo(10));
-			persona.setLatest_version_of_device(dataFactory.getNumberText(3));
-			persona.setNumber_of_heet(dataFactory.getNumberUpTo(10));
-			persona.setLifetime_revenue(dataFactory.getNumberUpTo(10));
-			persona.setFirst_purchase_date(dataFactory.getNumberUpTo(8));
-			persona.setLast_order_date(dataFactory.getNumberUpTo(10));
-			persona.setNumber_of_accessories(dataFactory.getNumberUpTo(10));
-			persona.setNb_order(dataFactory.getNumberUpTo(10));
-			persona.setNb_order_average_per_month(dataFactory.getNumberUpTo(10));
-			persona.setRegistration_first_order_difference_day(dataFactory.getNumberUpTo(100));
-			persona.setSecond_order_difference_days(dataFactory.getNumberUpTo(100));
-			persona.setTotal_spending_per_month_in_average(dataFactory.getNumberUpTo(10));
-			persona.setCnt_orders(dataFactory.getNumberUpTo(10));
-			persona.setCnt_orders_l12m(dataFactory.getNumberUpTo(10));
-			persona.setCnt_orders_l3m(dataFactory.getNumberUpTo(10));
-			persona.setCnt_orders_l6m(dataFactory.getNumberUpTo(10));
-			persona.setRevenue_ytd(dataFactory.getNumberUpTo(10));
-			persona.setRevenue_l3m(dataFactory.getNumberUpTo(10));
-			persona.setRevenue_l6m(dataFactory.getNumberUpTo(10));
-			persona.setRevenue_l12m(dataFactory.getNumberUpTo(10));
+			persona.setIs_deleted(String.valueOf(false));
+			persona.setBlocked_flag(String.valueOf(true));
+			persona.setDate_of_birth(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+
 			persona.setTd_c360_operation(operationType);
+
+			// persona.setFull_name(dataFactory.getName());
+			// persona.setName(dataFactory.getBusinessName());
+			// persona.setPhone(dataFactory.getNumberText(10));
+			// persona.setEmail(dataFactory.getEmailAddress());
+			// persona.setIs_deleted(false);
+			// persona.setBlocked_flag(false);
+//			persona.setDate_of_birth(
+//					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+//			persona.setSegment(dataFactory.getRandomWord());
+//			persona.setRegistration_date(dataFactory.getNumberUpTo(8));
+//			persona.setFirst_login_date(
+//					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+//			persona.setLast_update_date(
+//					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+//			persona.setLast_login_date(
+//					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+//			persona.setOnline_access_flag(false);
+//			persona.setPrimary_log_in(dataFactory.getNumberText(3));
+//			persona.setSystem_last_update(
+//					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+//			persona.setLast_Activity_since_days(dataFactory.getNumberUpTo(100));
+//			persona.setLast_Activity_since_months(dataFactory.getNumberUpTo(10));
+//			persona.setRecency_score(dataFactory.getNumberBetween(100, 150));
+//			persona.setFrequency_score(dataFactory.getNumberBetween(150, 151));
+//			persona.setValue_score(dataFactory.getNumberUpTo(2));
+//			persona.setLast_case_category_name(dataFactory.getRandomWord());
+//			persona.setLast_case_start_date(
+//					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+//			persona.setLast_case_status_code(dataFactory.getNumberText(3));
+//			persona.setNb_cases_close(dataFactory.getNumberUpTo(10));
+//			persona.setNb_cases_close_1m(dataFactory.getNumberUpTo(10));
+//			persona.setNb_cases_close_2m(dataFactory.getNumberUpTo(10));
+//			persona.setNb_cases_close_3m(dataFactory.getNumberUpTo(10));
+//			persona.setNb_cases_close_6m(dataFactory.getNumberUpTo(10));
+//			persona.setNb_cases_close_12m(dataFactory.getNumberUpTo(10));
+//			persona.setNb_cases_open(dataFactory.getNumberUpTo(10));
+//			persona.setNb_cases_open_1m(dataFactory.getNumberUpTo(10));
+//			persona.setNb_cases_open_2m(dataFactory.getNumberUpTo(10));
+//			persona.setNb_cases_open_3m(dataFactory.getNumberUpTo(10));
+//			persona.setNb_cases_open_6m(dataFactory.getNumberUpTo(10));
+//			persona.setNb_cases_open_12m(dataFactory.getNumberUpTo(10));
+//			persona.setNb_active_chargers(dataFactory.getNumberUpTo(10));
+//			persona.setLimited_edition(dataFactory.getNumberText(3));
+//			persona.setNb_of_devices(dataFactory.getNumberUpTo(10));
+//			persona.setNb_of_devices_replaced(dataFactory.getNumberUpTo(10));
+//			persona.setNb_of_holders(dataFactory.getNumberUpTo(10));
+//			persona.setLatest_version_of_device(dataFactory.getNumberText(3));
+//			persona.setNumber_of_heet(dataFactory.getNumberUpTo(10));
+//			persona.setLifetime_revenue(dataFactory.getNumberUpTo(10));
+//			persona.setFirst_purchase_date(dataFactory.getNumberUpTo(8));
+//			persona.setLast_order_date(dataFactory.getNumberUpTo(10));
+//			persona.setNumber_of_accessories(dataFactory.getNumberUpTo(10));
+//			persona.setNb_order(dataFactory.getNumberUpTo(10));
+//			persona.setNb_order_average_per_month(dataFactory.getNumberUpTo(10));
+//			persona.setRegistration_first_order_difference_day(dataFactory.getNumberUpTo(100));
+//			persona.setSecond_order_difference_days(dataFactory.getNumberUpTo(100));
+//			persona.setTotal_spending_per_month_in_average(dataFactory.getNumberUpTo(10));
+//			persona.setCnt_orders(dataFactory.getNumberUpTo(10));
+//			persona.setCnt_orders_l12m(dataFactory.getNumberUpTo(10));
+//			persona.setCnt_orders_l3m(dataFactory.getNumberUpTo(10));
+//			persona.setCnt_orders_l6m(dataFactory.getNumberUpTo(10));
+//			persona.setRevenue_ytd(dataFactory.getNumberUpTo(10));
+//			persona.setRevenue_l3m(dataFactory.getNumberUpTo(10));
+//			persona.setRevenue_l6m(dataFactory.getNumberUpTo(10));
+//			persona.setRevenue_l12m(dataFactory.getNumberUpTo(10));
 
 			personaObjectList.add(persona);
 		}
@@ -404,24 +405,24 @@ public class DataGenService {
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Device device = new Device();
 			device.setTd_c360_operation(operationType);
-			device.setDevice_codentify(String.valueOf(i)); // primary key
+
+			device.setDevice_serial_number(String.valueOf(i)); // primary key - change to "device_codentify"
 			device.setIdentity_unique_identifier(dataFactory.getNumberText(3));
 			device.setPersona_identifier(dataFactory.getNumberText(3));
-			device.setDevice_type(dataFactory.getRandomWord());
-			device.setDevice_version(dataFactory.getNumberText(3));
-			device.setRegistration_device_date(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+			device.setBarcode(dataFactory.getRandomText(6));
+			device.setDevice_type(dataFactory.getRandomText(8));
+			device.setDevice_version(dataFactory.getRandomWord());
+			device.setDevice_description(dataFactory.getRandomWord(10));
+			device.setPurchase_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			device.setRegistration_device_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			device.setStatus(dataFactory.getRandomWord());
-			device.setComponent_Code(dataFactory.getNumberText(3));
-			device.setStatus_date_change(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			device.setEnd_of_warranty_date(
-					String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
-			device.setHome_country(dataFactory.getCity());
-			device.setIdentity_id(dataFactory.getNumberText(3));
-			device.setModel(dataFactory.getNumberText(3));
-			device.setPersona_id(dataFactory.getNumberText(3));
-			device.setDevice_serial_number(dataFactory.getNumberText(3));
+			device.setStatus_date_change(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			device.setWarranty_starting_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			device.setWarranty_end_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			device.setReplacement_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			device.setUrl_picture_link(dataFactory.getRandomWord(8));
+			device.setCleaning_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			device.setCleaning_coach(dataFactory.getRandomChars(5));
 
 			DeviceObjectList.add(device);
 		}

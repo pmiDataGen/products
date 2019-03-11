@@ -115,7 +115,19 @@ public class RequestController {
 		 * identities.setEmail_address("Test66@pmi.com");
 		 * identities.setHome_country("Test66"); identities.setConsumer_type("Test66");
 		 */
+		if (objName.equalsIgnoreCase("Identities")) {
+			return dataGenService.createIdentitiesObject("merge", 510, 510);
+		} else if (objName.equalsIgnoreCase("personas")) {
+			return dataGenService.createPersonaObject("merge", 510, 511);
+		} else if (objName.equalsIgnoreCase("cases")) {
+			return dataGenService.createCasesObject("merge", 510, 511);
+		} else if (objName.equalsIgnoreCase("devices")) {
+			return dataGenService.createDeviceObject("merge", 510, 511);
+		} else if (objName.equalsIgnoreCase("orders")) {
+			return dataGenService.createOrdersObject("merge", 510, 511);
+		} else {
+			return "Please pass object name";
+		}
 
-		return dataGenService.createIdentitiesObject("merge", 510, 510);
 	}
 }

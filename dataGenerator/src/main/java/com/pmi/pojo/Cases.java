@@ -11,50 +11,35 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Cases {
 
 	public Cases() {
-		
+
 	}
 
-	private String td_c360_operation;
-	private String case_id;
-	private String identity_id;
-	private String persona_id;
+	private String case_id; // to be replaced by "case_number" primary key
+	private String identity_unique_identifier;
+	private String persona_identifier;
 	private String serial_numer;
-	private String order_id;
-	private String closing_date;
-	private String case_Channel;
-	private String create_date;
-	private String case_source;
-	private String case_type;
-	private String case_Subtype;
+	private long closing_date;
+	private long create_date;
 	private String status;
 	private int subject_code;
-	private String subject_description;
-	private String latest_update_date;
-	private String home_country;
-	private String description; // "description": "ORDER"
+	private int subject;
+	private String resolution;
+	private String case_description;
+	private String customer_comment;
+
+	private String td_c360_operation;
 	private String apiCallTimeTakenInMillis;
-//	private String time; 							// "time": "1548928418229"//No need to pass the values
-//	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
 	private String recordConsistencyTime;
 
 	@Override
 	public String toString() {
-		return "Cases [td_c360_operation=" + td_c360_operation + ", case_id=" + case_id + ", identity_id=" + identity_id
-				+ ", persona_id=" + persona_id + ", serial_numer=" + serial_numer + ", order_id=" + order_id
-				+ ", closing_date=" + closing_date + ", case_Channel=" + case_Channel + ", create_date=" + create_date
-				+ ", case_source=" + case_source + ", case_type=" + case_type + ", case_Subtype=" + case_Subtype
-				+ ", status=" + status + ", subject_code=" + subject_code + ", subject_description="
-				+ subject_description + ", latest_update_date=" + latest_update_date + ", home_country=" + home_country
-				+ ", description=" + description + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+		return "Cases [case_id=" + case_id + ", identity_unique_identifier=" + identity_unique_identifier
+				+ ", persona_identifier=" + persona_identifier + ", serial_numer=" + serial_numer + ", closing_date="
+				+ closing_date + ", create_date=" + create_date + ", status=" + status + ", subject_code="
+				+ subject_code + ", subject=" + subject + ", resolution=" + resolution + ", case_description="
+				+ case_description + ", customer_comment=" + customer_comment + ", td_c360_operation="
+				+ td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
 				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
-	}
-
-	public String getRecordConsistencyTime() {
-		return recordConsistencyTime;
-	}
-
-	public void setRecordConsistencyTime(String recordConsistencyTime) {
-		this.recordConsistencyTime = recordConsistencyTime;
 	}
 
 	public String getCase_id() {
@@ -65,20 +50,20 @@ public class Cases {
 		this.case_id = case_id;
 	}
 
-	public String getIdentity_id() {
-		return identity_id;
+	public String getIdentity_unique_identifier() {
+		return identity_unique_identifier;
 	}
 
-	public void setIdentity_id(String identity_id) {
-		this.identity_id = identity_id;
+	public void setIdentity_unique_identifier(String identity_unique_identifier) {
+		this.identity_unique_identifier = identity_unique_identifier;
 	}
 
-	public String getPersona_id() {
-		return persona_id;
+	public String getPersona_identifier() {
+		return persona_identifier;
 	}
 
-	public void setPersona_id(String persona_id) {
-		this.persona_id = persona_id;
+	public void setPersona_identifier(String persona_identifier) {
+		this.persona_identifier = persona_identifier;
 	}
 
 	public String getSerial_numer() {
@@ -89,60 +74,20 @@ public class Cases {
 		this.serial_numer = serial_numer;
 	}
 
-	public String getOrder_id() {
-		return order_id;
-	}
-
-	public void setOrder_id(String order_id) {
-		this.order_id = order_id;
-	}
-
-	public String getClosing_date() {
+	public long getClosing_date() {
 		return closing_date;
 	}
 
-	public void setClosing_date(String closing_date) {
+	public void setClosing_date(long closing_date) {
 		this.closing_date = closing_date;
 	}
 
-	public String getCase_Channel() {
-		return case_Channel;
-	}
-
-	public void setCase_Channel(String case_Channel) {
-		this.case_Channel = case_Channel;
-	}
-
-	public String getCreate_date() {
+	public long getCreate_date() {
 		return create_date;
 	}
 
-	public void setCreate_date(String create_date) {
+	public void setCreate_date(long create_date) {
 		this.create_date = create_date;
-	}
-
-	public String getCase_source() {
-		return case_source;
-	}
-
-	public void setCase_source(String case_source) {
-		this.case_source = case_source;
-	}
-
-	public String getCase_type() {
-		return case_type;
-	}
-
-	public void setCase_type(String case_type) {
-		this.case_type = case_type;
-	}
-
-	public String getCase_Subtype() {
-		return case_Subtype;
-	}
-
-	public void setCase_Subtype(String case_Subtype) {
-		this.case_Subtype = case_Subtype;
 	}
 
 	public String getStatus() {
@@ -161,36 +106,36 @@ public class Cases {
 		this.subject_code = subject_code;
 	}
 
-	public String getSubject_description() {
-		return subject_description;
+	public int getSubject() {
+		return subject;
 	}
 
-	public void setSubject_description(String subject_description) {
-		this.subject_description = subject_description;
+	public void setSubject(int subject) {
+		this.subject = subject;
 	}
 
-	public String getLatest_update_date() {
-		return latest_update_date;
+	public String getResolution() {
+		return resolution;
 	}
 
-	public void setLatest_update_date(String latest_update_date) {
-		this.latest_update_date = latest_update_date;
+	public void setResolution(String resolution) {
+		this.resolution = resolution;
 	}
 
-	public String getHome_country() {
-		return home_country;
+	public String getCase_description() {
+		return case_description;
 	}
 
-	public void setHome_country(String home_country) {
-		this.home_country = home_country;
+	public void setCase_description(String case_description) {
+		this.case_description = case_description;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getCustomer_comment() {
+		return customer_comment;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setCustomer_comment(String customer_comment) {
+		this.customer_comment = customer_comment;
 	}
 
 	public String getTd_c360_operation() {
@@ -208,5 +153,23 @@ public class Cases {
 	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
 		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
+
+	public String getRecordConsistencyTime() {
+		return recordConsistencyTime;
+	}
+
+	public void setRecordConsistencyTime(String recordConsistencyTime) {
+		this.recordConsistencyTime = recordConsistencyTime;
+	}
+
+	/*
+	 * private String identity_id; private String persona_id; private String
+	 * order_id; private String case_Channel; private String case_source; private
+	 * String case_type; private String case_Subtype; private String
+	 * subject_description; private String latest_update_date; private String
+	 * home_country; private String description; // "description": "ORDER"
+	 */
+//	private String time; 							// "time": "1548928418229"//No need to pass the values
+//	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
 
 }
