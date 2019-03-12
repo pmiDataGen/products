@@ -54,41 +54,47 @@ public class DataGenService {
 			c.set(2013, Calendar.JANUARY, 9);
 			c.getTime();
 
-			System.out.println(dataFactory.getFirstName() + " " + dataFactory.getLastName());
-			System.out.println("getAddress :" + dataFactory.getAddress());
-			System.out.println("getAddressLine2 :" + dataFactory.getAddressLine2());
-			System.out.println("getBusinessName :" + dataFactory.getBusinessName());
-			System.out.println("getCity :" + dataFactory.getCity());
-			System.out.println("getEmailAddress :" + dataFactory.getEmailAddress());
-			System.out.println("getName :" + dataFactory.getName());
-			System.out.println("getNumberBetween :" + dataFactory.getNumberBetween(100, 110));
-			System.out.println("getNumberText :" + dataFactory.getNumberText(20));
-			System.out.println("getRandomText :" + dataFactory.getRandomText(10));
-			System.out.println("getRandomWord :" + dataFactory.getRandomWord());
-			System.out.println("getStreetName :" + dataFactory.getStreetName());
-			System.out.println("getStreetSuffix :" + dataFactory.getStreetSuffix());
-			System.out.println("getBirthDate :" + dataFactory.getBirthDate());
-			System.out.println("getNameDataValues :" + dataFactory.getNameDataValues().toString());
-			System.out.println("getDateBetween: "
-					+ String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
+//			System.out.println(dataFactory.getFirstName() + " " + dataFactory.getLastName());
+//			System.out.println("getAddress :" + dataFactory.getAddress());
+//			System.out.println("getAddressLine2 :" + dataFactory.getAddressLine2());
+//			System.out.println("getBusinessName :" + dataFactory.getBusinessName());
+//			System.out.println("getCity :" + dataFactory.getCity());
+//			System.out.println("getEmailAddress :" + dataFactory.getEmailAddress());
+//			System.out.println("getName :" + dataFactory.getName());
+			System.out.println("getNumberBetween :" + dataFactory.getNumberBetween(1, 20));
+//			System.out.println("getNumberText :" + dataFactory.getNumberText(20));
+//			System.out.println("getRandomText :" + dataFactory.getRandomText(10));
+//			System.out.println("getRandomWord :" + dataFactory.getRandomWord());
+//			System.out.println("getStreetName :" + dataFactory.getStreetName());
+//			System.out.println("getStreetSuffix :" + dataFactory.getStreetSuffix());
+//			System.out.println("getBirthDate :" + dataFactory.getBirthDate());
+//			System.out.println("getNameDataValues :" + dataFactory.getNameDataValues().toString());
+//			System.out.println("getDateBetween: "
+//					+ String.valueOf(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l));
 			System.out.println("===============================================");
 
 		}
 	}
 
-	public Object generateRandomData(String objName, String operationType, Integer numberOfObjects,
+	public Object generateRandomData(String objName, String operationType, String personaIdentityRange,
 			Integer primaryKeyStart, Integer primaryKeyEnd, String outputFileName) {
+		String[] rangeArr = personaIdentityRange.split("-");
+		String startRange = rangeArr[0]; // default value:1
+		String endRange = rangeArr[1];// default value:100
 		List dataList = null;
 		if (objName.equalsIgnoreCase("personas")) {
 			dataList = createPersonaObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
 		} else if (objName.equalsIgnoreCase("identities")) {
 			dataList = createIdentitiesObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
 		} else if (objName.equalsIgnoreCase("orders")) {
-			dataList = createOrdersObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
+			dataList = createOrdersObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
 		} else if (objName.equalsIgnoreCase("cases")) {
-			dataList = createCasesObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
+			dataList = createCasesObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
 		} else if (objName.equalsIgnoreCase("devices")) {
-			dataList = createDeviceObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
+			dataList = createDeviceObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
 		}
 		// Write the generated data to CSV file
 		String filePath = null;
@@ -106,7 +112,8 @@ public class DataGenService {
 		return "SUCCESS: Data is generated and written into CSV file at Location : " + filePath;
 	}
 
-	public List<Cases> createCasesObject(String operationType, int primaryKeyStart, int primaryKeyEnd) {
+	public List<Cases> createCasesObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
 
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
@@ -139,7 +146,8 @@ public class DataGenService {
 
 	}
 
-	public List<Orders> createOrdersObject(String operationType, int primaryKeyStart, int primaryKeyEnd) {
+	public List<Orders> createOrdersObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
 
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
@@ -299,8 +307,8 @@ public class DataGenService {
 			Identities identities = new Identities();
 			identities.setTd_c360_operation(operationType);
 
-			identities.setIdentity_id(String.valueOf(i));// Unique Primary Key);
-			identities.setPersona_identifier(dataFactory.getNumberText(3));// later change to "persona_identifier"
+			identities.setIdentity_id(String.valueOf(i));// later change to "identity_unique_identifier";
+			identities.setPersona_identifier(String.valueOf(i)); // same as Identity ID
 			identities.setLogin_name(dataFactory.getBusinessName());
 			identities.setLast_name(dataFactory.getLastName());
 			identities.setFirst_name(dataFactory.getFirstName());
@@ -393,7 +401,8 @@ public class DataGenService {
 
 	}
 
-	public List<Device> createDeviceObject(String operationType, int primaryKeyStart, int primaryKeyEnd) {
+	public List<Device> createDeviceObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
 
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
