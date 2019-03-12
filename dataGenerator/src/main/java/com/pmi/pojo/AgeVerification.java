@@ -1,6 +1,7 @@
 package com.pmi.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author  boja.p.ramalingam
@@ -34,6 +35,7 @@ public class AgeVerification {
 	private long document_expiration_date;
 	private String document_image_link;
 	
+	@JsonProperty("td:c360:operation")
 	private String td_c360_operation;
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime;
