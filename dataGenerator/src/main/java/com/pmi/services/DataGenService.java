@@ -16,14 +16,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.pmi.pojo.Address;
+import com.pmi.pojo.AgeVerification;
 import com.pmi.pojo.Cases;
 import com.pmi.pojo.Coaches;
 import com.pmi.pojo.Device;
 import com.pmi.pojo.Identities;
+import com.pmi.pojo.Interaction;
 import com.pmi.pojo.OrderItems;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
+import com.pmi.pojo.Segments;
 import com.pmi.pojo.TermsAndConditions;
+import com.pmi.pojo.Vouchers;
 import com.pmi.util.ReadWriteCSV;
 
 /**
@@ -94,6 +98,18 @@ public class DataGenService {
 					startRange, endRange);
 		} else if (objName.equalsIgnoreCase("devices")) {
 			dataList = createDeviceObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("segments")) {
+			dataList = createSegmentsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("interaction")) {
+			dataList = createInteractionObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("vouchers")) {
+			dataList = createVouchersObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("ageVerification")) {
+			dataList = createAgeVerificationObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
 					startRange, endRange);
 		}
 		// Write the generated data to CSV file
@@ -437,6 +453,138 @@ public class DataGenService {
 		}
 
 		return DeviceObjectList;
+
+	}
+
+	public List<Segments> createSegmentsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
+
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<Segments> SegmentsObjectList = new ArrayList<Segments>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			Segments segments = new Segments();
+			segments.setTd_c360_operation(operationType);
+
+			segments.setSegment_id(dataFactory.getNumberText(3));
+			segments.setPersona_identifier(dataFactory.getNumberText(3));
+			segments.setSegment(dataFactory.getRandomChars(5));
+
+			SegmentsObjectList.add(segments);
+		}
+
+		return SegmentsObjectList;
+
+	}
+
+	public List<Interaction> createInteractionObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
+
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<Interaction> InteractionObjectList = new ArrayList<Interaction>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			Interaction interaction = new Interaction();
+			interaction.setTd_c360_operation(operationType);
+
+			interaction.setInteraction_id(dataFactory.getNumberText(3));
+			interaction.setIdentity_unique_identifier(dataFactory.getNumberText(3));
+			interaction.setPersona_identifier(dataFactory.getNumberText(3));
+			interaction.setInteraction_type(dataFactory.getRandomChars(5));
+			interaction.setTrial_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			interaction.setTrial_duration(dataFactory.getNumberUpTo(2));
+			interaction.setTrial_platform(dataFactory.getRandomChars(5));
+			interaction.setTrial_purpose(dataFactory.getRandomChars(5));
+			interaction.setTrial_type(dataFactory.getRandomChars(5));
+
+			InteractionObjectList.add(interaction);
+		}
+
+		return InteractionObjectList;
+
+	}
+
+	public List<Vouchers> createVouchersObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
+
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<Vouchers> VouchersObjectList = new ArrayList<Vouchers>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			Vouchers vouchers = new Vouchers();
+			vouchers.setTd_c360_operation(operationType);
+
+			vouchers.setVoucher_code(dataFactory.getNumberText(3));
+			vouchers.setIdentity_unique_identifier(dataFactory.getNumberText(3));
+			vouchers.setPersona_identifier(dataFactory.getNumberText(3));
+			vouchers.setType(dataFactory.getRandomChars(5));
+			vouchers.setName(dataFactory.getName());
+			vouchers.setCountry_of_issuing(dataFactory.getCity());
+			vouchers.setValid_from(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			vouchers.setValid_to(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			vouchers.setValue(dataFactory.getNumberUpTo(2));
+			vouchers.setCorresponding_voucher_code(dataFactory.getNumberText(3));
+			vouchers.setStatus(dataFactory.getRandomChars(5));
+
+			VouchersObjectList.add(vouchers);
+		}
+
+		return VouchersObjectList;
+
+	}
+
+	public List<AgeVerification> createAgeVerificationObject(String operationType, int primaryKeyStart,
+			int primaryKeyEnd, String startRange, String endRange) {
+
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<AgeVerification> AgeVerificationObjectList = new ArrayList<AgeVerification>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			AgeVerification ageVerification = new AgeVerification();
+			ageVerification.setTd_c360_operation(operationType);
+
+			ageVerification.setAgeverification_id(dataFactory.getNumberText(3));
+			ageVerification.setF2f_employee_id(dataFactory.getNumberText(3));
+			ageVerification.setIdentity_unique_identifier(dataFactory.getNumberText(3));
+			ageVerification.setPersona_identifier(dataFactory.getNumberText(3));
+			ageVerification.setStatus(dataFactory.getRandomChars(5));
+			ageVerification.setType(dataFactory.getRandomChars(5));
+			ageVerification.setCountry(dataFactory.getCity());
+			ageVerification.setRegion(dataFactory.getCity());
+			ageVerification.setRequest_channel(dataFactory.getRandomChars(5));
+			ageVerification.setRequest_country(dataFactory.getCity());
+			ageVerification.setRequest_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			ageVerification.setRequest_region(dataFactory.getCity());
+			ageVerification.setRequest_status(dataFactory.getRandomChars(5));
+			ageVerification.setRequest_status_change_date(
+					dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			ageVerification.setDocument_type(dataFactory.getRandomChars(5));
+			ageVerification.setDocument_number(dataFactory.getNumberText(3));
+			ageVerification.setDocument_image_link(dataFactory.getRandomChars(5));
+			ageVerification
+					.setDocument_expiration_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			ageVerification.setDocument_country(dataFactory.getCity());
+
+			AgeVerificationObjectList.add(ageVerification);
+		}
+
+		return AgeVerificationObjectList;
 
 	}
 
