@@ -116,7 +116,7 @@ public class RequestController {
 		 * identities.setHome_country("Test66"); identities.setConsumer_type("Test66");
 		 */
 		if (objName.equalsIgnoreCase("Identities")) {
-			return dataGenService.createIdentitiesObject("merge", 510, 510);
+			return dataGenService.createIdentitiesObject("delete", 510, 510);
 		} else if (objName.equalsIgnoreCase("personas")) {
 			return dataGenService.createPersonaObject("merge", 510, 511);
 		} else if (objName.equalsIgnoreCase("cases")) {

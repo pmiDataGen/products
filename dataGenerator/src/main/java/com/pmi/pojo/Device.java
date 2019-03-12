@@ -1,5 +1,7 @@
 package com.pmi.pojo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Device {
 
 	public Device() {
@@ -23,7 +25,9 @@ public class Device {
 	private long cleaning_date;
 	private String cleaning_coach;
 
+	@JsonProperty("td:c360:operation")
 	private String td_c360_operation;
+
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime;
 

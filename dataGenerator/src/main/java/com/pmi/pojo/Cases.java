@@ -1,6 +1,7 @@
 package com.pmi.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author boja.p.ramalingam
@@ -27,7 +28,9 @@ public class Cases {
 	private String case_description;
 	private String customer_comment;
 
+	@JsonProperty("td:c360:operation")
 	private String td_c360_operation;
+
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime;
 

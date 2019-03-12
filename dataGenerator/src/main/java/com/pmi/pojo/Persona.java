@@ -1,6 +1,7 @@
 package com.pmi.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author vikas.e.mishra
@@ -26,7 +27,9 @@ public class Persona {
 	private int age;
 	private String age_group;
 
+	@JsonProperty("td:c360:operation")
 	private String td_c360_operation;
+
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime;
 

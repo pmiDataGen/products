@@ -4,6 +4,7 @@ package com.pmi.pojo;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
 import com.pmi.util.TextToAddress;
@@ -22,6 +23,7 @@ public class Identities {
 
 	}
 
+	@JsonProperty("td:c360:operation")
 	@CsvBindByName
 	private String td_c360_operation;
 	@CsvBindByName
