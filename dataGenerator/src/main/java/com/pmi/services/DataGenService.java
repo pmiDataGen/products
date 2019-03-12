@@ -165,6 +165,9 @@ public class DataGenService {
 	public List<Orders> createOrdersObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
 			String startRange, String endRange) {
 
+		int startRangeInt = Integer.parseInt(startRange);
+		int endRangeInt = Integer.parseInt(endRange);
+		String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
 		c.set(2000, Calendar.JANUARY, 1);
@@ -177,8 +180,8 @@ public class DataGenService {
 			orders.setTd_c360_operation(operationType);
 
 			orders.setOrder_id(String.valueOf(i)); // Primary Key; change to "order_number"
-			orders.setIdentity_unique_identifier(dataFactory.getNumberText(3));
-			orders.setPersona_identifier(dataFactory.getNumberText(3));
+			orders.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
+			orders.setPersona_identifier(personaAndIdentityID);// should be between range
 			orders.setTotal_price(dataFactory.getNumberText(8));
 			orders.setStatus(dataFactory.getRandomText(6));
 			orders.setDate(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
