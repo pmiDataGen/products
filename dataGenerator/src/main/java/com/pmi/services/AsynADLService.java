@@ -14,11 +14,15 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.pmi.pojo.AgeVerification;
 import com.pmi.pojo.Cases;
 import com.pmi.pojo.Device;
 import com.pmi.pojo.Identities;
+import com.pmi.pojo.Interaction;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
+import com.pmi.pojo.Segments;
+import com.pmi.pojo.Vouchers;
 
 /**
  * @author vikas.e.mishra
@@ -66,6 +70,18 @@ public class AsynADLService {
 		} else if (responseEntity.getBody() instanceof Device) {
 			Device device = (Device) responseEntity.getBody();
 			device.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Segments) {
+			Segments segments = (Segments) responseEntity.getBody();
+			segments.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Interaction) {
+			Interaction interaction = (Interaction) responseEntity.getBody();
+			interaction.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Vouchers) {
+			Vouchers vouchers = (Vouchers) responseEntity.getBody();
+			vouchers.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof AgeVerification) {
+			AgeVerification ageVerification = (AgeVerification) responseEntity.getBody();
+			ageVerification.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 		}
 		return CompletableFuture.completedFuture(responseEntity);
 	}
@@ -107,6 +123,18 @@ public class AsynADLService {
 		} else if (responseEntity.getBody() instanceof Device) {
 			Device device = (Device) responseEntity.getBody();
 			device.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		}else if (responseEntity.getBody() instanceof Segments) {
+			Segments segments = (Segments) responseEntity.getBody();
+			segments.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Interaction) {
+			Interaction interaction = (Interaction) responseEntity.getBody();
+			interaction.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Vouchers) {
+			Vouchers vouchers = (Vouchers) responseEntity.getBody();
+			vouchers.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof AgeVerification) {
+			AgeVerification ageVerification = (AgeVerification) responseEntity.getBody();
+			ageVerification.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 		}
 		return CompletableFuture.completedFuture(responseEntity);
 	}

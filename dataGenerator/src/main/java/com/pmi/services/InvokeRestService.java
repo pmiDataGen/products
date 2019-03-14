@@ -19,12 +19,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.pmi.pojo.AgeVerification;
 import com.pmi.pojo.Cases;
 import com.pmi.pojo.Device;
 import com.pmi.pojo.Identities;
+import com.pmi.pojo.Interaction;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
 import com.pmi.pojo.Quote;
+import com.pmi.pojo.Segments;
+import com.pmi.pojo.Vouchers;
 import com.pmi.util.ReadWriteCSV;
 
 /**
@@ -120,6 +124,14 @@ public class InvokeRestService {
 			writeAPIObj = new Cases();
 		} else if (objName.equalsIgnoreCase("devices")) {
 			writeAPIObj = new Device();
+		} else if (objName.equalsIgnoreCase("segments")) {
+			writeAPIObj = new Segments();
+		} else if (objName.equalsIgnoreCase("interaction")) {
+			writeAPIObj = new Interaction();
+		} else if (objName.equalsIgnoreCase("vouchers")) {
+			writeAPIObj = new Vouchers();
+		} else if (objName.equalsIgnoreCase("ageVerification")) {
+			writeAPIObj = new AgeVerification();
 		}
 		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
 		writeAPIUri = String.format(writeAPIUri, objName);
@@ -223,6 +235,14 @@ public class InvokeRestService {
 			writeAPIObj = new Cases();
 		} else if (objName.equalsIgnoreCase("devices")) {
 			writeAPIObj = new Device();
+		} else if (objName.equalsIgnoreCase("segments")) {
+			writeAPIObj = new Segments();
+		} else if (objName.equalsIgnoreCase("interaction")) {
+			writeAPIObj = new Interaction();
+		} else if (objName.equalsIgnoreCase("vouchers")) {
+			writeAPIObj = new Vouchers();
+		} else if (objName.equalsIgnoreCase("ageVerification")) {
+			writeAPIObj = new AgeVerification();
 		}
 		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
 		String recordConsistencyTime = null;
@@ -294,7 +314,41 @@ public class InvokeRestService {
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, device);
 				device.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(device);
-			} else {
+			} else if (responseEntity.getBody() instanceof Segments) {
+				Segments segments = (Segments) responseEntity.getBody();
+				segments.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ segments.getSegments_serial_number();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, segments);
+				segments.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(segments);
+			} else if (responseEntity.getBody() instanceof Interaction) {
+				Interaction interaction = (Interaction) responseEntity.getBody();
+				interaction.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ interaction.getInteraction_serial_number();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, interaction);
+				interaction.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(interaction);
+			} else if (responseEntity.getBody() instanceof Vouchers) {
+				Vouchers vouchers = (Vouchers) responseEntity.getBody();
+				vouchers.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ vouchers.getVouchers_serial_number();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, vouchers);
+				vouchers.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(vouchers);
+			} else if (responseEntity.getBody() instanceof AgeVerification) {
+				AgeVerification ageVerification = (AgeVerification) responseEntity.getBody();
+				ageVerification.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ ageVerification.getAgeVerification_serial_number();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, ageVerification);
+				ageVerification.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(ageVerification);
+			}
+			
+			else {
 				responseObjlist.add(responseEntity.getBody());
 			}
 
@@ -384,6 +438,14 @@ public class InvokeRestService {
 			readAPIObj = new Cases();
 		} else if (objName.equalsIgnoreCase("devices")) {
 			readAPIObj = new Device();
+		} else if (objName.equalsIgnoreCase("segments")) {
+			readAPIObj = new Segments();
+		} else if (objName.equalsIgnoreCase("interaction")) {
+			readAPIObj = new Interaction();
+		} else if (objName.equalsIgnoreCase("vouchers")) {
+			readAPIObj = new Vouchers();
+		} else if (objName.equalsIgnoreCase("ageVerification")) {
+			readAPIObj = new AgeVerification();
 		}
 
 		ResponseEntity responseEntity = null;
@@ -482,6 +544,22 @@ public class InvokeRestService {
 				Device device = (Device) responseEntity.getBody();
 				device.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				responseObjlist.add(device);
+			} else if (responseEntity.getBody() instanceof Segments) {
+				Segments segments = (Segments) responseEntity.getBody();
+				segments.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(segments);
+			} else if (responseEntity.getBody() instanceof Interaction) {
+				Interaction interaction = (Interaction) responseEntity.getBody();
+				interaction.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(interaction);
+			} else if (responseEntity.getBody() instanceof Vouchers) {
+				Vouchers vouchers = (Vouchers) responseEntity.getBody();
+				vouchers.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(vouchers);
+			} else if (responseEntity.getBody() instanceof AgeVerification) {
+				AgeVerification ageVerification = (AgeVerification) responseEntity.getBody();
+				ageVerification.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(ageVerification);
 			} else {
 				responseObjlist.add(responseEntity.getBody());
 			}
