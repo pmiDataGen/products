@@ -14,7 +14,7 @@ public class Segments {
 	public Segments() {
 
 	}
-
+	private String segments_serial_number; // change it to "segments_codentify" Primary Key
 	private String segment_id;
 	private String persona_identifier;
 	private String segment;
@@ -26,12 +26,23 @@ public class Segments {
 	
 	@Override
 	public String toString() {
-		return "Segments [segment_id=" + segment_id + ", persona_identifier=" + persona_identifier + ", segment="
-				+ segment + ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis="
-				+ apiCallTimeTakenInMillis + ", recordConsistencyTime=" + recordConsistencyTime + "]";
+		return "Segments [segments_serial_number=" + segments_serial_number + ", segment_id=" + segment_id
+				+ ", persona_identifier=" + persona_identifier + ", segment=" + segment + ", td_c360_operation="
+				+ td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 	
 	
+	public String getSegments_serial_number() {
+		return segments_serial_number;
+	}
+
+
+	public void setSegments_serial_number(String segments_serial_number) {
+		this.segments_serial_number = segments_serial_number;
+	}
+
+
 	public String getSegment_id() {
 		return segment_id;
 	}

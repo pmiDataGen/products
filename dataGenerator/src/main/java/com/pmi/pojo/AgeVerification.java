@@ -14,7 +14,7 @@ public class AgeVerification {
 	public AgeVerification() {
 
 	}
-
+	private String AgeVerification_serial_number; // change it to "AgeVerification_codentify" Primary Key
 	private String ageverification_id;
 	private String identity_unique_identifier;
 	private String persona_identifier;
@@ -42,7 +42,8 @@ public class AgeVerification {
 	
 	@Override
 	public String toString() {
-		return "AgeVerification [ageverification_id=" + ageverification_id + ", identity_unique_identifier="
+		return "AgeVerification [AgeVerification_serial_number=" + AgeVerification_serial_number
+				+ ", ageverification_id=" + ageverification_id + ", identity_unique_identifier="
 				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", status=" + status
 				+ ", f2f_employee_id=" + f2f_employee_id + ", type=" + type + ", country=" + country + ", region="
 				+ region + ", request_channel=" + request_channel + ", request_country=" + request_country
@@ -52,6 +53,14 @@ public class AgeVerification {
 				+ ", document_expiration_date=" + document_expiration_date + ", document_image_link="
 				+ document_image_link + ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis="
 				+ apiCallTimeTakenInMillis + ", recordConsistencyTime=" + recordConsistencyTime + "]";
+	}
+
+	public String getAgeVerification_serial_number() {
+		return AgeVerification_serial_number;
+	}
+
+	public void setAgeVerification_serial_number(String ageVerification_serial_number) {
+		AgeVerification_serial_number = ageVerification_serial_number;
 	}
 
 	public String getAgeverification_id() {

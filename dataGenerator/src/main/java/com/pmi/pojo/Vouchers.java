@@ -14,7 +14,7 @@ public class Vouchers {
 	public Vouchers() {
 
 	}
-	
+	private String vouchers_serial_number; // change it to "vouchers_codentify" Primary Key
 	private String voucher_code;
 	private String identity_unique_identifier;
 	private String persona_identifier;
@@ -34,12 +34,21 @@ public class Vouchers {
 	
 	@Override
 	public String toString() {
-		return "Vouchers [voucher_code=" + voucher_code + ", identity_unique_identifier=" + identity_unique_identifier
-				+ ", persona_identifier=" + persona_identifier + ", type=" + type + ", name=" + name
-				+ ", country_of_issuing=" + country_of_issuing + ", valid_from=" + valid_from + ", valid_to=" + valid_to
-				+ ", value=" + value + ", corresponding_voucher_code=" + corresponding_voucher_code + ", Status="
-				+ Status + ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis="
-				+ apiCallTimeTakenInMillis + ", recordConsistencyTime=" + recordConsistencyTime + "]";
+		return "Vouchers [vouchers_serial_number=" + vouchers_serial_number + ", voucher_code=" + voucher_code
+				+ ", identity_unique_identifier=" + identity_unique_identifier + ", persona_identifier="
+				+ persona_identifier + ", type=" + type + ", name=" + name + ", country_of_issuing="
+				+ country_of_issuing + ", valid_from=" + valid_from + ", valid_to=" + valid_to + ", value=" + value
+				+ ", corresponding_voucher_code=" + corresponding_voucher_code + ", Status=" + Status
+				+ ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
+	}
+
+	public String getVouchers_serial_number() {
+		return vouchers_serial_number;
+	}
+
+	public void setVouchers_serial_number(String vouchers_serial_number) {
+		this.vouchers_serial_number = vouchers_serial_number;
 	}
 
 	public String getVoucher_code() {
