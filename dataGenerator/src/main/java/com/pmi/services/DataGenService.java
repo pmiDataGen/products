@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.pmi.pojo.Address;
 import com.pmi.pojo.AgeVerification;
+import com.pmi.pojo.Answers;
 import com.pmi.pojo.Cases;
 import com.pmi.pojo.Coaches;
 import com.pmi.pojo.Device;
@@ -25,7 +26,9 @@ import com.pmi.pojo.Interaction;
 import com.pmi.pojo.OrderItems;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
+import com.pmi.pojo.Questions;
 import com.pmi.pojo.Segments;
+import com.pmi.pojo.Surveys;
 import com.pmi.pojo.TermsAndConditions;
 import com.pmi.pojo.Vouchers;
 import com.pmi.util.ReadWriteCSV;
@@ -111,6 +114,9 @@ public class DataGenService {
 		} else if (objName.equalsIgnoreCase("ageVerification")) {
 			dataList = createAgeVerificationObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
 					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("surveys")) {
+			dataList = createSurveysObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
 		}
 		// Write the generated data to CSV file
 		String filePath = null;
@@ -131,9 +137,9 @@ public class DataGenService {
 	public List<Cases> createCasesObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
 			String startRange, String endRange) {
 
-		int startRangeInt = Integer.parseInt(startRange);
-		int endRangeInt = Integer.parseInt(endRange);
-				
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
 		c.set(2000, Calendar.JANUARY, 1);
@@ -149,8 +155,8 @@ public class DataGenService {
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			cases.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			cases.setPersona_identifier(personaAndIdentityID);// should be between range
-			//cases.setIdentity_unique_identifier(dataFactory.getNumberText(3));
-			//cases.setPersona_identifier(dataFactory.getNumberText(3));
+			// cases.setIdentity_unique_identifier(dataFactory.getNumberText(3));
+			// cases.setPersona_identifier(dataFactory.getNumberText(3));
 			cases.setSerial_numer(dataFactory.getNumberText(2));
 			cases.setClosing_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			cases.setCreate_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
@@ -171,8 +177,8 @@ public class DataGenService {
 	public List<Orders> createOrdersObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
 			String startRange, String endRange) {
 
-		int startRangeInt = Integer.parseInt(startRange);
-		int endRangeInt = Integer.parseInt(endRange);
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
 		c.set(2000, Calendar.JANUARY, 1);
@@ -428,9 +434,9 @@ public class DataGenService {
 
 	public List<Device> createDeviceObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
 			String startRange, String endRange) {
-		
-		int startRangeInt = Integer.parseInt(startRange);
-		int endRangeInt = Integer.parseInt(endRange);
+
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
 		c.set(2000, Calendar.JANUARY, 1);
@@ -446,8 +452,8 @@ public class DataGenService {
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			device.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			device.setPersona_identifier(personaAndIdentityID);// should be between range
-			//device.setIdentity_unique_identifier(dataFactory.getNumberText(3));
-			//device.setPersona_identifier(dataFactory.getNumberText(3));
+			// device.setIdentity_unique_identifier(dataFactory.getNumberText(3));
+			// device.setPersona_identifier(dataFactory.getNumberText(3));
 			device.setBarcode(dataFactory.getRandomText(6));
 			device.setDevice_type(dataFactory.getRandomText(8));
 			device.setDevice_version(dataFactory.getRandomWord());
@@ -473,9 +479,9 @@ public class DataGenService {
 	public List<Segments> createSegmentsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
 			String startRange, String endRange) {
 
-		int startRangeInt = Integer.parseInt(startRange);
-		int endRangeInt = Integer.parseInt(endRange);
-		
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
 		c.set(2000, Calendar.JANUARY, 1);
@@ -487,10 +493,9 @@ public class DataGenService {
 			Segments segments = new Segments();
 			segments.setTd_c360_operation(operationType);
 
-			segments.setSegment_id(dataFactory.getNumberText(3));
+			segments.setSegment_id(String.valueOf(i));
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			segments.setPersona_identifier(personaAndIdentityID);// should be between range
-			//segments.setPersona_identifier(dataFactory.getNumberText(3));
 			segments.setSegment(dataFactory.getRandomChars(5));
 
 			SegmentsObjectList.add(segments);
@@ -503,9 +508,9 @@ public class DataGenService {
 	public List<Interaction> createInteractionObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
 			String startRange, String endRange) {
 
-		int startRangeInt = Integer.parseInt(startRange);
-		int endRangeInt = Integer.parseInt(endRange);
-		
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
 		c.set(2000, Calendar.JANUARY, 1);
@@ -517,12 +522,10 @@ public class DataGenService {
 			Interaction interaction = new Interaction();
 			interaction.setTd_c360_operation(operationType);
 
-			interaction.setInteraction_id(dataFactory.getNumberText(3));
+			interaction.setInteraction_id(String.valueOf(i));
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			interaction.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			interaction.setPersona_identifier(personaAndIdentityID);// should be between range
-			//interaction.setIdentity_unique_identifier(dataFactory.getNumberText(3));
-			//interaction.setPersona_identifier(dataFactory.getNumberText(3));
 			interaction.setInteraction_type(dataFactory.getRandomChars(5));
 			interaction.setTrial_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			interaction.setTrial_duration(dataFactory.getNumberUpTo(2));
@@ -540,9 +543,9 @@ public class DataGenService {
 	public List<Vouchers> createVouchersObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
 			String startRange, String endRange) {
 
-		int startRangeInt = Integer.parseInt(startRange);
-		int endRangeInt = Integer.parseInt(endRange);
-		
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
 		c.set(2000, Calendar.JANUARY, 1);
@@ -554,12 +557,10 @@ public class DataGenService {
 			Vouchers vouchers = new Vouchers();
 			vouchers.setTd_c360_operation(operationType);
 
-			vouchers.setVoucher_code(dataFactory.getNumberText(3));
+			vouchers.setVoucher_code(String.valueOf(i));
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			vouchers.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			vouchers.setPersona_identifier(personaAndIdentityID);// should be between range
-			//vouchers.setIdentity_unique_identifier(dataFactory.getNumberText(3));
-			//vouchers.setPersona_identifier(dataFactory.getNumberText(3));
 			vouchers.setType(dataFactory.getRandomChars(5));
 			vouchers.setName(dataFactory.getName());
 			vouchers.setCountry_of_issuing(dataFactory.getCity());
@@ -579,9 +580,9 @@ public class DataGenService {
 	public List<AgeVerification> createAgeVerificationObject(String operationType, int primaryKeyStart,
 			int primaryKeyEnd, String startRange, String endRange) {
 
-		int startRangeInt = Integer.parseInt(startRange);
-		int endRangeInt = Integer.parseInt(endRange);
-		
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
 		c.set(2000, Calendar.JANUARY, 1);
@@ -593,13 +594,11 @@ public class DataGenService {
 			AgeVerification ageVerification = new AgeVerification();
 			ageVerification.setTd_c360_operation(operationType);
 
-			ageVerification.setAgeverification_id(dataFactory.getNumberText(3));
+			ageVerification.setAgeverification_id(String.valueOf(i));
 			ageVerification.setF2f_employee_id(dataFactory.getNumberText(3));
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			ageVerification.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			ageVerification.setPersona_identifier(personaAndIdentityID);// should be between range
-			//ageVerification.setIdentity_unique_identifier(dataFactory.getNumberText(3));
-			//ageVerification.setPersona_identifier(dataFactory.getNumberText(3));
 			ageVerification.setStatus(dataFactory.getRandomChars(5));
 			ageVerification.setType(dataFactory.getRandomChars(5));
 			ageVerification.setCountry(dataFactory.getCity());
@@ -622,6 +621,56 @@ public class DataGenService {
 		}
 
 		return AgeVerificationObjectList;
+
+	}
+
+	public List<Surveys> createSurveysObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
+
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<Surveys> surveysObjectList = new ArrayList<Surveys>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			Surveys surveys = new Surveys();
+			surveys.setTd_c360_operation(operationType);
+
+			surveys.setSurvey_id(String.valueOf(i));
+			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
+			surveys.setPersona_identifier(personaAndIdentityID);// should be between range
+			surveys.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
+			surveys.setSurvey_template_id(dataFactory.getRandomText(6));
+			surveys.setDate(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+
+			List<Questions> questionsList = new ArrayList<Questions>();
+			for (int j = 1; j <= 2; j++) {
+				Questions questions = new Questions();
+				questions.setQuestion_asked("What is occupation " + j);
+				questions.setQuestion_number(String.valueOf(j));
+
+				List<Answers> answersList = new ArrayList<Answers>();
+				for (int k = 1; k <= 1; k++) {
+					Answers answers = new Answers();
+					answers.setAnswer_number(String.valueOf(k));
+					answers.setAnswer_label("mech " + dataFactory.getCity());
+					answers.setAnswer_value("mechanical engineer " + dataFactory.getFirstName());
+					answersList.add(answers);
+				}
+				questions.setAnswers(answersList);
+				questionsList.add(questions);
+			}
+			surveys.setQuestions(questionsList);
+
+			surveysObjectList.add(surveys);
+		}
+
+		return surveysObjectList;
 
 	}
 

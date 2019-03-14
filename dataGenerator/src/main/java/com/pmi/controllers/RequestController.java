@@ -80,6 +80,14 @@ public class RequestController {
 
 		// TODO here call ADL lookup API based on different object Name and primary Key
 
+		// TEST Code - can be removed
+		/*
+		 * String filePath = "C:/CSVFiles/writeAPI/request/surveysOut.csv"; try { return
+		 * new ReadWriteCSV().readCSVWithHeader(new Surveys(), filePath); } catch
+		 * (IOException e) { // TODO Auto-generated catch block e.printStackTrace();
+		 * return e; }
+		 */
+
 		return "queryAPI objName is " + objName;
 	}
 
@@ -120,6 +128,8 @@ public class RequestController {
 			return dataGenService.createDeviceObject("merge", 510, 511, "1", "100");
 		} else if (objName.equalsIgnoreCase("orders")) {
 			return dataGenService.createOrdersObject("merge", 510, 511, "1", "100");
+		} else if (objName.equalsIgnoreCase("surveys")) {
+			return dataGenService.createSurveysObject("merge", 510, 511, "1", "100");
 		} else {
 			return "Please pass object name";
 		}

@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
-import com.pmi.util.TextToAddress;
+import com.pmi.util.TextToQuestions;
 
 /**
- * @author  boja.p.ramalingam
+ * @author boja.p.ramalingam
  *
  */
 
@@ -19,9 +19,7 @@ public class Surveys {
 	public Surveys() {
 
 	}
-	@JsonProperty("td:c360:operation")
-	@CsvBindByName
-	private String td_c360_operation;
+
 	@CsvBindByName
 	private String survey_id;
 	@CsvBindByName
@@ -30,42 +28,26 @@ public class Surveys {
 	private String identity_unique_identifier;
 	@CsvBindByName
 	private String persona_identifier;
-
-	@CsvBindAndSplitByName(elementType = Questions.class, splitOn = "\\|", converter = TextToAddress.class)
+	@CsvBindAndSplitByName(elementType = Questions.class, splitOn = "\\|", converter = TextToQuestions.class)
 	private List<Questions> questions;
-	//question_number;
-	//question_asked;
-
-	@CsvBindAndSplitByName(elementType = Answers.class, splitOn = "\\|", converter = TextToAddress.class)
-	private List<Answers> answers;
-	//answer_number;
-	//answer_label;
-	//aswer_value;
 
 	@CsvBindByName
 	private long date;
-
 	@CsvBindByName
 	private String apiCallTimeTakenInMillis;
-
 	@CsvBindByName
 	private String recordConsistencyTime;
+	@JsonProperty("td:c360:operation")
+	@CsvBindByName
+	private String td_c360_operation;
 
 	@Override
 	public String toString() {
-		return "Surveys [td_c360_operation=" + td_c360_operation + ", survey_id=" + survey_id + ", survey_template_id="
-				+ survey_template_id + ", identity_unique_identifier=" + identity_unique_identifier
-				+ ", persona_identifier=" + persona_identifier + ", questions=" + questions + ", answers=" + answers
-				+ ", date=" + date + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
-				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
-	}
-
-	public String getTd_c360_operation() {
-		return td_c360_operation;
-	}
-
-	public void setTd_c360_operation(String td_c360_operation) {
-		this.td_c360_operation = td_c360_operation;
+		return "Surveys [survey_id=" + survey_id + ", survey_template_id=" + survey_template_id
+				+ ", identity_unique_identifier=" + identity_unique_identifier + ", persona_identifier="
+				+ persona_identifier + ", questions=" + questions + ", date=" + date + ", apiCallTimeTakenInMillis="
+				+ apiCallTimeTakenInMillis + ", recordConsistencyTime=" + recordConsistencyTime + ", td_c360_operation="
+				+ td_c360_operation + "]";
 	}
 
 	public String getSurvey_id() {
@@ -108,14 +90,6 @@ public class Surveys {
 		this.questions = questions;
 	}
 
-	public List<Answers> getAnswers() {
-		return answers;
-	}
-
-	public void setAnswers(List<Answers> answers) {
-		this.answers = answers;
-	}
-
 	public long getDate() {
 		return date;
 	}
@@ -139,6 +113,13 @@ public class Surveys {
 	public void setRecordConsistencyTime(String recordConsistencyTime) {
 		this.recordConsistencyTime = recordConsistencyTime;
 	}
-	
+
+	public String getTd_c360_operation() {
+		return td_c360_operation;
+	}
+
+	public void setTd_c360_operation(String td_c360_operation) {
+		this.td_c360_operation = td_c360_operation;
+	}
 
 }

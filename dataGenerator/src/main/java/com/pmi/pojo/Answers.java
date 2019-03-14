@@ -8,18 +8,24 @@ package com.pmi.pojo;
 public class Answers {
 
 	public Answers() {
-		
-		
 	}
 
 	private String answer_number;
 	private String answer_label;
-	private String aswer_value;
-	
+	private String answer_value;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 * 
+	 * Override toString() as below. Necessary, as same format will be used in
+	 * writing Answers object to Questions Object and then to Surveys Object.
+	 * Finally Survey object will written to CSV file.
+	 */
 	@Override
 	public String toString() {
-		return "answer_number=" + answer_number + ", answer_label=" + answer_label + ", aswer_value="
-				+ aswer_value + " |";
+		return "answer_number=" + answer_number + ", answer_label=" + answer_label + ", answer_value=" + answer_value;
 	}
 
 	public String getAnswer_number() {
@@ -38,14 +44,12 @@ public class Answers {
 		this.answer_label = answer_label;
 	}
 
-	public String getAswer_value() {
-		return aswer_value;
+	public String getAnswer_value() {
+		return answer_value;
 	}
 
-	public void setAswer_value(String aswer_value) {
-		this.aswer_value = aswer_value;
+	public void setAnswer_value(String answer_value) {
+		this.answer_value = answer_value;
 	}
-	
-	
-	
+
 }
