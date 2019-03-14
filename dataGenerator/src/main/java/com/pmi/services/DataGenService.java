@@ -105,13 +105,13 @@ public class DataGenService {
 		} else if (objName.equalsIgnoreCase("segments")) {
 			dataList = createSegmentsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
 					startRange, endRange);
-		} else if (objName.equalsIgnoreCase("interaction")) {
+		} else if (objName.equalsIgnoreCase("interactions")) {
 			dataList = createInteractionObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
 					startRange, endRange);
 		} else if (objName.equalsIgnoreCase("vouchers")) {
 			dataList = createVouchersObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
 					startRange, endRange);
-		} else if (objName.equalsIgnoreCase("ageVerification")) {
+		} else if (objName.equalsIgnoreCase("ageverifications")) {
 			dataList = createAgeVerificationObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
 					startRange, endRange);
 		} else if (objName.equalsIgnoreCase("surveys")) {
@@ -151,7 +151,7 @@ public class DataGenService {
 			Cases cases = new Cases();
 			cases.setTd_c360_operation(operationType);
 
-			cases.setCase_id(String.valueOf(i));// primary Key
+			cases.setCase_number(String.valueOf(i));// primary Key
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			cases.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			cases.setPersona_identifier(personaAndIdentityID);// should be between range
@@ -190,7 +190,7 @@ public class DataGenService {
 			Orders orders = new Orders();
 			orders.setTd_c360_operation(operationType);
 
-			orders.setOrder_id(String.valueOf(i)); // Primary Key; change to "order_number"
+			orders.setOrder_number(String.valueOf(i)); // Primary Key;
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			orders.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			orders.setPersona_identifier(personaAndIdentityID);// should be between range
@@ -234,7 +234,7 @@ public class DataGenService {
 			Persona persona = new Persona();
 			// persona.setOnline_access_flag(false);
 			// persona.setPersona_id(String.valueOf(iterator.next()));// Unique Primary Key
-			persona.setPersona_id(String.valueOf(i));// Unique Primary Key
+			persona.setPersona_identifier(String.valueOf(i));// Unique Primary Key
 			persona.setFirst_name(dataFactory.getFirstName());
 			persona.setLast_name(dataFactory.getLastName());
 			persona.setGender(dataFactory.getRandomWord(1, 1));
@@ -338,7 +338,7 @@ public class DataGenService {
 			Identities identities = new Identities();
 			identities.setTd_c360_operation(operationType);
 
-			identities.setIdentity_id(String.valueOf(i));// later change to "identity_unique_identifier";
+			identities.setIdentity_unique_identifier(String.valueOf(i));
 			identities.setPersona_identifier(String.valueOf(i)); // same as Identity ID
 			identities.setLogin_name(dataFactory.getBusinessName());
 			identities.setLast_name(dataFactory.getLastName());
@@ -448,7 +448,7 @@ public class DataGenService {
 			Device device = new Device();
 			device.setTd_c360_operation(operationType);
 
-			device.setDevice_serial_number(String.valueOf(i)); // primary key - change to "device_codentify"
+			device.setDevice_codentify(String.valueOf(i)); // primary key
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			device.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			device.setPersona_identifier(personaAndIdentityID);// should be between range
@@ -496,7 +496,7 @@ public class DataGenService {
 			segments.setSegment_id(String.valueOf(i));
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			segments.setPersona_identifier(personaAndIdentityID);// should be between range
-			segments.setSegment(dataFactory.getRandomChars(5));
+			segments.setSegment(dataFactory.getRandomWord());
 
 			SegmentsObjectList.add(segments);
 		}
@@ -529,9 +529,9 @@ public class DataGenService {
 			interaction.setInteraction_type(dataFactory.getRandomChars(5));
 			interaction.setTrial_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			interaction.setTrial_duration(dataFactory.getNumberUpTo(2));
-			interaction.setTrial_platform(dataFactory.getRandomChars(5));
-			interaction.setTrial_purpose(dataFactory.getRandomChars(5));
-			interaction.setTrial_type(dataFactory.getRandomChars(5));
+			interaction.setTrial_platform(dataFactory.getRandomWord(5));
+			interaction.setTrial_purpose(dataFactory.getRandomWord(8));
+			interaction.setTrial_type(dataFactory.getRandomWord(6));
 
 			InteractionObjectList.add(interaction);
 		}
@@ -561,14 +561,14 @@ public class DataGenService {
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			vouchers.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			vouchers.setPersona_identifier(personaAndIdentityID);// should be between range
-			vouchers.setType(dataFactory.getRandomChars(5));
+			vouchers.setType(dataFactory.getRandomWord(5));
 			vouchers.setName(dataFactory.getName());
 			vouchers.setCountry_of_issuing(dataFactory.getCity());
 			vouchers.setValid_from(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			vouchers.setValid_to(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			vouchers.setValue(dataFactory.getNumberUpTo(2));
 			vouchers.setCorresponding_voucher_code(dataFactory.getNumberText(3));
-			vouchers.setStatus(dataFactory.getRandomChars(5));
+			vouchers.setStatus(dataFactory.getRandomWord(8));
 
 			VouchersObjectList.add(vouchers);
 		}
@@ -599,20 +599,20 @@ public class DataGenService {
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			ageVerification.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			ageVerification.setPersona_identifier(personaAndIdentityID);// should be between range
-			ageVerification.setStatus(dataFactory.getRandomChars(5));
-			ageVerification.setType(dataFactory.getRandomChars(5));
+			ageVerification.setStatus(dataFactory.getRandomWord(5));
+			ageVerification.setType(dataFactory.getRandomWord(8));
 			ageVerification.setCountry(dataFactory.getCity());
 			ageVerification.setRegion(dataFactory.getCity());
-			ageVerification.setRequest_channel(dataFactory.getRandomChars(5));
+			ageVerification.setRequest_channel(dataFactory.getRandomWord(6));
 			ageVerification.setRequest_country(dataFactory.getCity());
 			ageVerification.setRequest_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			ageVerification.setRequest_region(dataFactory.getCity());
-			ageVerification.setRequest_status(dataFactory.getRandomChars(5));
+			ageVerification.setRequest_status(dataFactory.getRandomWord(5));
 			ageVerification.setRequest_status_change_date(
 					dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
-			ageVerification.setDocument_type(dataFactory.getRandomChars(5));
+			ageVerification.setDocument_type(dataFactory.getRandomWord(5));
 			ageVerification.setDocument_number(dataFactory.getNumberText(3));
-			ageVerification.setDocument_image_link(dataFactory.getRandomChars(5));
+			ageVerification.setDocument_image_link(dataFactory.getRandomWord(5));
 			ageVerification
 					.setDocument_expiration_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			ageVerification.setDocument_country(dataFactory.getCity());

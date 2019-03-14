@@ -26,8 +26,10 @@ public class Identities {
 	@JsonProperty("td:c360:operation")
 	@CsvBindByName
 	private String td_c360_operation;
+//	@CsvBindByName
+//	private String identity_id; // primary Key for database "c360"
 	@CsvBindByName
-	private String identity_id; // later change to "identity_unique_identifier"
+	private String identity_unique_identifier;// primary Key for database "db_l0_adl"
 	@CsvBindByName
 	private String persona_identifier;
 	@CsvBindByName
@@ -93,20 +95,28 @@ public class Identities {
 
 	@Override
 	public String toString() {
-		return "Identities [td_c360_operation=" + td_c360_operation + ", identity_unique_identifier=" + identity_id
-				+ ", persona_identifier=" + persona_identifier + ", login_name=" + login_name + ", last_name="
-				+ last_name + ", first_name=" + first_name + ", gender=" + gender + ", home_country=" + home_country
-				+ ", is_deleted=" + is_deleted + ", reason_of_deletion=" + reason_of_deletion
-				+ ", reason_of_customer_lost=" + reason_of_customer_lost + ", blocked_flag=" + blocked_flag
-				+ ", consumer_type=" + consumer_type + ", date_of_birth=" + date_of_birth + ", age=" + age
-				+ ", age_group=" + age_group + ", email_address=" + email_address + ", email_comunication_opt_in="
+		return "Identities [td_c360_operation=" + td_c360_operation + ", identity_unique_identifier="
+				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", login_name="
+				+ login_name + ", last_name=" + last_name + ", first_name=" + first_name + ", gender=" + gender
+				+ ", home_country=" + home_country + ", is_deleted=" + is_deleted + ", reason_of_deletion="
+				+ reason_of_deletion + ", reason_of_customer_lost=" + reason_of_customer_lost + ", blocked_flag="
+				+ blocked_flag + ", consumer_type=" + consumer_type + ", date_of_birth=" + date_of_birth + ", age="
+				+ age + ", age_group=" + age_group + ", email_address=" + email_address + ", email_comunication_opt_in="
 				+ email_comunication_opt_in + ", phone_country_code_number=" + phone_country_code_number
 				+ ", phone_number=" + phone_number + ", phone_comunication_opt_in=" + phone_comunication_opt_in
 				+ ", privacy_policy_acceptance=" + privacy_policy_acceptance + ", loyalty_tier=" + loyalty_tier
-				+ ", loyalty_points=" + loyalty_points + ", loyalty_erned_points=" + loyalty_erned_points + ", address="
-				+ addresses + ", coaches=" + coaches + ", termsAndConditions=" + termsAndConditions
+				+ ", loyalty_points=" + loyalty_points + ", loyalty_erned_points=" + loyalty_erned_points
+				+ ", addresses=" + addresses + ", coaches=" + coaches + ", termsAndConditions=" + termsAndConditions
 				+ ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis + ", recordConsistencyTime="
 				+ recordConsistencyTime + "]";
+	}
+
+	public String getIdentity_unique_identifier() {
+		return identity_unique_identifier;
+	}
+
+	public void setIdentity_unique_identifier(String identity_unique_identifier) {
+		this.identity_unique_identifier = identity_unique_identifier;
 	}
 
 	public String getTd_c360_operation() {
@@ -115,14 +125,6 @@ public class Identities {
 
 	public void setTd_c360_operation(String td_c360_operation) {
 		this.td_c360_operation = td_c360_operation;
-	}
-
-	public String getIdentity_id() {
-		return identity_id;
-	}
-
-	public void setIdentity_id(String identity_id) {
-		this.identity_id = identity_id;
 	}
 
 	public String getPersona_identifier() {

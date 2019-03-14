@@ -15,7 +15,8 @@ public class Cases {
 
 	}
 
-	private String case_id; // to be replaced by "case_number" primary key
+	// private String case_id; // primary Key for database "c360"
+	private String case_number; // primary Key for database "db_l0_adl"
 	private String identity_unique_identifier;
 	private String persona_identifier;
 	private String serial_numer;
@@ -36,7 +37,7 @@ public class Cases {
 
 	@Override
 	public String toString() {
-		return "Cases [case_id=" + case_id + ", identity_unique_identifier=" + identity_unique_identifier
+		return "Cases [case_number=" + case_number + ", identity_unique_identifier=" + identity_unique_identifier
 				+ ", persona_identifier=" + persona_identifier + ", serial_numer=" + serial_numer + ", closing_date="
 				+ closing_date + ", create_date=" + create_date + ", status=" + status + ", subject_code="
 				+ subject_code + ", subject=" + subject + ", resolution=" + resolution + ", case_description="
@@ -45,12 +46,12 @@ public class Cases {
 				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 
-	public String getCase_id() {
-		return case_id;
+	public String getCase_number() {
+		return case_number;
 	}
 
-	public void setCase_id(String case_id) {
-		this.case_id = case_id;
+	public void setCase_number(String case_number) {
+		this.case_number = case_number;
 	}
 
 	public String getIdentity_unique_identifier() {

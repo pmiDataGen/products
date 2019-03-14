@@ -7,7 +7,8 @@ public class Device {
 	public Device() {
 	}
 
-	private String device_serial_number; // change it to "device_codentify" Primary Key
+	// private String device_serial_number; // primary Key for database "c360"
+	private String device_codentify;// primary Key for database "db_l0_adl"
 	private String identity_unique_identifier;
 	private String persona_identifier;
 	private String barcode;
@@ -33,7 +34,7 @@ public class Device {
 
 	@Override
 	public String toString() {
-		return "Device [device_serial_number=" + device_serial_number + ", identity_unique_identifier="
+		return "Device [device_codentify=" + device_codentify + ", identity_unique_identifier="
 				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", barcode=" + barcode
 				+ ", device_type=" + device_type + ", device_version=" + device_version + ", device_description="
 				+ device_description + ", purchase_date=" + purchase_date + ", registration_device_date="
@@ -45,12 +46,12 @@ public class Device {
 				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 
-	public String getDevice_serial_number() {
-		return device_serial_number;
+	public String getDevice_codentify() {
+		return device_codentify;
 	}
 
-	public void setDevice_serial_number(String device_serial_number) {
-		this.device_serial_number = device_serial_number;
+	public void setDevice_codentify(String device_codentify) {
+		this.device_codentify = device_codentify;
 	}
 
 	public String getIdentity_unique_identifier() {

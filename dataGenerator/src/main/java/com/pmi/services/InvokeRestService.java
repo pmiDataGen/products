@@ -283,47 +283,44 @@ public class InvokeRestService {
 			if (responseEntity.getBody() instanceof Persona) {
 				Persona persona = (Persona) responseEntity.getBody();
 				persona.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + persona.getPersona_id();
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ persona.getPersona_identifier();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, persona);
 				persona.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(persona);
 			} else if (responseEntity.getBody() instanceof Identities) {
 				Identities identities = (Identities) responseEntity.getBody();
 				identities.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + identities.getIdentity_id();// later
-																														// change
-																														// to
-																														// "identity_unique_identifier"
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ identities.getIdentity_unique_identifier();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, identities);
 				identities.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(identities);
 			} else if (responseEntity.getBody() instanceof Orders) {
 				Orders orders = (Orders) responseEntity.getBody();
 				orders.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + orders.getOrder_id();
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + orders.getOrder_number();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, orders);
 				orders.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(orders);
 			} else if (responseEntity.getBody() instanceof Cases) {
 				Cases cases = (Cases) responseEntity.getBody();
 				cases.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + cases.getCase_id();
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + cases.getCase_number();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, cases);
 				cases.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(cases);
 			} else if (responseEntity.getBody() instanceof Device) {
 				Device device = (Device) responseEntity.getBody();
 				device.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
-						+ device.getDevice_serial_number();
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + device.getDevice_codentify();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, device);
 				device.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(device);
 			} else if (responseEntity.getBody() instanceof Segments) {
 				Segments segments = (Segments) responseEntity.getBody();
 				segments.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
-						+ segments.getSegments_serial_number();
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + segments.getSegment_id();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, segments);
 				segments.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(segments);
@@ -331,15 +328,14 @@ public class InvokeRestService {
 				Interaction interaction = (Interaction) responseEntity.getBody();
 				interaction.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
-						+ interaction.getInteraction_serial_number();
+						+ interaction.getInteraction_id();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, interaction);
 				interaction.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(interaction);
 			} else if (responseEntity.getBody() instanceof Vouchers) {
 				Vouchers vouchers = (Vouchers) responseEntity.getBody();
 				vouchers.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
-						+ vouchers.getVouchers_serial_number();
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + vouchers.getVoucher_code();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, vouchers);
 				vouchers.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(vouchers);
@@ -347,7 +343,7 @@ public class InvokeRestService {
 				AgeVerification ageVerification = (AgeVerification) responseEntity.getBody();
 				ageVerification.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
-						+ ageVerification.getAgeVerification_serial_number();
+						+ ageVerification.getAgeverification_id();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, ageVerification);
 				ageVerification.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(ageVerification);

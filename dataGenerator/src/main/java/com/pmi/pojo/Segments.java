@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author  boja.p.ramalingam
+ * @author boja.p.ramalingam
  *
  */
 
@@ -14,83 +14,69 @@ public class Segments {
 	public Segments() {
 
 	}
-	private String segments_serial_number; // change it to "segments_codentify" Primary Key
-	private String segment_id;
+
+	private String segment_id;// primary Key for database "db_l0_adl"
 	private String persona_identifier;
 	private String segment;
-	
+
 	@JsonProperty("td:c360:operation")
 	private String td_c360_operation;
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime;
-	
+
 	@Override
 	public String toString() {
-		return "Segments [segments_serial_number=" + segments_serial_number + ", segment_id=" + segment_id
-				+ ", persona_identifier=" + persona_identifier + ", segment=" + segment + ", td_c360_operation="
-				+ td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
-				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
+		return "Segments [segment_id=" + segment_id + ", persona_identifier=" + persona_identifier + ", segment="
+				+ segment + ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis="
+				+ apiCallTimeTakenInMillis + ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
-	
-	
-	public String getSegments_serial_number() {
-		return segments_serial_number;
-	}
-
-
-	public void setSegments_serial_number(String segments_serial_number) {
-		this.segments_serial_number = segments_serial_number;
-	}
-
 
 	public String getSegment_id() {
 		return segment_id;
 	}
+
 	public void setSegment_id(String segment_id) {
 		this.segment_id = segment_id;
 	}
+
 	public String getPersona_identifier() {
 		return persona_identifier;
 	}
+
 	public void setPersona_identifier(String persona_identifier) {
 		this.persona_identifier = persona_identifier;
 	}
+
 	public String getSegment() {
 		return segment;
 	}
+
 	public void setSegment(String segment) {
 		this.segment = segment;
 	}
-
 
 	public String getTd_c360_operation() {
 		return td_c360_operation;
 	}
 
-
 	public void setTd_c360_operation(String td_c360_operation) {
 		this.td_c360_operation = td_c360_operation;
 	}
-
 
 	public String getApiCallTimeTakenInMillis() {
 		return apiCallTimeTakenInMillis;
 	}
 
-
 	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
 		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
-
 
 	public String getRecordConsistencyTime() {
 		return recordConsistencyTime;
 	}
 
-
 	public void setRecordConsistencyTime(String recordConsistencyTime) {
 		this.recordConsistencyTime = recordConsistencyTime;
 	}
-
 
 }

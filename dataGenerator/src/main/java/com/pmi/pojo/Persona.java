@@ -15,7 +15,8 @@ public class Persona {
 
 	}
 
-	private String persona_id;// To be changed to "persona_identifier"
+	// private String persona_id;// primary Key for database "c360"
+	private String persona_identifier; // primary Key for database "db_l0_adl"
 	private String last_name;
 	private String first_name;
 	private String gender;
@@ -35,20 +36,20 @@ public class Persona {
 
 	@Override
 	public String toString() {
-		return "Persona [persona_id=" + persona_id + ", last_name=" + last_name + ", first_name=" + first_name
-				+ ", gender=" + gender + ", home_country=" + home_country + ", is_deleted=" + is_deleted
+		return "Persona [persona_identifier=" + persona_identifier + ", last_name=" + last_name + ", first_name="
+				+ first_name + ", gender=" + gender + ", home_country=" + home_country + ", is_deleted=" + is_deleted
 				+ ", blocked_flag=" + blocked_flag + ", consumer_type=" + consumer_type + ", date_of_birth="
 				+ date_of_birth + ", age=" + age + ", age_group=" + age_group + ", td_c360_operation="
 				+ td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
 				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 
-	public String getPersona_id() {
-		return persona_id;
+	public String getPersona_identifier() {
+		return persona_identifier;
 	}
 
-	public void setPersona_id(String persona_id) {
-		this.persona_id = persona_id;
+	public void setPersona_identifier(String persona_identifier) {
+		this.persona_identifier = persona_identifier;
 	}
 
 	public String getLast_name() {

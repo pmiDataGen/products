@@ -20,8 +20,10 @@ public class Orders {
 
 	}
 
+//	@CsvBindByName
+//	private String order_id;// primary Key for database "c360"
 	@CsvBindByName
-	private String order_id;// change to "order_number"; primary Key
+	private String order_number;// primary Key for database "db_l0_adl"
 	@CsvBindByName
 	private String identity_unique_identifier;
 	@CsvBindByName
@@ -47,19 +49,19 @@ public class Orders {
 
 	@Override
 	public String toString() {
-		return "Orders [order_id=" + order_id + ", identity_unique_identifier=" + identity_unique_identifier
+		return "Orders [order_number=" + order_number + ", identity_unique_identifier=" + identity_unique_identifier
 				+ ", persona_identifier=" + persona_identifier + ", total_price=" + total_price + ", status=" + status
 				+ ", date=" + date + ", link_to_invoice_file=" + link_to_invoice_file + ", order_items=" + order_items
 				+ ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
 				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 
-	public String getOrder_id() {
-		return order_id;
+	public String getOrder_number() {
+		return order_number;
 	}
 
-	public void setOrder_id(String order_id) {
-		this.order_id = order_id;
+	public void setOrder_number(String order_number) {
+		this.order_number = order_number;
 	}
 
 	public String getIdentity_unique_identifier() {

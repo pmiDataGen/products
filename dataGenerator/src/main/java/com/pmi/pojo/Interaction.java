@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * @author  boja.p.ramalingam
+ * @author boja.p.ramalingam
  *
  */
 
@@ -14,8 +14,8 @@ public class Interaction {
 	public Interaction() {
 
 	}
-	private String interaction_serial_number; // change it to "interaction_codentify" Primary Key
-	private String interaction_id;
+
+	private String interaction_id;// primary Key for database "db_l0_adl"
 	private String identity_unique_identifier;
 	private String persona_identifier;
 	private String interaction_type;
@@ -24,29 +24,20 @@ public class Interaction {
 	private String trial_type;
 	private long trial_date;
 	private int trial_duration;
-	
+
 	@JsonProperty("td:c360:operation")
 	private String td_c360_operation;
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime;
-	
+
 	@Override
 	public String toString() {
-		return "Interaction [interaction_serial_number=" + interaction_serial_number + ", interaction_id="
-				+ interaction_id + ", identity_unique_identifier=" + identity_unique_identifier
-				+ ", persona_identifier=" + persona_identifier + ", interaction_type=" + interaction_type
-				+ ", trial_purpose=" + trial_purpose + ", trial_platform=" + trial_platform + ", trial_type="
-				+ trial_type + ", trial_date=" + trial_date + ", trial_duration=" + trial_duration
+		return "Interaction [interaction_id=" + interaction_id + ", identity_unique_identifier="
+				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", interaction_type="
+				+ interaction_type + ", trial_purpose=" + trial_purpose + ", trial_platform=" + trial_platform
+				+ ", trial_type=" + trial_type + ", trial_date=" + trial_date + ", trial_duration=" + trial_duration
 				+ ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
 				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
-	}
-
-	public String getInteraction_serial_number() {
-		return interaction_serial_number;
-	}
-
-	public void setInteraction_serial_number(String interaction_serial_number) {
-		this.interaction_serial_number = interaction_serial_number;
 	}
 
 	public String getInteraction_id() {
@@ -145,5 +136,4 @@ public class Interaction {
 		this.recordConsistencyTime = recordConsistencyTime;
 	}
 
-		
 }
