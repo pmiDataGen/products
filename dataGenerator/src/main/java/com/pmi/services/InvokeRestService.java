@@ -28,6 +28,7 @@ import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
 import com.pmi.pojo.Quote;
 import com.pmi.pojo.Segments;
+import com.pmi.pojo.Surveys;
 import com.pmi.pojo.Vouchers;
 import com.pmi.util.ReadWriteCSV;
 
@@ -126,12 +127,14 @@ public class InvokeRestService {
 			writeAPIObj = new Device();
 		} else if (objName.equalsIgnoreCase("segments")) {
 			writeAPIObj = new Segments();
-		} else if (objName.equalsIgnoreCase("interaction")) {
+		} else if (objName.equalsIgnoreCase("interactions")) {
 			writeAPIObj = new Interaction();
 		} else if (objName.equalsIgnoreCase("vouchers")) {
 			writeAPIObj = new Vouchers();
-		} else if (objName.equalsIgnoreCase("ageVerification")) {
+		} else if (objName.equalsIgnoreCase("ageverifications")) {
 			writeAPIObj = new AgeVerification();
+		} else if (objName.equalsIgnoreCase("surveys")) {
+			writeAPIObj = new Surveys();
 		}
 		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
 		writeAPIUri = String.format(writeAPIUri, objName);
@@ -237,12 +240,14 @@ public class InvokeRestService {
 			writeAPIObj = new Device();
 		} else if (objName.equalsIgnoreCase("segments")) {
 			writeAPIObj = new Segments();
-		} else if (objName.equalsIgnoreCase("interaction")) {
+		} else if (objName.equalsIgnoreCase("interactions")) {
 			writeAPIObj = new Interaction();
 		} else if (objName.equalsIgnoreCase("vouchers")) {
 			writeAPIObj = new Vouchers();
-		} else if (objName.equalsIgnoreCase("ageVerification")) {
+		} else if (objName.equalsIgnoreCase("ageverifications")) {
 			writeAPIObj = new AgeVerification();
+		} else if (objName.equalsIgnoreCase("surveys")) {
+			writeAPIObj = new Surveys();
 		}
 		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
 		String recordConsistencyTime = null;
@@ -346,8 +351,15 @@ public class InvokeRestService {
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, ageVerification);
 				ageVerification.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(ageVerification);
+			} else if (responseEntity.getBody() instanceof Surveys) {
+				Surveys surveys = (Surveys) responseEntity.getBody();
+				surveys.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + surveys.getSurvey_id();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, surveys);
+				surveys.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(surveys);
 			}
-			
+
 			else {
 				responseObjlist.add(responseEntity.getBody());
 			}
@@ -440,12 +452,14 @@ public class InvokeRestService {
 			readAPIObj = new Device();
 		} else if (objName.equalsIgnoreCase("segments")) {
 			readAPIObj = new Segments();
-		} else if (objName.equalsIgnoreCase("interaction")) {
+		} else if (objName.equalsIgnoreCase("interactions")) {
 			readAPIObj = new Interaction();
 		} else if (objName.equalsIgnoreCase("vouchers")) {
 			readAPIObj = new Vouchers();
-		} else if (objName.equalsIgnoreCase("ageVerification")) {
+		} else if (objName.equalsIgnoreCase("ageverifications")) {
 			readAPIObj = new AgeVerification();
+		} else if (objName.equalsIgnoreCase("surveys")) {
+			readAPIObj = new Surveys();
 		}
 
 		ResponseEntity responseEntity = null;
@@ -560,6 +574,10 @@ public class InvokeRestService {
 				AgeVerification ageVerification = (AgeVerification) responseEntity.getBody();
 				ageVerification.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				responseObjlist.add(ageVerification);
+			} else if (responseEntity.getBody() instanceof Surveys) {
+				Surveys surveys = (Surveys) responseEntity.getBody();
+				surveys.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(surveys);
 			} else {
 				responseObjlist.add(responseEntity.getBody());
 			}

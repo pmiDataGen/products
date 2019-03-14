@@ -22,6 +22,7 @@ import com.pmi.pojo.Interaction;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
 import com.pmi.pojo.Segments;
+import com.pmi.pojo.Surveys;
 import com.pmi.pojo.Vouchers;
 
 /**
@@ -82,6 +83,9 @@ public class AsynADLService {
 		} else if (responseEntity.getBody() instanceof AgeVerification) {
 			AgeVerification ageVerification = (AgeVerification) responseEntity.getBody();
 			ageVerification.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Surveys) {
+			Surveys surveys = (Surveys) responseEntity.getBody();
+			surveys.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 		}
 		return CompletableFuture.completedFuture(responseEntity);
 	}
@@ -123,7 +127,7 @@ public class AsynADLService {
 		} else if (responseEntity.getBody() instanceof Device) {
 			Device device = (Device) responseEntity.getBody();
 			device.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-		}else if (responseEntity.getBody() instanceof Segments) {
+		} else if (responseEntity.getBody() instanceof Segments) {
 			Segments segments = (Segments) responseEntity.getBody();
 			segments.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 		} else if (responseEntity.getBody() instanceof Interaction) {
@@ -135,6 +139,9 @@ public class AsynADLService {
 		} else if (responseEntity.getBody() instanceof AgeVerification) {
 			AgeVerification ageVerification = (AgeVerification) responseEntity.getBody();
 			ageVerification.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Surveys) {
+			Surveys surveys = (Surveys) responseEntity.getBody();
+			surveys.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 		}
 		return CompletableFuture.completedFuture(responseEntity);
 	}
