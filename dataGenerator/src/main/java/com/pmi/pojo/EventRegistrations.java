@@ -2,6 +2,7 @@ package com.pmi.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.opencsv.bean.CsvBindByName;
 
 /**
  * @author boja.p.ramalingam
@@ -23,7 +24,7 @@ public class EventRegistrations {
 	private String event_location;
 	private String event_status_code;
 	private String event_status_description;
-	private String person_registration_date;
+	private long person_registration_date;
 	private Boolean person_registration_attendance;
 	
 	@JsonProperty("td:c360:operation")
@@ -116,10 +117,12 @@ public class EventRegistrations {
 	public void setEvent_status_description(String event_status_description) {
 		this.event_status_description = event_status_description;
 	}
-	public String getPerson_registration_date() {
+
+	
+	public long getPerson_registration_date() {
 		return person_registration_date;
 	}
-	public void setPerson_registration_date(String person_registration_date) {
+	public void setPerson_registration_date(long person_registration_date) {
 		this.person_registration_date = person_registration_date;
 	}
 	public Boolean getPerson_registration_attendance() {
