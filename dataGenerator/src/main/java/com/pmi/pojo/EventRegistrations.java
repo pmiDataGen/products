@@ -26,6 +26,9 @@ public class EventRegistrations {
 	private String person_registration_date;
 	private Boolean person_registration_attendance;
 	
+	@JsonProperty("td:c360:operation")
+	private String td_c360_operation;
+	
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime; 
 	@Override
@@ -35,10 +38,18 @@ public class EventRegistrations {
 				+ event_name + ", event_start_date=" + event_start_date + ", event_location=" + event_location
 				+ ", event_status_code=" + event_status_code + ", event_status_description=" + event_status_description
 				+ ", person_registration_date=" + person_registration_date + ", person_registration_attendance="
-				+ person_registration_attendance + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
-				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
+				+ person_registration_attendance + ", td_c360_operation=" + td_c360_operation
+				+ ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis + ", recordConsistencyTime="
+				+ recordConsistencyTime + "]";
 	}
-	
+	public String getTd_c360_operation() {
+		return td_c360_operation;
+	}
+
+
+	public void setTd_c360_operation(String td_c360_operation) {
+		this.td_c360_operation = td_c360_operation;
+	}
 	public String getApiCallTimeTakenInMillis() {
 		return apiCallTimeTakenInMillis;
 	}

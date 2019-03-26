@@ -22,6 +22,10 @@ public class CampaignEvents {
 	private String campaign_event_type_code;
 	private String campaign_event_type_description;
 	private String campaign_activity;
+	
+	@JsonProperty("td:c360:operation")
+	private String td_c360_operation;
+	
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime; 
 	
@@ -31,11 +35,21 @@ public class CampaignEvents {
 				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", campaign_event_date="
 				+ campaign_event_date + ", campaign_event_type_code=" + campaign_event_type_code
 				+ ", campaign_event_type_description=" + campaign_event_type_description + ", campaign_activity="
-				+ campaign_activity + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
-				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
+				+ campaign_activity + ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis="
+				+ apiCallTimeTakenInMillis + ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 	
 	
+	public String getTd_c360_operation() {
+		return td_c360_operation;
+	}
+
+
+	public void setTd_c360_operation(String td_c360_operation) {
+		this.td_c360_operation = td_c360_operation;
+	}
+
+
 	public String getApiCallTimeTakenInMillis() {
 		return apiCallTimeTakenInMillis;
 	}

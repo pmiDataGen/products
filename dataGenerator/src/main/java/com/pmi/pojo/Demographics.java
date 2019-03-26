@@ -19,15 +19,27 @@ public class Demographics {
 	private String identity_unique_identifier;
 	private String persona_identifier;
 	
+	@JsonProperty("td:c360:operation")
+	private String td_c360_operation;
+	
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime; 
 	
 	@Override
 	public String toString() {
 		return "Demographics [demographic_id=" + demographic_id + ", identity_unique_identifier="
-				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier
-				+ ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis + ", recordConsistencyTime="
-				+ recordConsistencyTime + "]";
+				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", td_c360_operation="
+				+ td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
+	}
+	
+	public String getTd_c360_operation() {
+		return td_c360_operation;
+	}
+
+
+	public void setTd_c360_operation(String td_c360_operation) {
+		this.td_c360_operation = td_c360_operation;
 	}
 	public String getDemographic_id() {
 		return demographic_id;

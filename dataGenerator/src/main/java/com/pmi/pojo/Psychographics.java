@@ -23,13 +23,16 @@ public class Psychographics {
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime; 
 	
+	@JsonProperty("td:c360:operation")
+	private String td_c360_operation;
+	
 	
 	@Override
 	public String toString() {
 		return "Psychographics [pyschographic_id=" + pyschographic_id + ", identity_unique_identifier="
 				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", declared_flag="
 				+ declared_flag + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis + ", recordConsistencyTime="
-				+ recordConsistencyTime + "]";
+				+ recordConsistencyTime + ", td_c360_operation=" + td_c360_operation + "]";
 	}
 	
 	public String getApiCallTimeTakenInMillis() {
@@ -41,7 +44,14 @@ public class Psychographics {
 		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
 	}
 
+	public String getTd_c360_operation() {
+		return td_c360_operation;
+	}
 
+
+	public void setTd_c360_operation(String td_c360_operation) {
+		this.td_c360_operation = td_c360_operation;
+	}
 	public String getRecordConsistencyTime() {
 		return recordConsistencyTime;
 	}
