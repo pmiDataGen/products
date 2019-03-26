@@ -19,11 +19,36 @@ public class Psychographics {
 	private String identity_unique_identifier;
 	private String persona_identifier;
 	private Boolean declared_flag;
+	
+	private String apiCallTimeTakenInMillis;
+	private String recordConsistencyTime; 
+	
+	
 	@Override
 	public String toString() {
 		return "Psychographics [pyschographic_id=" + pyschographic_id + ", identity_unique_identifier="
 				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", declared_flag="
-				+ declared_flag + "]";
+				+ declared_flag + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis + ", recordConsistencyTime="
+				+ recordConsistencyTime + "]";
+	}
+	
+	public String getApiCallTimeTakenInMillis() {
+		return apiCallTimeTakenInMillis;
+	}
+
+
+	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
+		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
+	}
+
+
+	public String getRecordConsistencyTime() {
+		return recordConsistencyTime;
+	}
+
+
+	public void setRecordConsistencyTime(String recordConsistencyTime) {
+		this.recordConsistencyTime = recordConsistencyTime;
 	}
 	public String getPyschographic_id() {
 		return pyschographic_id;

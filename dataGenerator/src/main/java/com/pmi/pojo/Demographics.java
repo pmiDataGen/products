@@ -18,10 +18,16 @@ public class Demographics {
 	private String demographic_id;
 	private String identity_unique_identifier;
 	private String persona_identifier;
+	
+	private String apiCallTimeTakenInMillis;
+	private String recordConsistencyTime; 
+	
 	@Override
 	public String toString() {
 		return "Demographics [demographic_id=" + demographic_id + ", identity_unique_identifier="
-				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + "]";
+				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier
+				+ ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis + ", recordConsistencyTime="
+				+ recordConsistencyTime + "]";
 	}
 	public String getDemographic_id() {
 		return demographic_id;
@@ -41,6 +47,23 @@ public class Demographics {
 	public void setPersona_identifier(String persona_identifier) {
 		this.persona_identifier = persona_identifier;
 	}
-	
+	public String getApiCallTimeTakenInMillis() {
+		return apiCallTimeTakenInMillis;
+	}
+
+
+	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
+		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
+	}
+
+
+	public String getRecordConsistencyTime() {
+		return recordConsistencyTime;
+	}
+
+
+	public void setRecordConsistencyTime(String recordConsistencyTime) {
+		this.recordConsistencyTime = recordConsistencyTime;
+	}
 	
 }

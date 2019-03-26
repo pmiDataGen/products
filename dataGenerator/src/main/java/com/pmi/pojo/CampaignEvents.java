@@ -22,14 +22,40 @@ public class CampaignEvents {
 	private String campaign_event_type_code;
 	private String campaign_event_type_description;
 	private String campaign_activity;
+	private String apiCallTimeTakenInMillis;
+	private String recordConsistencyTime; 
+	
 	@Override
 	public String toString() {
 		return "CampaignEvents [campaign_event_id=" + campaign_event_id + ", identity_unique_identifier="
 				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", campaign_event_date="
 				+ campaign_event_date + ", campaign_event_type_code=" + campaign_event_type_code
 				+ ", campaign_event_type_description=" + campaign_event_type_description + ", campaign_activity="
-				+ campaign_activity + "]";
+				+ campaign_activity + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
+	
+	
+	public String getApiCallTimeTakenInMillis() {
+		return apiCallTimeTakenInMillis;
+	}
+
+
+	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
+		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
+	}
+
+
+	public String getRecordConsistencyTime() {
+		return recordConsistencyTime;
+	}
+
+
+	public void setRecordConsistencyTime(String recordConsistencyTime) {
+		this.recordConsistencyTime = recordConsistencyTime;
+	}
+
+
 	public String getCampaign_event_id() {
 		return campaign_event_id;
 	}

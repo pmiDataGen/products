@@ -25,6 +25,9 @@ public class EventRegistrations {
 	private String event_status_description;
 	private String person_registration_date;
 	private Boolean person_registration_attendance;
+	
+	private String apiCallTimeTakenInMillis;
+	private String recordConsistencyTime; 
 	@Override
 	public String toString() {
 		return "EventRegistrations [event_registration_id=" + event_registration_id + ", identity_unique_identifier="
@@ -32,7 +35,27 @@ public class EventRegistrations {
 				+ event_name + ", event_start_date=" + event_start_date + ", event_location=" + event_location
 				+ ", event_status_code=" + event_status_code + ", event_status_description=" + event_status_description
 				+ ", person_registration_date=" + person_registration_date + ", person_registration_attendance="
-				+ person_registration_attendance + "]";
+				+ person_registration_attendance + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
+	}
+	
+	public String getApiCallTimeTakenInMillis() {
+		return apiCallTimeTakenInMillis;
+	}
+
+
+	public void setApiCallTimeTakenInMillis(String apiCallTimeTakenInMillis) {
+		this.apiCallTimeTakenInMillis = apiCallTimeTakenInMillis;
+	}
+
+
+	public String getRecordConsistencyTime() {
+		return recordConsistencyTime;
+	}
+
+
+	public void setRecordConsistencyTime(String recordConsistencyTime) {
+		this.recordConsistencyTime = recordConsistencyTime;
 	}
 	public String getEvent_registration_id() {
 		return event_registration_id;
