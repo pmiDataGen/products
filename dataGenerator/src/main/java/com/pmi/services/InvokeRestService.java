@@ -20,15 +20,22 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.pmi.pojo.AgeVerification;
+import com.pmi.pojo.CampaignEvents;
 import com.pmi.pojo.Cases;
+import com.pmi.pojo.Demographics;
+import com.pmi.pojo.DerivedAttributes;
 import com.pmi.pojo.Device;
+import com.pmi.pojo.EventRegistrations;
 import com.pmi.pojo.Identities;
 import com.pmi.pojo.Interaction;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
+import com.pmi.pojo.Psychographics;
 import com.pmi.pojo.Quote;
+import com.pmi.pojo.Segmentations;
 import com.pmi.pojo.Segments;
 import com.pmi.pojo.Surveys;
+import com.pmi.pojo.Terms;
 import com.pmi.pojo.Vouchers;
 import com.pmi.util.ReadWriteCSV;
 
@@ -135,6 +142,20 @@ public class InvokeRestService {
 			writeAPIObj = new AgeVerification();
 		} else if (objName.equalsIgnoreCase("surveys")) {
 			writeAPIObj = new Surveys();
+		} else if (objName.equalsIgnoreCase("psychographics")) {
+			writeAPIObj = new Psychographics();
+		} else if (objName.equalsIgnoreCase("eventregistrations")) {
+			writeAPIObj = new EventRegistrations();
+		} else if (objName.equalsIgnoreCase("campaignevents")) {
+			writeAPIObj = new CampaignEvents();
+		} else if (objName.equalsIgnoreCase("demographics")) {
+			writeAPIObj = new Demographics();
+		} else if (objName.equalsIgnoreCase("terms")) {
+			writeAPIObj = new Terms();
+		} else if (objName.equalsIgnoreCase("derivedattributes")) {
+			writeAPIObj = new DerivedAttributes();
+		} else if (objName.equalsIgnoreCase("segmentations")) {
+			writeAPIObj = new Segmentations();
 		}
 		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
 		writeAPIUri = String.format(writeAPIUri, objName);
@@ -248,6 +269,20 @@ public class InvokeRestService {
 			writeAPIObj = new AgeVerification();
 		} else if (objName.equalsIgnoreCase("surveys")) {
 			writeAPIObj = new Surveys();
+		} else if (objName.equalsIgnoreCase("psychographics")) {
+			writeAPIObj = new Psychographics();
+		} else if (objName.equalsIgnoreCase("eventregistrations")) {
+			writeAPIObj = new EventRegistrations();
+		} else if (objName.equalsIgnoreCase("campaignevents")) {
+			writeAPIObj = new CampaignEvents();
+		} else if (objName.equalsIgnoreCase("demographics")) {
+			writeAPIObj = new Demographics();
+		} else if (objName.equalsIgnoreCase("terms")) {
+			writeAPIObj = new Terms();
+		} else if (objName.equalsIgnoreCase("derivedattributes")) {
+			writeAPIObj = new DerivedAttributes();
+		} else if (objName.equalsIgnoreCase("segmentations")) {
+			writeAPIObj = new Segmentations();
 		}
 		String writeAPIUri = writeAPIUriFromProperty; // https://c360-ingest-api.eu01.treasuredata.com/v1/c360/%s
 		String recordConsistencyTime = null;
@@ -354,6 +389,63 @@ public class InvokeRestService {
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, surveys);
 				surveys.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(surveys);
+			} else if (responseEntity.getBody() instanceof CampaignEvents) {
+				CampaignEvents campaignevents = (CampaignEvents) responseEntity.getBody();
+				campaignevents.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ campaignevents.getCampaign_event_id();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, campaignevents);
+				campaignevents.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(campaignevents);
+			} else if (responseEntity.getBody() instanceof Psychographics) {
+				Psychographics psychographics = (Psychographics) responseEntity.getBody();
+				psychographics.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ psychographics.getPyschographic_id();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, psychographics);
+				psychographics.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(psychographics);
+			} else if (responseEntity.getBody() instanceof EventRegistrations) {
+				EventRegistrations eventregistrations = (EventRegistrations) responseEntity.getBody();
+				eventregistrations.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ eventregistrations.getEvent_registration_id();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity,
+						eventregistrations);
+				eventregistrations.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(eventregistrations);
+			} else if (responseEntity.getBody() instanceof Demographics) {
+				Demographics demographics = (Demographics) responseEntity.getBody();
+				demographics.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ demographics.getDemographic_id();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, demographics);
+				demographics.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(demographics);
+			} else if (responseEntity.getBody() instanceof DerivedAttributes) {
+				DerivedAttributes derivedattributes = (DerivedAttributes) responseEntity.getBody();
+				derivedattributes.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ derivedattributes.getDerived_attribute_record_id();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, derivedattributes);
+				derivedattributes.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(derivedattributes);
+			} else if (responseEntity.getBody() instanceof Terms) {
+				Terms terms = (Terms) responseEntity.getBody();
+				terms.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ terms.getTerms_id();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, terms);
+				terms.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(terms);
+			} else if (responseEntity.getBody() instanceof Segmentations) {
+				Segmentations segmentations = (Segmentations) responseEntity.getBody();
+				segmentations.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
+						+ segmentations.getSegmentation_record_id();
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, segmentations);
+				segmentations.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
+				responseObjlist.add(segmentations);
 			}
 
 			else {
@@ -456,6 +548,20 @@ public class InvokeRestService {
 			readAPIObj = new AgeVerification();
 		} else if (objName.equalsIgnoreCase("surveys")) {
 			readAPIObj = new Surveys();
+		} else if (objName.equalsIgnoreCase("psychographics")) {
+			readAPIObj = new Psychographics();
+		} else if (objName.equalsIgnoreCase("eventregistrations")) {
+			readAPIObj = new EventRegistrations();
+		} else if (objName.equalsIgnoreCase("campaignevents")) {
+			readAPIObj = new CampaignEvents();
+		} else if (objName.equalsIgnoreCase("demographics")) {
+			readAPIObj = new Demographics();
+		} else if (objName.equalsIgnoreCase("terms")) {
+			readAPIObj = new Terms();
+		} else if (objName.equalsIgnoreCase("segmentations")) {
+			readAPIObj = new Segmentations();
+		} else if (objName.equalsIgnoreCase("derivedattributes")) {
+			readAPIObj = new DerivedAttributes();
 		}
 
 		ResponseEntity responseEntity = null;
@@ -574,7 +680,35 @@ public class InvokeRestService {
 				Surveys surveys = (Surveys) responseEntity.getBody();
 				surveys.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				responseObjlist.add(surveys);
-			} else {
+			} else if (responseEntity.getBody() instanceof EventRegistrations) {
+				EventRegistrations eventregistrations = (EventRegistrations) responseEntity.getBody();
+				eventregistrations.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(eventregistrations);
+			} else if (responseEntity.getBody() instanceof Psychographics) {
+				Psychographics psychographics = (Psychographics) responseEntity.getBody();
+				psychographics.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(psychographics);
+			} else if (responseEntity.getBody() instanceof CampaignEvents) {
+				CampaignEvents campaignevents = (CampaignEvents) responseEntity.getBody();
+				campaignevents.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(campaignevents);
+			} else if (responseEntity.getBody() instanceof Demographics) {
+				Demographics demographics = (Demographics) responseEntity.getBody();
+				demographics.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(demographics);
+			} else if (responseEntity.getBody() instanceof Segmentations) {
+				Segmentations segmentations = (Segmentations) responseEntity.getBody();
+				segmentations.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(segmentations);
+			} else if (responseEntity.getBody() instanceof Terms) {
+				Terms terms = (Terms) responseEntity.getBody();
+				terms.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(terms);
+			} else if (responseEntity.getBody() instanceof DerivedAttributes) {
+				DerivedAttributes derivedattributes = (DerivedAttributes) responseEntity.getBody();
+				derivedattributes.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+				responseObjlist.add(derivedattributes);
+			}else {
 				responseObjlist.add(responseEntity.getBody());
 			}
 		}
