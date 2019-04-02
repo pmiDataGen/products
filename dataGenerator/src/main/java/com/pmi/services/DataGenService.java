@@ -18,17 +18,24 @@ import org.springframework.stereotype.Component;
 import com.pmi.pojo.Address;
 import com.pmi.pojo.AgeVerification;
 import com.pmi.pojo.Answers;
+import com.pmi.pojo.CampaignEvents;
 import com.pmi.pojo.Cases;
 import com.pmi.pojo.Coaches;
+import com.pmi.pojo.Demographics;
+import com.pmi.pojo.DerivedAttributes;
 import com.pmi.pojo.Device;
+import com.pmi.pojo.EventRegistrations;
 import com.pmi.pojo.Identities;
 import com.pmi.pojo.Interaction;
 import com.pmi.pojo.OrderItems;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
+import com.pmi.pojo.Psychographics;
 import com.pmi.pojo.Questions;
+import com.pmi.pojo.Segmentations;
 import com.pmi.pojo.Segments;
 import com.pmi.pojo.Surveys;
+import com.pmi.pojo.Terms;
 import com.pmi.pojo.TermsAndConditions;
 import com.pmi.pojo.Vouchers;
 import com.pmi.util.ReadWriteCSV;
@@ -116,6 +123,27 @@ public class DataGenService {
 					startRange, endRange);
 		} else if (objName.equalsIgnoreCase("surveys")) {
 			dataList = createSurveysObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("eventregistrations")) {
+			dataList = createEventRegistrationsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("demographics")) {
+			dataList = createDemographicsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("psychographics")) {
+			dataList = createPsychographicsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("campaignevents")) {
+			dataList = createCampaignEventsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("terms")) {
+			dataList = createTermsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("segmentations")) {
+			dataList = createSegmentationsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					startRange, endRange);
+		} else if (objName.equalsIgnoreCase("derivedattributes")) {
+			dataList = createDerivedAttributesObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
 					startRange, endRange);
 		}
 		// Write the generated data to CSV file
@@ -674,6 +702,243 @@ public class DataGenService {
 
 	}
 
+	
+	public List<EventRegistrations> createEventRegistrationsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
+
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<EventRegistrations> eventregistrationsObjectList = new ArrayList<EventRegistrations>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			EventRegistrations eventregistrations = new EventRegistrations();
+			
+			eventregistrations.setTd_c360_operation(operationType);
+			
+			eventregistrations.setEvent_registration_id(String.valueOf(i));
+			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
+			eventregistrations.setPersona_identifier(personaAndIdentityID);// should be between range
+			eventregistrations.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
+			eventregistrations.setEvent_location(dataFactory.getCity());
+			eventregistrations.setEvent_name(dataFactory.getName());
+			eventregistrations.setEvent_start_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			eventregistrations.setEvent_status_code(dataFactory.getRandomWord(8));
+			eventregistrations.setEvent_status_description(dataFactory.getRandomWord());
+			eventregistrations.setPerson_registration_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			eventregistrations.setPerson_registration_attendance(true);
+			
+
+			eventregistrationsObjectList.add(eventregistrations);
+		}
+
+		return eventregistrationsObjectList;
+
+	}
+	
+	public List<Demographics> createDemographicsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
+
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<Demographics> demographicsObjectList = new ArrayList<Demographics>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			Demographics demographics = new Demographics();
+			demographics.setTd_c360_operation(operationType);
+
+			demographics.setDemographic_id(String.valueOf(i));
+			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
+			demographics.setPersona_identifier(personaAndIdentityID);// should be between range
+			demographics.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
+			
+
+			demographicsObjectList.add(demographics);
+		}
+
+		return demographicsObjectList;
+
+	}
+	
+	
+	public List<Psychographics> createPsychographicsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
+
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<Psychographics> psychographicsObjectList = new ArrayList<Psychographics>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			Psychographics psychographics = new Psychographics();
+			psychographics.setTd_c360_operation(operationType);
+			
+			psychographics.setPyschographic_id(String.valueOf(i));
+			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
+			psychographics.setPersona_identifier(personaAndIdentityID);// should be between range
+			psychographics.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
+			psychographics.setDeclared_flag(true);
+			
+
+			psychographicsObjectList.add(psychographics);
+		}
+
+		return psychographicsObjectList;
+
+	}
+	
+	public List<CampaignEvents> createCampaignEventsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
+
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<CampaignEvents> campaigneventsObjectList = new ArrayList<CampaignEvents>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			CampaignEvents campaignevents = new CampaignEvents();
+			campaignevents.setTd_c360_operation(operationType);
+			
+			campaignevents.setCampaign_event_id(String.valueOf(i));
+			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
+			campaignevents.setPersona_identifier(personaAndIdentityID);// should be between range
+			campaignevents.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
+			campaignevents.setCampaign_activity(dataFactory.getRandomWord(6));
+			campaignevents.setCampaign_event_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			campaignevents.setCampaign_event_type_code(dataFactory.getRandomWord(1));
+			campaignevents.setCampaign_event_type_description(dataFactory.getRandomWord(6));
+			
+
+			campaigneventsObjectList.add(campaignevents);
+		}
+
+		return campaigneventsObjectList;
+
+	}
+	
+	public List<DerivedAttributes> createDerivedAttributesObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
+
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<DerivedAttributes> derivedattributesObjectList = new ArrayList<DerivedAttributes>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			DerivedAttributes derivedattributes = new DerivedAttributes();
+			derivedattributes.setTd_c360_operation(operationType);
+
+			derivedattributes.setDerived_attribute_record_id(String.valueOf(i));// primary Key
+			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
+			derivedattributes.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
+			derivedattributes.setDerived_attribute_time(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			derivedattributes.setDerived_attribute_category(dataFactory.getRandomWord(6));
+			derivedattributes.setDerived_attribute_code(dataFactory.getRandomWord(6));
+			derivedattributes.setDerived_attribute_value(dataFactory.getRandomWord(6));
+			derivedattributes.setDerived_attribute_home_country_code(dataFactory.getCity());
+			derivedattributes.setDerived_attribute_home_country_description(dataFactory.getCity());
+			
+			derivedattributesObjectList.add(derivedattributes);
+		}
+
+		return derivedattributesObjectList;
+
+	}
+	
+	public List<Terms> createTermsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
+
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<Terms> termsObjectList = new ArrayList<Terms>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			Terms terms = new Terms();
+			terms.setTd_c360_operation(operationType);
+
+			terms.setTerms_id(String.valueOf(i));// primary Key
+			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
+			terms.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
+			terms.setTerms_version(dataFactory.getRandomWord(6));
+			terms.setTerms_acceptance(true);
+			terms.setTerms_acceptance_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			terms.setTerms_code(dataFactory.getRandomWord(2));
+			terms.setTerms_description(dataFactory.getRandomWord(6));
+			terms.setTerms_type_code(dataFactory.getRandomWord(2));
+			terms.setTerms_type_description(dataFactory.getRandomWord(6));
+			terms.setCountry_code(dataFactory.getCity());
+			terms.setCountry_description(dataFactory.getCity());
+			
+			termsObjectList.add(terms);
+		}
+
+		return termsObjectList;
+
+	}
+	
+	public List<Segmentations> createSegmentationsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String startRange, String endRange) {
+
+		int startRangeInt = Integer.parseInt(startRange) + 1;
+		int endRangeInt = Integer.parseInt(endRange) + 1;
+
+		// To create random Dates
+		Calendar c = Calendar.getInstance();
+		c.set(2000, Calendar.JANUARY, 1);
+		c.getTime();
+
+		List<Segmentations> segmentationsObjectList = new ArrayList<Segmentations>();
+
+		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
+			Segmentations segmentations = new Segmentations();
+			segmentations.setTd_c360_operation(operationType);
+
+			segmentations.setSegmentation_record_id(String.valueOf(i));// primary Key
+			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
+			segmentations.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
+			segmentations.setSegmentation_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			segmentations.setSegment_category_code(dataFactory.getRandomWord(2));
+			segmentations.setSegment_category_description(dataFactory.getRandomWord(6));
+			segmentations.setSegment_type_code(dataFactory.getRandomWord(2));
+			segmentations.setSegment_type_description(dataFactory.getRandomWord(6));
+			segmentations.setSegment_value_code(dataFactory.getRandomWord(2));
+			segmentations.setSegment_value_description(dataFactory.getRandomWord(6));
+			
+			segmentationsObjectList.add(segmentations);
+		}
+
+		return segmentationsObjectList;
+
+	}
+	
 	/**
 	 * Generate 2n random unique numbers, using TreeSet to make sure no duplicates
 	 * and also to preserve the natural sorting order
