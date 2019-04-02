@@ -15,14 +15,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.pmi.pojo.AgeVerification;
+import com.pmi.pojo.CampaignEvents;
 import com.pmi.pojo.Cases;
+import com.pmi.pojo.Demographics;
+import com.pmi.pojo.DerivedAttributes;
 import com.pmi.pojo.Device;
+import com.pmi.pojo.EventRegistrations;
 import com.pmi.pojo.Identities;
 import com.pmi.pojo.Interaction;
 import com.pmi.pojo.Orders;
 import com.pmi.pojo.Persona;
+import com.pmi.pojo.Psychographics;
+import com.pmi.pojo.Segmentations;
 import com.pmi.pojo.Segments;
 import com.pmi.pojo.Surveys;
+import com.pmi.pojo.Terms;
 import com.pmi.pojo.Vouchers;
 
 /**
@@ -86,6 +93,27 @@ public class AsynADLService {
 		} else if (responseEntity.getBody() instanceof Surveys) {
 			Surveys surveys = (Surveys) responseEntity.getBody();
 			surveys.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof CampaignEvents) {
+			CampaignEvents campaignevents = (CampaignEvents) responseEntity.getBody();
+			campaignevents.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof EventRegistrations) {
+			EventRegistrations eventregistrations = (EventRegistrations) responseEntity.getBody();
+			eventregistrations.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Psychographics) {
+			Psychographics psychographics = (Psychographics) responseEntity.getBody();
+			psychographics.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Demographics) {
+			Demographics demographics = (Demographics) responseEntity.getBody();
+			demographics.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Terms) {
+			Terms terms = (Terms) responseEntity.getBody();
+			terms.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Segmentations) {
+			Segmentations segmentations = (Segmentations) responseEntity.getBody();
+			segmentations.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof DerivedAttributes) {
+			DerivedAttributes derivedattributes = (DerivedAttributes) responseEntity.getBody();
+			derivedattributes.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 		}
 		return CompletableFuture.completedFuture(responseEntity);
 	}
@@ -142,6 +170,27 @@ public class AsynADLService {
 		} else if (responseEntity.getBody() instanceof Surveys) {
 			Surveys surveys = (Surveys) responseEntity.getBody();
 			surveys.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof CampaignEvents) {
+			CampaignEvents campaignevents = (CampaignEvents) responseEntity.getBody();
+			campaignevents.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof EventRegistrations) {
+			EventRegistrations eventregistrations = (EventRegistrations) responseEntity.getBody();
+			eventregistrations.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Psychographics) {
+			Psychographics psychographics = (Psychographics) responseEntity.getBody();
+			psychographics.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Demographics) {
+			Demographics demographics = (Demographics) responseEntity.getBody();
+			demographics.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Terms) {
+			Terms terms = (Terms) responseEntity.getBody();
+			terms.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof Segmentations) {
+			Segmentations segmentations = (Segmentations) responseEntity.getBody();
+			segmentations.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
+		} else if (responseEntity.getBody() instanceof DerivedAttributes) {
+			DerivedAttributes derivedattributes = (DerivedAttributes) responseEntity.getBody();
+			derivedattributes.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 		}
 		return CompletableFuture.completedFuture(responseEntity);
 	}
