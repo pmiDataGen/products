@@ -378,7 +378,7 @@ public class InvokeRestService {
 				AgeVerification ageVerification = (AgeVerification) responseEntity.getBody();
 				ageVerification.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
-						+ ageVerification.getAgeverification_id();
+						+ ageVerification.getAv_id();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, ageVerification);
 				ageVerification.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(ageVerification);

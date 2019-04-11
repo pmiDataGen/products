@@ -15,25 +15,17 @@ public class AgeVerification {
 
 	}
 
-	private String ageverification_id;// primary Key for database "db_l0_adl"
+	private String av_id;// primary Key for database "db_l0_adl"
 	private String identity_unique_identifier;
-	private String persona_identifier;
-	private String status;
-	private String f2f_employee_id;
-	private String type;
-	private String country;
-	private String region;
-	private String request_channel;
-	private String request_country;
-	private String request_region;
-	private String request_status;
-	private long request_date;
-	private long request_status_change_date;
-	private String document_type;
-	private String document_country;
-	private String document_number;
-	private long document_expiration_date;
-	private String document_image_link;
+	private String status_code;
+	private String status_description;
+	private String av_type_code;
+	private String av_type_description;
+	private String av_subtype_code;
+	private String av_subtype_description;
+	private String country_code;
+	private String country_description;
+	private String state;
 
 	@JsonProperty("td:c360:operation")
 	private String td_c360_operation;
@@ -42,24 +34,21 @@ public class AgeVerification {
 
 	@Override
 	public String toString() {
-		return "AgeVerification [ageverification_id=" + ageverification_id + ", identity_unique_identifier="
-				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", status=" + status
-				+ ", f2f_employee_id=" + f2f_employee_id + ", type=" + type + ", country=" + country + ", region="
-				+ region + ", request_channel=" + request_channel + ", request_country=" + request_country
-				+ ", request_region=" + request_region + ", request_status=" + request_status + ", request_date="
-				+ request_date + ", request_status_change_date=" + request_status_change_date + ", document_type="
-				+ document_type + ", document_country=" + document_country + ", document_number=" + document_number
-				+ ", document_expiration_date=" + document_expiration_date + ", document_image_link="
-				+ document_image_link + ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis="
-				+ apiCallTimeTakenInMillis + ", recordConsistencyTime=" + recordConsistencyTime + "]";
+		return "AgeVerification [av_id=" + av_id + ", identity_unique_identifier=" + identity_unique_identifier
+				+ ", status_code=" + status_code + ", status_description=" + status_description + ", av_type_code="
+				+ av_type_code + ", av_type_description=" + av_type_description + ", av_subtype_code=" + av_subtype_code
+				+ ", av_subtype_description=" + av_subtype_description + ", country_code=" + country_code
+				+ ", country_description=" + country_description + ", state=" + state + ", td_c360_operation="
+				+ td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 
-	public String getAgeverification_id() {
-		return ageverification_id;
+	public String getAv_id() {
+		return av_id;
 	}
 
-	public void setAgeverification_id(String ageverification_id) {
-		this.ageverification_id = ageverification_id;
+	public void setAv_id(String av_id) {
+		this.av_id = av_id;
 	}
 
 	public String getIdentity_unique_identifier() {
@@ -70,140 +59,76 @@ public class AgeVerification {
 		this.identity_unique_identifier = identity_unique_identifier;
 	}
 
-	public String getPersona_identifier() {
-		return persona_identifier;
+	public String getStatus_code() {
+		return status_code;
 	}
 
-	public void setPersona_identifier(String persona_identifier) {
-		this.persona_identifier = persona_identifier;
+	public void setStatus_code(String status_code) {
+		this.status_code = status_code;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getStatus_description() {
+		return status_description;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus_description(String status_description) {
+		this.status_description = status_description;
 	}
 
-	public String getF2f_employee_id() {
-		return f2f_employee_id;
+	public String getAv_type_code() {
+		return av_type_code;
 	}
 
-	public void setF2f_employee_id(String f2f_employee_id) {
-		this.f2f_employee_id = f2f_employee_id;
+	public void setAv_type_code(String av_type_code) {
+		this.av_type_code = av_type_code;
 	}
 
-	public String getType() {
-		return type;
+	public String getAv_type_description() {
+		return av_type_description;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setAv_type_description(String av_type_description) {
+		this.av_type_description = av_type_description;
 	}
 
-	public String getCountry() {
-		return country;
+	public String getAv_subtype_code() {
+		return av_subtype_code;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public void setAv_subtype_code(String av_subtype_code) {
+		this.av_subtype_code = av_subtype_code;
 	}
 
-	public String getRegion() {
-		return region;
+	public String getAv_subtype_description() {
+		return av_subtype_description;
 	}
 
-	public void setRegion(String region) {
-		this.region = region;
+	public void setAv_subtype_description(String av_subtype_description) {
+		this.av_subtype_description = av_subtype_description;
 	}
 
-	public String getRequest_channel() {
-		return request_channel;
+	public String getCountry_code() {
+		return country_code;
 	}
 
-	public void setRequest_channel(String request_channel) {
-		this.request_channel = request_channel;
+	public void setCountry_code(String country_code) {
+		this.country_code = country_code;
 	}
 
-	public String getRequest_country() {
-		return request_country;
+	public String getCountry_description() {
+		return country_description;
 	}
 
-	public void setRequest_country(String request_country) {
-		this.request_country = request_country;
+	public void setCountry_description(String country_description) {
+		this.country_description = country_description;
 	}
 
-	public String getRequest_region() {
-		return request_region;
+	public String getState() {
+		return state;
 	}
 
-	public void setRequest_region(String request_region) {
-		this.request_region = request_region;
-	}
-
-	public String getRequest_status() {
-		return request_status;
-	}
-
-	public void setRequest_status(String request_status) {
-		this.request_status = request_status;
-	}
-
-	public long getRequest_date() {
-		return request_date;
-	}
-
-	public void setRequest_date(long request_date) {
-		this.request_date = request_date;
-	}
-
-	public long getRequest_status_change_date() {
-		return request_status_change_date;
-	}
-
-	public void setRequest_status_change_date(long request_status_change_date) {
-		this.request_status_change_date = request_status_change_date;
-	}
-
-	public String getDocument_type() {
-		return document_type;
-	}
-
-	public void setDocument_type(String document_type) {
-		this.document_type = document_type;
-	}
-
-	public String getDocument_country() {
-		return document_country;
-	}
-
-	public void setDocument_country(String document_country) {
-		this.document_country = document_country;
-	}
-
-	public String getDocument_number() {
-		return document_number;
-	}
-
-	public void setDocument_number(String document_number) {
-		this.document_number = document_number;
-	}
-
-	public long getDocument_expiration_date() {
-		return document_expiration_date;
-	}
-
-	public void setDocument_expiration_date(long document_expiration_date) {
-		this.document_expiration_date = document_expiration_date;
-	}
-
-	public String getDocument_image_link() {
-		return document_image_link;
-	}
-
-	public void setDocument_image_link(String document_image_link) {
-		this.document_image_link = document_image_link;
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public String getTd_c360_operation() {

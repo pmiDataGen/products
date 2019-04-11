@@ -182,18 +182,22 @@ public class DataGenService {
 			cases.setCase_number(String.valueOf(i));// primary Key
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			cases.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
-			cases.setPersona_identifier(personaAndIdentityID);// should be between range
-			// cases.setIdentity_unique_identifier(dataFactory.getNumberText(3));
-			// cases.setPersona_identifier(dataFactory.getNumberText(3));
-			cases.setSerial_numer(dataFactory.getNumberText(2));
 			cases.setClosing_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			cases.setCreate_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
-			cases.setStatus(dataFactory.getRandomWord());
-			cases.setSubject_code(dataFactory.getNumberBetween(0, 999));
-			cases.setSubject(dataFactory.getNumberBetween(0, 999));
-			cases.setResolution(dataFactory.getRandomText(10));
-			cases.setCase_description(dataFactory.getRandomText(10));
-			cases.setCustomer_comment(dataFactory.getRandomWord());
+			cases.setUpdate_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
+			cases.setStatus_code(dataFactory.getNumberText(2));
+			cases.setStatus_description(dataFactory.getRandomWord(8));
+			cases.setSubject_code(dataFactory.getNumberText(2));
+			cases.setSubject_description(dataFactory.getRandomWord(8));
+			cases.setResolution(dataFactory.getNumberText(2));
+			cases.setCase_description(dataFactory.getRandomWord(10));
+			cases.setCase_consumable_complaint_reason(dataFactory.getRandomWord(6));
+			cases.setCase_product_generation_code(dataFactory.getNumberText(2));
+			cases.setCase_product_generation_description(dataFactory.getRandomWord(10));
+			cases.setCase_subtype_code(dataFactory.getNumberText(2));
+			cases.setCase_subtype_description(dataFactory.getRandomWord(10));
+			cases.setCase_type_code(dataFactory.getNumberText(2));
+			cases.setCase_type_description(dataFactory.getRandomWord(10));
 
 			casesObjectList.add(cases);
 		}
@@ -221,7 +225,7 @@ public class DataGenService {
 			orders.setOrder_number(String.valueOf(i)); // Primary Key;
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			orders.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
-			orders.setPersona_identifier(personaAndIdentityID);// should be between range
+			// orders.setPersona_identifier(personaAndIdentityID);// should be between range
 			orders.setTotal_price(dataFactory.getNumberText(8));
 			orders.setStatus(dataFactory.getRandomText(6));
 			orders.setDate(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
@@ -479,23 +483,22 @@ public class DataGenService {
 			device.setDevice_codentify(String.valueOf(i)); // primary key
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			device.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
-			device.setPersona_identifier(personaAndIdentityID);// should be between range
-			// device.setIdentity_unique_identifier(dataFactory.getNumberText(3));
-			// device.setPersona_identifier(dataFactory.getNumberText(3));
-			device.setBarcode(dataFactory.getRandomText(6));
-			device.setDevice_type(dataFactory.getRandomText(8));
-			device.setDevice_version(dataFactory.getRandomWord());
-			device.setDevice_description(dataFactory.getRandomWord(10));
+			device.setSerial_number(dataFactory.getNumberText(3));
+			device.setDevice_type_code(dataFactory.getNumberText(2));
+			device.setDevice_type_description(dataFactory.getRandomWord(8));
+			device.setDevice_version_code(dataFactory.getNumberText(2));
+			device.setDevice_version_description(dataFactory.getRandomWord(8));
 			device.setPurchase_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			device.setRegistration_device_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
-			device.setStatus(dataFactory.getRandomWord());
+			device.setStatus_code(dataFactory.getNumberText(2));
+			device.setStatus_descritpion(dataFactory.getRandomWord(8));
 			device.setStatus_date_change(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			device.setWarranty_starting_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			device.setWarranty_end_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
 			device.setReplacement_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
-			device.setUrl_picture_link(dataFactory.getRandomWord(8));
-			device.setCleaning_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
-			device.setCleaning_coach(dataFactory.getRandomChars(5));
+			device.setAccidental_damage_coverage(dataFactory.getRandomWord(8));
+			device.setAccidental_damage_coverage_status_code(dataFactory.getNumberText(2));
+			device.setAccidental_damage_coverage_status_description(dataFactory.getRandomWord(8));
 
 			DeviceObjectList.add(device);
 		}
@@ -622,28 +625,18 @@ public class DataGenService {
 			AgeVerification ageVerification = new AgeVerification();
 			ageVerification.setTd_c360_operation(operationType);
 
-			ageVerification.setAgeverification_id(String.valueOf(i));
-			ageVerification.setF2f_employee_id(dataFactory.getNumberText(3));
+			ageVerification.setAv_id(String.valueOf(i));
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
 			ageVerification.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
-			ageVerification.setPersona_identifier(personaAndIdentityID);// should be between range
-			ageVerification.setStatus(dataFactory.getRandomWord(5));
-			ageVerification.setType(dataFactory.getRandomWord(8));
-			ageVerification.setCountry(dataFactory.getCity());
-			ageVerification.setRegion(dataFactory.getCity());
-			ageVerification.setRequest_channel(dataFactory.getRandomWord(6));
-			ageVerification.setRequest_country(dataFactory.getCity());
-			ageVerification.setRequest_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
-			ageVerification.setRequest_region(dataFactory.getCity());
-			ageVerification.setRequest_status(dataFactory.getRandomWord(5));
-			ageVerification.setRequest_status_change_date(
-					dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
-			ageVerification.setDocument_type(dataFactory.getRandomWord(5));
-			ageVerification.setDocument_number(dataFactory.getNumberText(3));
-			ageVerification.setDocument_image_link(dataFactory.getRandomWord(5));
-			ageVerification
-					.setDocument_expiration_date(dataFactory.getDateBetween(c.getTime(), new Date()).getTime() / 1000l);
-			ageVerification.setDocument_country(dataFactory.getCity());
+			ageVerification.setStatus_code(dataFactory.getNumberText(3));
+			ageVerification.setStatus_description(dataFactory.getRandomWord(6));
+			ageVerification.setAv_type_code(dataFactory.getNumberText(3));
+			ageVerification.setAv_type_description(dataFactory.getRandomWord(6));
+			ageVerification.setAv_subtype_code(dataFactory.getNumberText(3));
+			ageVerification.setAv_subtype_description(dataFactory.getRandomWord(6));
+			ageVerification.setCountry_code(dataFactory.getNumberText(3));
+			ageVerification.setCountry_description(dataFactory.getRandomWord(6));
+			ageVerification.setState(dataFactory.getCity());
 
 			AgeVerificationObjectList.add(ageVerification);
 		}
@@ -721,7 +714,8 @@ public class DataGenService {
 
 			eventregistrations.setEvent_registration_id(String.valueOf(i));
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
-			eventregistrations.setPersona_identifier(personaAndIdentityID);// should be between range
+			// eventregistrations.setPersona_identifier(personaAndIdentityID);// should be
+			// between range
 			eventregistrations.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			eventregistrations.setEvent_location(dataFactory.getCity());
 			eventregistrations.setEvent_name(dataFactory.getName());
@@ -758,7 +752,8 @@ public class DataGenService {
 
 			demographics.setDemographic_id(String.valueOf(i));
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
-			demographics.setPersona_identifier(personaAndIdentityID);// should be between range
+			// demographics.setPersona_identifier(personaAndIdentityID);// should be between
+			// range
 			demographics.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 
 			demographicsObjectList.add(demographics);
@@ -786,7 +781,7 @@ public class DataGenService {
 
 			psychographics.setPyschographic_id(String.valueOf(i));
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
-			psychographics.setPersona_identifier(personaAndIdentityID);// should be between range
+			// psychographics.setPersona_identifier(personaAndIdentityID);// between range
 			psychographics.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			psychographics.setDeclared_flag(true);
 
@@ -815,7 +810,7 @@ public class DataGenService {
 
 			campaignevents.setCampaign_event_id(String.valueOf(i));
 			String personaAndIdentityID = String.valueOf(dataFactory.getNumberBetween(startRangeInt, endRangeInt));
-			campaignevents.setPersona_identifier(personaAndIdentityID);// should be between range
+			// campaignevents.setPersona_identifier(personaAndIdentityID);// between range
 			campaignevents.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 			campaignevents.setCampaign_activity(dataFactory.getRandomWord(6));
 			campaignevents

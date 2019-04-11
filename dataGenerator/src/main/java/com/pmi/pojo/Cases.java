@@ -16,33 +16,42 @@ public class Cases {
 	}
 
 	// private String case_id; // primary Key for database "c360"
-	private String case_number; // primary Key for database "db_l0_adl"
+	private String case_number;// primary Key for database "db_l0_adl"
 	private String identity_unique_identifier;
-	private String persona_identifier;
-	private String serial_numer;
 	private long closing_date;
 	private long create_date;
-	private String status;
-	private int subject_code;
-	private int subject;
+	private long update_date;
+	private String status_code;
+	private String status_description;
+	private String subject_code;
+	private String subject_description;
 	private String resolution;
 	private String case_description;
-	private String customer_comment;
+	private String case_consumable_complaint_reason;
+	private String case_product_generation_code;
+	private String case_product_generation_description;
+	private String case_subtype_code;
+	private String case_subtype_description;
+	private String case_type_code;
+	private String case_type_description;
 
 	@JsonProperty("td:c360:operation")
 	private String td_c360_operation;
-
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime;
 
 	@Override
 	public String toString() {
 		return "Cases [case_number=" + case_number + ", identity_unique_identifier=" + identity_unique_identifier
-				+ ", persona_identifier=" + persona_identifier + ", serial_numer=" + serial_numer + ", closing_date="
-				+ closing_date + ", create_date=" + create_date + ", status=" + status + ", subject_code="
-				+ subject_code + ", subject=" + subject + ", resolution=" + resolution + ", case_description="
-				+ case_description + ", customer_comment=" + customer_comment + ", td_c360_operation="
-				+ td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+				+ ", closing_date=" + closing_date + ", create_date=" + create_date + ", update_date=" + update_date
+				+ ", status_code=" + status_code + ", status_description=" + status_description + ", subject_code="
+				+ subject_code + ", subject_description=" + subject_description + ", resolution=" + resolution
+				+ ", case_description=" + case_description + ", case_consumable_complaint_reason="
+				+ case_consumable_complaint_reason + ", case_product_generation_code=" + case_product_generation_code
+				+ ", case_product_generation_description=" + case_product_generation_description
+				+ ", case_subtype_code=" + case_subtype_code + ", case_subtype_description=" + case_subtype_description
+				+ ", case_type_code=" + case_type_code + ", case_type_description=" + case_type_description
+				+ ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
 				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 
@@ -62,22 +71,6 @@ public class Cases {
 		this.identity_unique_identifier = identity_unique_identifier;
 	}
 
-	public String getPersona_identifier() {
-		return persona_identifier;
-	}
-
-	public void setPersona_identifier(String persona_identifier) {
-		this.persona_identifier = persona_identifier;
-	}
-
-	public String getSerial_numer() {
-		return serial_numer;
-	}
-
-	public void setSerial_numer(String serial_numer) {
-		this.serial_numer = serial_numer;
-	}
-
 	public long getClosing_date() {
 		return closing_date;
 	}
@@ -94,28 +87,44 @@ public class Cases {
 		this.create_date = create_date;
 	}
 
-	public String getStatus() {
-		return status;
+	public long getUpdate_date() {
+		return update_date;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setUpdate_date(long update_date) {
+		this.update_date = update_date;
 	}
 
-	public int getSubject_code() {
+	public String getStatus_code() {
+		return status_code;
+	}
+
+	public void setStatus_code(String status_code) {
+		this.status_code = status_code;
+	}
+
+	public String getStatus_description() {
+		return status_description;
+	}
+
+	public void setStatus_description(String status_description) {
+		this.status_description = status_description;
+	}
+
+	public String getSubject_code() {
 		return subject_code;
 	}
 
-	public void setSubject_code(int subject_code) {
+	public void setSubject_code(String subject_code) {
 		this.subject_code = subject_code;
 	}
 
-	public int getSubject() {
-		return subject;
+	public String getSubject_description() {
+		return subject_description;
 	}
 
-	public void setSubject(int subject) {
-		this.subject = subject;
+	public void setSubject_description(String subject_description) {
+		this.subject_description = subject_description;
 	}
 
 	public String getResolution() {
@@ -134,12 +143,60 @@ public class Cases {
 		this.case_description = case_description;
 	}
 
-	public String getCustomer_comment() {
-		return customer_comment;
+	public String getCase_consumable_complaint_reason() {
+		return case_consumable_complaint_reason;
 	}
 
-	public void setCustomer_comment(String customer_comment) {
-		this.customer_comment = customer_comment;
+	public void setCase_consumable_complaint_reason(String case_consumable_complaint_reason) {
+		this.case_consumable_complaint_reason = case_consumable_complaint_reason;
+	}
+
+	public String getCase_product_generation_code() {
+		return case_product_generation_code;
+	}
+
+	public void setCase_product_generation_code(String case_product_generation_code) {
+		this.case_product_generation_code = case_product_generation_code;
+	}
+
+	public String getCase_product_generation_description() {
+		return case_product_generation_description;
+	}
+
+	public void setCase_product_generation_description(String case_product_generation_description) {
+		this.case_product_generation_description = case_product_generation_description;
+	}
+
+	public String getCase_subtype_code() {
+		return case_subtype_code;
+	}
+
+	public void setCase_subtype_code(String case_subtype_code) {
+		this.case_subtype_code = case_subtype_code;
+	}
+
+	public String getCase_subtype_description() {
+		return case_subtype_description;
+	}
+
+	public void setCase_subtype_description(String case_subtype_description) {
+		this.case_subtype_description = case_subtype_description;
+	}
+
+	public String getCase_type_code() {
+		return case_type_code;
+	}
+
+	public void setCase_type_code(String case_type_code) {
+		this.case_type_code = case_type_code;
+	}
+
+	public String getCase_type_description() {
+		return case_type_description;
+	}
+
+	public void setCase_type_description(String case_type_description) {
+		this.case_type_description = case_type_description;
 	}
 
 	public String getTd_c360_operation() {
@@ -165,15 +222,5 @@ public class Cases {
 	public void setRecordConsistencyTime(String recordConsistencyTime) {
 		this.recordConsistencyTime = recordConsistencyTime;
 	}
-
-	/*
-	 * private String identity_id; private String persona_id; private String
-	 * order_id; private String case_Channel; private String case_source; private
-	 * String case_type; private String case_Subtype; private String
-	 * subject_description; private String latest_update_date; private String
-	 * home_country; private String description; // "description": "ORDER"
-	 */
-//	private String time; 							// "time": "1548928418229"//No need to pass the values
-//	private String td_c360_operation_time; 			// "td:c360:operation_time": "1548928418229.0"//No need to pass the values
 
 }

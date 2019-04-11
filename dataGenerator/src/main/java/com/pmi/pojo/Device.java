@@ -10,39 +10,42 @@ public class Device {
 	// private String device_serial_number; // primary Key for database "c360"
 	private String device_codentify;// primary Key for database "db_l0_adl"
 	private String identity_unique_identifier;
-	private String persona_identifier;
-	private String barcode;
-	private String device_type;
-	private String device_version;
-	private String device_description;
+	private String serial_number;
+	private String device_type_code;
+	private String device_type_description;
+	private String device_version_code;
+	private String device_version_description;
 	private long purchase_date;
 	private long registration_device_date;
-	private String status;
+	private String status_code;
+	private String status_descritpion;
 	private long status_date_change;
 	private long warranty_starting_date;
 	private long warranty_end_date;
 	private long replacement_date;
-	private String url_picture_link;
-	private long cleaning_date;
-	private String cleaning_coach;
+	private String accidental_damage_coverage;
+	private String accidental_damage_coverage_status_code;
+	private String accidental_damage_coverage_status_description;
 
 	@JsonProperty("td:c360:operation")
 	private String td_c360_operation;
-
 	private String apiCallTimeTakenInMillis;
 	private String recordConsistencyTime;
 
 	@Override
 	public String toString() {
 		return "Device [device_codentify=" + device_codentify + ", identity_unique_identifier="
-				+ identity_unique_identifier + ", persona_identifier=" + persona_identifier + ", barcode=" + barcode
-				+ ", device_type=" + device_type + ", device_version=" + device_version + ", device_description="
-				+ device_description + ", purchase_date=" + purchase_date + ", registration_device_date="
-				+ registration_device_date + ", status=" + status + ", status_date_change=" + status_date_change
-				+ ", warranty_starting_date=" + warranty_starting_date + ", warranty_end_date=" + warranty_end_date
-				+ ", replacement_date=" + replacement_date + ", url_picture_link=" + url_picture_link
-				+ ", cleaning_date=" + cleaning_date + ", cleaning_coach=" + cleaning_coach + ", td_c360_operation="
-				+ td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+				+ identity_unique_identifier + ", serial_number=" + serial_number + ", device_type_code="
+				+ device_type_code + ", device_type_description=" + device_type_description + ", device_version_code="
+				+ device_version_code + ", device_version_description=" + device_version_description
+				+ ", purchase_date=" + purchase_date + ", registration_device_date=" + registration_device_date
+				+ ", status_code=" + status_code + ", status_descritpion=" + status_descritpion
+				+ ", status_date_change=" + status_date_change + ", warranty_starting_date=" + warranty_starting_date
+				+ ", warranty_end_date=" + warranty_end_date + ", replacement_date=" + replacement_date
+				+ ", accidental_damage_coverage=" + accidental_damage_coverage
+				+ ", accidental_damage_coverage_status_code=" + accidental_damage_coverage_status_code
+				+ ", accidental_damage_coverage_status_description=" + accidental_damage_coverage_status_description
+				+ ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
 				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 
@@ -62,44 +65,44 @@ public class Device {
 		this.identity_unique_identifier = identity_unique_identifier;
 	}
 
-	public String getPersona_identifier() {
-		return persona_identifier;
+	public String getSerial_number() {
+		return serial_number;
 	}
 
-	public void setPersona_identifier(String persona_identifier) {
-		this.persona_identifier = persona_identifier;
+	public void setSerial_number(String serial_number) {
+		this.serial_number = serial_number;
 	}
 
-	public String getBarcode() {
-		return barcode;
+	public String getDevice_type_code() {
+		return device_type_code;
 	}
 
-	public void setBarcode(String barcode) {
-		this.barcode = barcode;
+	public void setDevice_type_code(String device_type_code) {
+		this.device_type_code = device_type_code;
 	}
 
-	public String getDevice_type() {
-		return device_type;
+	public String getDevice_type_description() {
+		return device_type_description;
 	}
 
-	public void setDevice_type(String device_type) {
-		this.device_type = device_type;
+	public void setDevice_type_description(String device_type_description) {
+		this.device_type_description = device_type_description;
 	}
 
-	public String getDevice_version() {
-		return device_version;
+	public String getDevice_version_code() {
+		return device_version_code;
 	}
 
-	public void setDevice_version(String device_version) {
-		this.device_version = device_version;
+	public void setDevice_version_code(String device_version_code) {
+		this.device_version_code = device_version_code;
 	}
 
-	public String getDevice_description() {
-		return device_description;
+	public String getDevice_version_description() {
+		return device_version_description;
 	}
 
-	public void setDevice_description(String device_description) {
-		this.device_description = device_description;
+	public void setDevice_version_description(String device_version_description) {
+		this.device_version_description = device_version_description;
 	}
 
 	public long getPurchase_date() {
@@ -118,12 +121,20 @@ public class Device {
 		this.registration_device_date = registration_device_date;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getStatus_code() {
+		return status_code;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus_code(String status_code) {
+		this.status_code = status_code;
+	}
+
+	public String getStatus_descritpion() {
+		return status_descritpion;
+	}
+
+	public void setStatus_descritpion(String status_descritpion) {
+		this.status_descritpion = status_descritpion;
 	}
 
 	public long getStatus_date_change() {
@@ -158,28 +169,28 @@ public class Device {
 		this.replacement_date = replacement_date;
 	}
 
-	public String getUrl_picture_link() {
-		return url_picture_link;
+	public String getAccidental_damage_coverage() {
+		return accidental_damage_coverage;
 	}
 
-	public void setUrl_picture_link(String url_picture_link) {
-		this.url_picture_link = url_picture_link;
+	public void setAccidental_damage_coverage(String accidental_damage_coverage) {
+		this.accidental_damage_coverage = accidental_damage_coverage;
 	}
 
-	public long getCleaning_date() {
-		return cleaning_date;
+	public String getAccidental_damage_coverage_status_code() {
+		return accidental_damage_coverage_status_code;
 	}
 
-	public void setCleaning_date(long cleaning_date) {
-		this.cleaning_date = cleaning_date;
+	public void setAccidental_damage_coverage_status_code(String accidental_damage_coverage_status_code) {
+		this.accidental_damage_coverage_status_code = accidental_damage_coverage_status_code;
 	}
 
-	public String getCleaning_coach() {
-		return cleaning_coach;
+	public String getAccidental_damage_coverage_status_description() {
+		return accidental_damage_coverage_status_description;
 	}
 
-	public void setCleaning_coach(String cleaning_coach) {
-		this.cleaning_coach = cleaning_coach;
+	public void setAccidental_damage_coverage_status_description(String accidental_damage_coverage_status_description) {
+		this.accidental_damage_coverage_status_description = accidental_damage_coverage_status_description;
 	}
 
 	public String getTd_c360_operation() {
@@ -205,19 +216,5 @@ public class Device {
 	public void setRecordConsistencyTime(String recordConsistencyTime) {
 		this.recordConsistencyTime = recordConsistencyTime;
 	}
-
-	/*
-	 * private String device_codentify; // this is primary key private String
-	 * identity_unique_identifier; private String persona_identifier; private String
-	 * device_type; private String device_version; private String
-	 * registration_device_date; private String status; private String
-	 * component_Code; private String status_date_change; private String
-	 * end_of_warranty_date; private String home_country;
-	 * 
-	 * // Below fields received from POSTMAN response private String identity_id;
-	 * private String model; private String persona_id; private String
-	 * device_serial_number; // private String time; // private String
-	 * td_c360_operation_time; // td:c360:operation_time
-	 */
 
 }
