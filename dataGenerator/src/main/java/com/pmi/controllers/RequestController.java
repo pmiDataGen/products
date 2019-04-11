@@ -56,7 +56,8 @@ public class RequestController {
 			@RequestParam(value = "primaryKeyEnd", defaultValue = "10") Integer primaryKeyEnd,
 			@RequestParam(value = "outFileName", defaultValue = "NotAvailable") String outFileName,
 			@RequestParam(value = "personaIdentityRange", defaultValue = "1-100") String personaIdentityRange) {
-
+		logger.info("Generate Data API: Object Name passesd: " + objName);
+		logger.info("Generate Data API: outFileName passesd: " + outFileName);
 		Object generatedDataList = dataGenService.generateRandomData(objName, operationType, personaIdentityRange,
 				primaryKeyStart, primaryKeyEnd, outFileName);
 //		return "SUCCESS: Random Data is Generated for " + numberOfObjects + " " + objName + " object --> "

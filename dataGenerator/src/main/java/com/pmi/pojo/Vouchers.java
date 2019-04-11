@@ -17,15 +17,15 @@ public class Vouchers {
 
 	private String voucher_code;// primary Key for database "db_l0_adl"
 	private String identity_unique_identifier;
-	private String persona_identifier;
-	private String type;
-	private String name;
-	private String country_of_issuing;
+	private String country_of_issuing_code;
+	private String country_of_issuing_description;
 	private long valid_from;
 	private long valid_to;
-	private int value;
-	private String corresponding_voucher_code;
-	private String Status;
+	private String Status_code;
+	private String Status_description;
+	private String promotion_identifier;
+	private String promotion_name;
+	private String voucher_description;
 
 	@JsonProperty("td:c360:operation")
 	private String td_c360_operation;
@@ -35,11 +35,13 @@ public class Vouchers {
 	@Override
 	public String toString() {
 		return "Vouchers [voucher_code=" + voucher_code + ", identity_unique_identifier=" + identity_unique_identifier
-				+ ", persona_identifier=" + persona_identifier + ", type=" + type + ", name=" + name
-				+ ", country_of_issuing=" + country_of_issuing + ", valid_from=" + valid_from + ", valid_to=" + valid_to
-				+ ", value=" + value + ", corresponding_voucher_code=" + corresponding_voucher_code + ", Status="
-				+ Status + ", td_c360_operation=" + td_c360_operation + ", apiCallTimeTakenInMillis="
-				+ apiCallTimeTakenInMillis + ", recordConsistencyTime=" + recordConsistencyTime + "]";
+				+ ", country_of_issuing_code=" + country_of_issuing_code + ", country_of_issuing_description="
+				+ country_of_issuing_description + ", valid_from=" + valid_from + ", valid_to=" + valid_to
+				+ ", Status_code=" + Status_code + ", Status_description=" + Status_description
+				+ ", promotion_identifier=" + promotion_identifier + ", promotion_name=" + promotion_name
+				+ ", voucher_description=" + voucher_description + ", td_c360_operation=" + td_c360_operation
+				+ ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis + ", recordConsistencyTime="
+				+ recordConsistencyTime + "]";
 	}
 
 	public String getVoucher_code() {
@@ -58,36 +60,20 @@ public class Vouchers {
 		this.identity_unique_identifier = identity_unique_identifier;
 	}
 
-	public String getPersona_identifier() {
-		return persona_identifier;
+	public String getCountry_of_issuing_code() {
+		return country_of_issuing_code;
 	}
 
-	public void setPersona_identifier(String persona_identifier) {
-		this.persona_identifier = persona_identifier;
+	public void setCountry_of_issuing_code(String country_of_issuing_code) {
+		this.country_of_issuing_code = country_of_issuing_code;
 	}
 
-	public String getType() {
-		return type;
+	public String getCountry_of_issuing_description() {
+		return country_of_issuing_description;
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCountry_of_issuing() {
-		return country_of_issuing;
-	}
-
-	public void setCountry_of_issuing(String country_of_issuing) {
-		this.country_of_issuing = country_of_issuing;
+	public void setCountry_of_issuing_description(String country_of_issuing_description) {
+		this.country_of_issuing_description = country_of_issuing_description;
 	}
 
 	public long getValid_from() {
@@ -106,28 +92,44 @@ public class Vouchers {
 		this.valid_to = valid_to;
 	}
 
-	public int getValue() {
-		return value;
+	public String getStatus_code() {
+		return Status_code;
 	}
 
-	public void setValue(int value) {
-		this.value = value;
+	public void setStatus_code(String status_code) {
+		Status_code = status_code;
 	}
 
-	public String getCorresponding_voucher_code() {
-		return corresponding_voucher_code;
+	public String getStatus_description() {
+		return Status_description;
 	}
 
-	public void setCorresponding_voucher_code(String corresponding_voucher_code) {
-		this.corresponding_voucher_code = corresponding_voucher_code;
+	public void setStatus_description(String status_description) {
+		Status_description = status_description;
 	}
 
-	public String getStatus() {
-		return Status;
+	public String getPromotion_identifier() {
+		return promotion_identifier;
 	}
 
-	public void setStatus(String status) {
-		Status = status;
+	public void setPromotion_identifier(String promotion_identifier) {
+		this.promotion_identifier = promotion_identifier;
+	}
+
+	public String getPromotion_name() {
+		return promotion_name;
+	}
+
+	public void setPromotion_name(String promotion_name) {
+		this.promotion_name = promotion_name;
+	}
+
+	public String getVoucher_description() {
+		return voucher_description;
+	}
+
+	public void setVoucher_description(String voucher_description) {
+		this.voucher_description = voucher_description;
 	}
 
 	public String getTd_c360_operation() {
