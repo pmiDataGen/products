@@ -81,11 +81,11 @@ public class Identities {
 	@CsvBindAndSplitByName(elementType = Address.class, splitOn = "\\|", converter = TextToAddress.class)
 	private List<Address> addresses;
 
-	@CsvBindAndSplitByName(elementType = Coaches.class, splitOn = "\\|", converter = TextToCoaches.class)
-	private List<Coaches> coaches;
-
-	@CsvBindAndSplitByName(elementType = TermsAndConditions.class, splitOn = "\\|", converter = TextToTermsAndConditions.class)
-	private List<TermsAndConditions> termsAndConditions;
+//	@CsvBindAndSplitByName(elementType = Coaches.class, splitOn = "\\|", converter = TextToCoaches.class)
+//	private List<Coaches> coaches;
+//
+//	@CsvBindAndSplitByName(elementType = TermsAndConditions.class, splitOn = "\\|", converter = TextToTermsAndConditions.class)
+//	private List<TermsAndConditions> termsAndConditions;
 
 	@CsvBindByName
 	private String apiCallTimeTakenInMillis;
@@ -106,9 +106,8 @@ public class Identities {
 				+ ", phone_number=" + phone_number + ", phone_comunication_opt_in=" + phone_comunication_opt_in
 				+ ", privacy_policy_acceptance=" + privacy_policy_acceptance + ", loyalty_tier=" + loyalty_tier
 				+ ", loyalty_points=" + loyalty_points + ", loyalty_erned_points=" + loyalty_erned_points
-				+ ", addresses=" + addresses + ", coaches=" + coaches + ", termsAndConditions=" + termsAndConditions
-				+ ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis + ", recordConsistencyTime="
-				+ recordConsistencyTime + "]";
+				+ ", addresses=" + addresses + ", apiCallTimeTakenInMillis=" + apiCallTimeTakenInMillis
+				+ ", recordConsistencyTime=" + recordConsistencyTime + "]";
 	}
 
 	public String getIdentity_unique_identifier() {
@@ -317,22 +316,6 @@ public class Identities {
 
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
-	}
-
-	public List<Coaches> getCoaches() {
-		return coaches;
-	}
-
-	public void setCoaches(List<Coaches> coaches) {
-		this.coaches = coaches;
-	}
-
-	public List<TermsAndConditions> getTermsAndConditions() {
-		return termsAndConditions;
-	}
-
-	public void setTermsAndConditions(List<TermsAndConditions> termsAndConditions) {
-		this.termsAndConditions = termsAndConditions;
 	}
 
 	public String getApiCallTimeTakenInMillis() {

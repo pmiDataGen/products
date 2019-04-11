@@ -414,21 +414,22 @@ public class DataGenService {
 			}
 			identities.setAddresses(addressList);
 
-			List<Coaches> coachesList = new ArrayList<Coaches>();
-			for (int k = 1; k <= 2; k++) {
-				Coaches coaches = new Coaches();
-				coaches.setCoach_id(dataFactory.getNumberText(3));
-				coaches.setCoach_name(dataFactory.getRandomWord());
-				coachesList.add(coaches);
-			}
-			identities.setCoaches(coachesList);
-
-			List<TermsAndConditions> termsAndConditionsList = new ArrayList<TermsAndConditions>();
-			TermsAndConditions termsAndConditions = new TermsAndConditions();
-			termsAndConditions.setTerms_and_conditions_acceptance(dataFactory.getRandomText(10, 40));
-			termsAndConditions.setTerms_and_conditions_version(dataFactory.getNumberText(2));
-			termsAndConditionsList.add(termsAndConditions);
-			identities.setTermsAndConditions(termsAndConditionsList);
+			/*
+			 * List<Coaches> coachesList = new ArrayList<Coaches>(); for (int k = 1; k <= 2;
+			 * k++) { Coaches coaches = new Coaches();
+			 * coaches.setCoach_id(dataFactory.getNumberText(3));
+			 * coaches.setCoach_name(dataFactory.getRandomWord()); coachesList.add(coaches);
+			 * } identities.setCoaches(coachesList);
+			 * 
+			 * List<TermsAndConditions> termsAndConditionsList = new
+			 * ArrayList<TermsAndConditions>(); TermsAndConditions termsAndConditions = new
+			 * TermsAndConditions();
+			 * termsAndConditions.setTerms_and_conditions_acceptance(dataFactory.
+			 * getRandomText(10, 40));
+			 * termsAndConditions.setTerms_and_conditions_version(dataFactory.getNumberText(
+			 * 2)); termsAndConditionsList.add(termsAndConditions);
+			 * identities.setTermsAndConditions(termsAndConditionsList);
+			 */
 
 			/*
 			 * identities.setIdentity_id(String.valueOf(i));// Unique Primary Key
