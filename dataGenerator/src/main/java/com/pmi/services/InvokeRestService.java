@@ -211,14 +211,18 @@ public class InvokeRestService {
 		long endTime = System.currentTimeMillis();
 		logger.info("Elapsed time: " + (endTime - startTime));
 		// Write the response of Bulk Write API response to CSV
-		readWriteCSV.writeToCsv(responseObjlist, String.format(WRITE_API_BULK_RESPONSE_CSV_FILE_PATH, objName));
+		// readWriteCSV.writeToCsv(responseObjlist,
+		// String.format(WRITE_API_BULK_RESPONSE_CSV_FILE_PATH, objName));
 
-		logger.info("Write API Response Written to CSV available at location :"
-				+ String.format(WRITE_API_BULK_RESPONSE_CSV_FILE_PATH, objName));
+//		logger.info("Write API Response Written to CSV available at location :"
+//				+ String.format(WRITE_API_BULK_RESPONSE_CSV_FILE_PATH, objName));
+
+		logger.info("Write API call is success. Please verify the records in database.");
 
 		// return responseObjlist;
-		return "SUCCESS: Write API Response Written to CSV available at location : "
-				+ String.format(WRITE_API_BULK_RESPONSE_CSV_FILE_PATH, objName);
+//		return "SUCCESS: Write API Response Written to CSV available at location : "
+//				+ String.format(WRITE_API_BULK_RESPONSE_CSV_FILE_PATH, objName);
+		return "SUCCESS: Write API call is completed. Please verify the records in database.";
 	}
 
 	// Call ADL WriteAPI for single Object
@@ -377,8 +381,7 @@ public class InvokeRestService {
 			} else if (responseEntity.getBody() instanceof AgeVerification) {
 				AgeVerification ageVerification = (AgeVerification) responseEntity.getBody();
 				ageVerification.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
-						+ ageVerification.getAv_id();
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + ageVerification.getAv_id();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, ageVerification);
 				ageVerification.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(ageVerification);
@@ -427,14 +430,14 @@ public class InvokeRestService {
 				derivedattributes.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
 						+ derivedattributes.getDerived_attribute_record_id();
-				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, derivedattributes);
+				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity,
+						derivedattributes);
 				derivedattributes.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(derivedattributes);
 			} else if (responseEntity.getBody() instanceof Terms) {
 				Terms terms = (Terms) responseEntity.getBody();
 				terms.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
-				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName)
-						+ terms.getTerms_id();
+				String lookUpADLUri = String.format(lookUpADLUriFromProperty, objName) + terms.getTerms_id();
 				recordConsistencyTime = genericCallToLookUpAPI(objName, lookUpADLUri, lookUpAPIentity, terms);
 				terms.setRecordConsistencyTime(recordConsistencyTime.split(" ")[0]);
 				responseObjlist.add(terms);
@@ -708,7 +711,7 @@ public class InvokeRestService {
 				DerivedAttributes derivedattributes = (DerivedAttributes) responseEntity.getBody();
 				derivedattributes.setApiCallTimeTakenInMillis(String.valueOf(endTime - startTime));
 				responseObjlist.add(derivedattributes);
-			}else {
+			} else {
 				responseObjlist.add(responseEntity.getBody());
 			}
 		}

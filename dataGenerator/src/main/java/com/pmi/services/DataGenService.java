@@ -3,6 +3,7 @@ package com.pmi.services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -20,7 +21,6 @@ import com.pmi.pojo.AgeVerification;
 import com.pmi.pojo.Answers;
 import com.pmi.pojo.CampaignEvents;
 import com.pmi.pojo.Cases;
-import com.pmi.pojo.Coaches;
 import com.pmi.pojo.Demographics;
 import com.pmi.pojo.DerivedAttributes;
 import com.pmi.pojo.Device;
@@ -36,7 +36,6 @@ import com.pmi.pojo.Segmentations;
 import com.pmi.pojo.Segments;
 import com.pmi.pojo.Surveys;
 import com.pmi.pojo.Terms;
-import com.pmi.pojo.TermsAndConditions;
 import com.pmi.pojo.Vouchers;
 import com.pmi.util.ReadWriteCSV;
 
@@ -95,62 +94,72 @@ public class DataGenService {
 		String[] rangeArr = personaIdentityRange.split("-");
 		String startRange = rangeArr[0]; // default value:1
 		String endRange = rangeArr[1];// default value:100
+		logger.info("Number of records to generate : " + (primaryKeyEnd.intValue() - primaryKeyStart.intValue() + 1));
 		List dataList = null;
 		if (objName.equalsIgnoreCase("personas")) {
-			dataList = createPersonaObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
+			dataList = createPersonaObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("identities")) {
-			dataList = createIdentitiesObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue());
+			dataList = createIdentitiesObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
+					outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("orders")) {
 			dataList = createOrdersObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("cases")) {
 			dataList = createCasesObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("devices")) {
 			dataList = createDeviceObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("segments")) {
 			dataList = createSegmentsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("interactions")) {
 			dataList = createInteractionObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("vouchers")) {
 			dataList = createVouchersObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("ageverifications")) {
 			dataList = createAgeVerificationObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("surveys")) {
 			dataList = createSurveysObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("eventregistrations")) {
 			dataList = createEventRegistrationsObject(operationType, primaryKeyStart.intValue(),
-					primaryKeyEnd.intValue(), startRange, endRange);
+					primaryKeyEnd.intValue(), startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("demographics")) {
 			dataList = createDemographicsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("psychographics")) {
 			dataList = createPsychographicsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("campaignevents")) {
 			dataList = createCampaignEventsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("terms")) {
 			dataList = createTermsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("segmentations")) {
 			dataList = createSegmentationsObject(operationType, primaryKeyStart.intValue(), primaryKeyEnd.intValue(),
-					startRange, endRange);
+					startRange, endRange, outputFileName, objName);
 		} else if (objName.equalsIgnoreCase("derivedattributes")) {
 			dataList = createDerivedAttributesObject(operationType, primaryKeyStart.intValue(),
-					primaryKeyEnd.intValue(), startRange, endRange);
+					primaryKeyEnd.intValue(), startRange, endRange, outputFileName, objName);
 		}
+
+		// return dataList;
+		return "SUCCESS: Data is generated and written into CSV file at Location : " + WRITE_API_BULK_REQUEST_FILE_PATH;
+	}
+
+	public String generateFiles(String outputFileName, String objName, List dataList, int count) {
 		// Write the generated data to CSV file
 		String filePath = null;
 		if (outputFileName.equalsIgnoreCase("NotAvailable")) {
 			filePath = String.format(WRITE_API_BULK_REQUEST_CSV_FILE_PATH, objName);// default out file
 		} else {
+			outputFileName = outputFileName + "_Part_" + count;
 			if (outputFileName.indexOf(".csv") == -1) {
 				outputFileName = outputFileName + ".csv";
 			}
@@ -158,12 +167,12 @@ public class DataGenService {
 		}
 		readWriteCSV.writeToCsv(dataList, filePath);
 		logger.info("Generated Data written into CSV file at Location : " + filePath);
-		// return dataList;
-		return "SUCCESS: Data is generated and written into CSV file at Location : " + filePath;
+
+		return filePath;
 	}
 
 	public List<Cases> createCasesObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -174,7 +183,7 @@ public class DataGenService {
 		c.getTime();
 
 		List<Cases> casesObjectList = new ArrayList<Cases>();
-
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Cases cases = new Cases();
 			cases.setTd_c360_operation(operationType);
@@ -200,6 +209,17 @@ public class DataGenService {
 			cases.setCase_type_description(dataFactory.getRandomWord(10));
 
 			casesObjectList.add(cases);
+
+			if (casesObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, casesObjectList, segmentNumber);
+				segmentNumber++;
+				casesObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || casesObjectList.size() < 100000) {
+			logger.info("Writing Cases Objects to CSV");
+			generateFiles(outputFileName, objName, casesObjectList, segmentNumber);
 		}
 
 		return casesObjectList;
@@ -207,7 +227,7 @@ public class DataGenService {
 	}
 
 	public List<Orders> createOrdersObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -217,7 +237,7 @@ public class DataGenService {
 		c.getTime();
 
 		List<Orders> ordersObjectList = new ArrayList<Orders>();
-
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Orders orders = new Orders();
 			orders.setTd_c360_operation(operationType);
@@ -244,13 +264,25 @@ public class DataGenService {
 			orders.setOrder_items(orderItemsList);
 
 			ordersObjectList.add(orders);
+
+			if (ordersObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, ordersObjectList, segmentNumber);
+				segmentNumber++;
+				ordersObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || ordersObjectList.size() < 100000) {
+			logger.info("Writing Orders Objects to CSV");
+			generateFiles(outputFileName, objName, ordersObjectList, segmentNumber);
 		}
 
 		return ordersObjectList;
 
 	}
 
-	public List<Persona> createPersonaObject(String operationType, int primaryKeyStart, int primaryKeyEnd) {
+	public List<Persona> createPersonaObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String outputFileName, String objName) {
 
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
@@ -261,7 +293,7 @@ public class DataGenService {
 		// DataGenService.primaryKeyGenerator(numberOfObjects);
 		// Iterator<Integer> iterator = randomUniqueNumberSet.iterator();
 		List<Persona> personaObjectList = new ArrayList<Persona>();
-
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Persona persona = new Persona();
 			// persona.setOnline_access_flag(false);
@@ -347,13 +379,24 @@ public class DataGenService {
 //			persona.setRevenue_l12m(dataFactory.getNumberUpTo(10));
 
 			personaObjectList.add(persona);
+			if (personaObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, personaObjectList, segmentNumber);
+				segmentNumber++;
+				personaObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || personaObjectList.size() < 100000) {
+			logger.info("Writing Persona Objects to CSV");
+			generateFiles(outputFileName, objName, personaObjectList, segmentNumber);
 		}
 
 		return personaObjectList;
 
 	}
 
-	public List<Identities> createIdentitiesObject(String operationType, int primaryKeyStart, int primaryKeyEnd) {
+	public List<Identities> createIdentitiesObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
+			String outputFileName, String objName) {
 
 		// To create random Dates
 		Calendar c = Calendar.getInstance();
@@ -363,8 +406,8 @@ public class DataGenService {
 		// Set<Integer> randomUniqueNumberSet =
 		// DataGenService.primaryKeyGenerator(numberOfObjects);
 		// Iterator<Integer> iterator = randomUniqueNumberSet.iterator();
-		List<Identities> identitiesObjectList = new ArrayList<Identities>();
-
+		List<Identities> identitiesObjectList = new LinkedList<Identities>();
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 
 			Identities identities = new Identities();
@@ -459,14 +502,24 @@ public class DataGenService {
 			 */
 
 			identitiesObjectList.add(identities);
-		}
 
+			if (identitiesObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, identitiesObjectList, segmentNumber);
+				segmentNumber++;
+				identitiesObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || identitiesObjectList.size() < 100000) {
+			logger.info("Writing Identities Objects to CSV");
+			generateFiles(outputFileName, objName, identitiesObjectList, segmentNumber);
+		}
 		return identitiesObjectList;
 
 	}
 
 	public List<Device> createDeviceObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -475,8 +528,8 @@ public class DataGenService {
 		c.set(2000, Calendar.JANUARY, 1);
 		c.getTime();
 
-		List<Device> DeviceObjectList = new ArrayList<Device>();
-
+		List<Device> deviceObjectList = new ArrayList<Device>();
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Device device = new Device();
 			device.setTd_c360_operation(operationType);
@@ -501,15 +554,26 @@ public class DataGenService {
 			device.setAccidental_damage_coverage_status_code(dataFactory.getNumberText(2));
 			device.setAccidental_damage_coverage_status_description(dataFactory.getRandomWord(8));
 
-			DeviceObjectList.add(device);
+			deviceObjectList.add(device);
+
+			if (deviceObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, deviceObjectList, segmentNumber);
+				segmentNumber++;
+				deviceObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || deviceObjectList.size() < 100000) {
+			logger.info("Writing Devices Objects to CSV");
+			generateFiles(outputFileName, objName, deviceObjectList, segmentNumber);
 		}
 
-		return DeviceObjectList;
+		return deviceObjectList;
 
 	}
 
 	public List<Segments> createSegmentsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -519,8 +583,8 @@ public class DataGenService {
 		c.set(2000, Calendar.JANUARY, 1);
 		c.getTime();
 
-		List<Segments> SegmentsObjectList = new ArrayList<Segments>();
-
+		List<Segments> segmentsObjectList = new ArrayList<Segments>();
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Segments segments = new Segments();
 			segments.setTd_c360_operation(operationType);
@@ -530,15 +594,26 @@ public class DataGenService {
 			segments.setPersona_identifier(personaAndIdentityID);// should be between range
 			segments.setSegment(dataFactory.getRandomWord());
 
-			SegmentsObjectList.add(segments);
+			segmentsObjectList.add(segments);
+
+			if (segmentsObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, segmentsObjectList, segmentNumber);
+				segmentNumber++;
+				segmentsObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || segmentsObjectList.size() < 100000) {
+			logger.info("Writing Segments Objects to CSV");
+			generateFiles(outputFileName, objName, segmentsObjectList, segmentNumber);
 		}
 
-		return SegmentsObjectList;
+		return segmentsObjectList;
 
 	}
 
 	public List<Interaction> createInteractionObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -548,8 +623,8 @@ public class DataGenService {
 		c.set(2000, Calendar.JANUARY, 1);
 		c.getTime();
 
-		List<Interaction> InteractionObjectList = new ArrayList<Interaction>();
-
+		List<Interaction> interactionObjectList = new ArrayList<Interaction>();
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Interaction interaction = new Interaction();
 			interaction.setTd_c360_operation(operationType);
@@ -565,15 +640,26 @@ public class DataGenService {
 			interaction.setTrial_purpose(dataFactory.getRandomWord(8));
 			interaction.setTrial_type(dataFactory.getRandomWord(6));
 
-			InteractionObjectList.add(interaction);
+			interactionObjectList.add(interaction);
+
+			if (interactionObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, interactionObjectList, segmentNumber);
+				segmentNumber++;
+				interactionObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || interactionObjectList.size() < 100000) {
+			logger.info("Writing Interaction Objects to CSV");
+			generateFiles(outputFileName, objName, interactionObjectList, segmentNumber);
 		}
 
-		return InteractionObjectList;
+		return interactionObjectList;
 
 	}
 
 	public List<Vouchers> createVouchersObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -583,8 +669,8 @@ public class DataGenService {
 		c.set(2000, Calendar.JANUARY, 1);
 		c.getTime();
 
-		List<Vouchers> VouchersObjectList = new ArrayList<Vouchers>();
-
+		List<Vouchers> vouchersObjectList = new ArrayList<Vouchers>();
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Vouchers vouchers = new Vouchers();
 			vouchers.setTd_c360_operation(operationType);
@@ -602,15 +688,26 @@ public class DataGenService {
 			vouchers.setPromotion_name(dataFactory.getRandomWord(6));
 			vouchers.setVoucher_description(dataFactory.getRandomWord(8));
 
-			VouchersObjectList.add(vouchers);
+			vouchersObjectList.add(vouchers);
+
+			if (vouchersObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, vouchersObjectList, segmentNumber);
+				segmentNumber++;
+				vouchersObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || vouchersObjectList.size() < 100000) {
+			logger.info("Writing Vouchers Objects to CSV");
+			generateFiles(outputFileName, objName, vouchersObjectList, segmentNumber);
 		}
 
-		return VouchersObjectList;
+		return vouchersObjectList;
 
 	}
 
 	public List<AgeVerification> createAgeVerificationObject(String operationType, int primaryKeyStart,
-			int primaryKeyEnd, String startRange, String endRange) {
+			int primaryKeyEnd, String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -620,8 +717,8 @@ public class DataGenService {
 		c.set(2000, Calendar.JANUARY, 1);
 		c.getTime();
 
-		List<AgeVerification> AgeVerificationObjectList = new ArrayList<AgeVerification>();
-
+		List<AgeVerification> ageVerificationObjectList = new ArrayList<AgeVerification>();
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			AgeVerification ageVerification = new AgeVerification();
 			ageVerification.setTd_c360_operation(operationType);
@@ -639,15 +736,26 @@ public class DataGenService {
 			ageVerification.setCountry_description(dataFactory.getRandomWord(6));
 			ageVerification.setState(dataFactory.getCity());
 
-			AgeVerificationObjectList.add(ageVerification);
+			ageVerificationObjectList.add(ageVerification);
+
+			if (ageVerificationObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, ageVerificationObjectList, segmentNumber);
+				segmentNumber++;
+				ageVerificationObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || ageVerificationObjectList.size() < 100000) {
+			logger.info("Writing AgeVerification Objects to CSV");
+			generateFiles(outputFileName, objName, ageVerificationObjectList, segmentNumber);
 		}
 
-		return AgeVerificationObjectList;
+		return ageVerificationObjectList;
 
 	}
 
 	public List<Surveys> createSurveysObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -658,7 +766,7 @@ public class DataGenService {
 		c.getTime();
 
 		List<Surveys> surveysObjectList = new ArrayList<Surveys>();
-
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Surveys surveys = new Surveys();
 			surveys.setTd_c360_operation(operationType);
@@ -690,6 +798,17 @@ public class DataGenService {
 			surveys.setQuestions(questionsList);
 
 			surveysObjectList.add(surveys);
+
+			if (surveysObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, surveysObjectList, segmentNumber);
+				segmentNumber++;
+				surveysObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || surveysObjectList.size() < 100000) {
+			logger.info("Writing Surveys Objects to CSV");
+			generateFiles(outputFileName, objName, surveysObjectList, segmentNumber);
 		}
 
 		return surveysObjectList;
@@ -697,7 +816,7 @@ public class DataGenService {
 	}
 
 	public List<EventRegistrations> createEventRegistrationsObject(String operationType, int primaryKeyStart,
-			int primaryKeyEnd, String startRange, String endRange) {
+			int primaryKeyEnd, String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -707,7 +826,7 @@ public class DataGenService {
 		c.getTime();
 
 		List<EventRegistrations> eventregistrationsObjectList = new ArrayList<EventRegistrations>();
-
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			EventRegistrations eventregistrations = new EventRegistrations();
 
@@ -729,6 +848,18 @@ public class DataGenService {
 			eventregistrations.setPerson_registration_attendance(true);
 
 			eventregistrationsObjectList.add(eventregistrations);
+
+			if (eventregistrationsObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, eventregistrationsObjectList, segmentNumber);
+				segmentNumber++;
+				eventregistrationsObjectList.clear(); // clear list to avoid OOM
+			}
+
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || eventregistrationsObjectList.size() < 100000) {
+			logger.info("Writing EventRegistration Objects to CSV");
+			generateFiles(outputFileName, objName, eventregistrationsObjectList, segmentNumber);
 		}
 
 		return eventregistrationsObjectList;
@@ -736,7 +867,7 @@ public class DataGenService {
 	}
 
 	public List<Demographics> createDemographicsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -746,7 +877,7 @@ public class DataGenService {
 		c.getTime();
 
 		List<Demographics> demographicsObjectList = new ArrayList<Demographics>();
-
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Demographics demographics = new Demographics();
 			demographics.setTd_c360_operation(operationType);
@@ -758,6 +889,17 @@ public class DataGenService {
 			demographics.setIdentity_unique_identifier(personaAndIdentityID);// should be between range
 
 			demographicsObjectList.add(demographics);
+
+			if (demographicsObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, demographicsObjectList, segmentNumber);
+				segmentNumber++;
+				demographicsObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || demographicsObjectList.size() < 100000) {
+			logger.info("Writing Demographics Objects to CSV");
+			generateFiles(outputFileName, objName, demographicsObjectList, segmentNumber);
 		}
 
 		return demographicsObjectList;
@@ -765,7 +907,7 @@ public class DataGenService {
 	}
 
 	public List<Psychographics> createPsychographicsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -775,7 +917,7 @@ public class DataGenService {
 		c.getTime();
 
 		List<Psychographics> psychographicsObjectList = new ArrayList<Psychographics>();
-
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Psychographics psychographics = new Psychographics();
 			psychographics.setTd_c360_operation(operationType);
@@ -787,6 +929,17 @@ public class DataGenService {
 			psychographics.setDeclared_flag(true);
 
 			psychographicsObjectList.add(psychographics);
+
+			if (psychographicsObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, psychographicsObjectList, segmentNumber);
+				segmentNumber++;
+				psychographicsObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || psychographicsObjectList.size() < 100000) {
+			logger.info("Writing Psychographics Objects to CSV");
+			generateFiles(outputFileName, objName, psychographicsObjectList, segmentNumber);
 		}
 
 		return psychographicsObjectList;
@@ -794,7 +947,7 @@ public class DataGenService {
 	}
 
 	public List<CampaignEvents> createCampaignEventsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -804,7 +957,7 @@ public class DataGenService {
 		c.getTime();
 
 		List<CampaignEvents> campaigneventsObjectList = new ArrayList<CampaignEvents>();
-
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			CampaignEvents campaignevents = new CampaignEvents();
 			campaignevents.setTd_c360_operation(operationType);
@@ -820,6 +973,17 @@ public class DataGenService {
 			campaignevents.setCampaign_event_type_description(dataFactory.getRandomWord(6));
 
 			campaigneventsObjectList.add(campaignevents);
+
+			if (campaigneventsObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, campaigneventsObjectList, segmentNumber);
+				segmentNumber++;
+				campaigneventsObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || campaigneventsObjectList.size() < 100000) {
+			logger.info("Writing CampaignEvents Objects to CSV");
+			generateFiles(outputFileName, objName, campaigneventsObjectList, segmentNumber);
 		}
 
 		return campaigneventsObjectList;
@@ -827,7 +991,7 @@ public class DataGenService {
 	}
 
 	public List<DerivedAttributes> createDerivedAttributesObject(String operationType, int primaryKeyStart,
-			int primaryKeyEnd, String startRange, String endRange) {
+			int primaryKeyEnd, String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -838,7 +1002,7 @@ public class DataGenService {
 		c.getTime();
 
 		List<DerivedAttributes> derivedattributesObjectList = new ArrayList<DerivedAttributes>();
-
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			DerivedAttributes derivedattributes = new DerivedAttributes();
 			derivedattributes.setTd_c360_operation(operationType);
@@ -855,6 +1019,17 @@ public class DataGenService {
 			derivedattributes.setDerived_attribute_home_country_description(dataFactory.getCity());
 
 			derivedattributesObjectList.add(derivedattributes);
+
+			if (derivedattributesObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, derivedattributesObjectList, segmentNumber);
+				segmentNumber++;
+				derivedattributesObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || derivedattributesObjectList.size() < 100000) {
+			logger.info("Writing DerivedAttributes Objects to CSV");
+			generateFiles(outputFileName, objName, derivedattributesObjectList, segmentNumber);
 		}
 
 		return derivedattributesObjectList;
@@ -862,7 +1037,7 @@ public class DataGenService {
 	}
 
 	public List<Terms> createTermsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -873,7 +1048,7 @@ public class DataGenService {
 		c.getTime();
 
 		List<Terms> termsObjectList = new ArrayList<Terms>();
-
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Terms terms = new Terms();
 			terms.setTd_c360_operation(operationType);
@@ -892,6 +1067,17 @@ public class DataGenService {
 			terms.setCountry_description(dataFactory.getCity());
 
 			termsObjectList.add(terms);
+
+			if (termsObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, termsObjectList, segmentNumber);
+				segmentNumber++;
+				termsObjectList.clear(); // clear list to avoid OOM
+			}
+		}
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || termsObjectList.size() < 100000) {
+			logger.info("Writing Terms Objects to CSV");
+			generateFiles(outputFileName, objName, termsObjectList, segmentNumber);
 		}
 
 		return termsObjectList;
@@ -899,7 +1085,7 @@ public class DataGenService {
 	}
 
 	public List<Segmentations> createSegmentationsObject(String operationType, int primaryKeyStart, int primaryKeyEnd,
-			String startRange, String endRange) {
+			String startRange, String endRange, String outputFileName, String objName) {
 
 		int startRangeInt = Integer.parseInt(startRange) + 1;
 		int endRangeInt = Integer.parseInt(endRange) + 1;
@@ -910,7 +1096,7 @@ public class DataGenService {
 		c.getTime();
 
 		List<Segmentations> segmentationsObjectList = new ArrayList<Segmentations>();
-
+		int segmentNumber = 1;
 		for (int i = primaryKeyStart; i <= primaryKeyEnd; i++) {
 			Segmentations segmentations = new Segmentations();
 			segmentations.setTd_c360_operation(operationType);
@@ -927,8 +1113,17 @@ public class DataGenService {
 			segmentations.setSegment_value_description(dataFactory.getRandomWord(6));
 
 			segmentationsObjectList.add(segmentations);
+			if (segmentationsObjectList.size() >= 100000) {
+				generateFiles(outputFileName, objName, segmentationsObjectList, segmentNumber);
+				segmentNumber++;
+				segmentationsObjectList.clear(); // clear list to avoid OOM
+			}
 		}
-
+		// Write to CSV when data range is less than 100,000
+		if (primaryKeyEnd < 100000 || segmentationsObjectList.size() < 100000) {
+			logger.info("Writing Segmentations Objects to CSV");
+			generateFiles(outputFileName, objName, segmentationsObjectList, segmentNumber);
+		}
 		return segmentationsObjectList;
 
 	}

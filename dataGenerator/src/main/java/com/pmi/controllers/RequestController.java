@@ -120,17 +120,17 @@ public class RequestController {
 		 * identities.setHome_country("Test66"); identities.setConsumer_type("Test66");
 		 */
 		if (objName.equalsIgnoreCase("Identities")) {
-			return dataGenService.createIdentitiesObject("delete", 510, 510);
+			return dataGenService.createIdentitiesObject("delete", 510, 510, "testFile_Identities", "Identities");
 		} else if (objName.equalsIgnoreCase("personas")) {
-			return dataGenService.createPersonaObject("merge", 510, 511);
+			return dataGenService.createPersonaObject("merge", 510, 511, "testFile_personas", "personas");
 		} else if (objName.equalsIgnoreCase("cases")) {
-			return dataGenService.createCasesObject("merge", 510, 511, "1", "100");
+			return dataGenService.createCasesObject("merge", 510, 511, "1", "100", "testFile_cases", "cases");
 		} else if (objName.equalsIgnoreCase("devices")) {
-			return dataGenService.createDeviceObject("merge", 510, 511, "1", "100");
+			return dataGenService.createDeviceObject("merge", 510, 511, "1", "100", "testFile_devices", "devices");
 		} else if (objName.equalsIgnoreCase("orders")) {
-			return dataGenService.createOrdersObject("merge", 510, 511, "1", "100");
+			return dataGenService.createOrdersObject("merge", 510, 511, "1", "100", "testFile_orders", "orders");
 		} else if (objName.equalsIgnoreCase("surveys")) {
-			return dataGenService.createSurveysObject("merge", 510, 511, "1", "100");
+			return dataGenService.createSurveysObject("merge", 510, 511, "1", "100", "testFile_surveys", "surveys");
 		} else {
 			return "Please pass object name";
 		}
